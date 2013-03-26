@@ -32,7 +32,12 @@ echo '
 		<h1>Welcome to Baseline PHP!</h1>
 
 		<p>This is Baseline PHP. Use <em>baselinephp/</em> or <em>baselinephp.php</em>.</p>
+
 		<p>Web site + documentation available at <del><a href="#">eiskis.net/baselinephp</a></del>.</p>
+
+		<p>Run automated tests with <a href="tests.php">tests.php</a>.</p>
+
+		<p>There are some scripts under <a href="scripts/">scripts/</a> for repeated tasks like generating a single distributable file from the source files.</p>
 
 	</body>
 </html>

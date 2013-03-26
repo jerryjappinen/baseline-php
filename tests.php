@@ -5,6 +5,8 @@ error_reporting(E_ALL|E_STRICT);
 ini_set('display_errors', '1');
 date_default_timezone_set('UTC');
 
+
+
 // Allow selecting a selection of tests via GET parameters
 $suite = array();
 if (isset($_GET['suite']) and is_string($_GET['suite'])) {
@@ -19,6 +21,8 @@ if (isset($_GET['suite']) and is_string($_GET['suite'])) {
 	}
 }
 
+
+
 // We have selected tests
 $dir = 'tests/'.implode('/', $suite);
 if (is_dir($dir)) {
@@ -27,10 +31,7 @@ if (is_dir($dir)) {
 	require_once('simpletest/autorun.php');
 
 	// Load Baseline PHP
-	foreach (glob('baselinephp/*.php') as $path) {
-		require_once $path;
-	}
-	unset($path);
+	require_once 'baseline.php';
 
 	// Load test cases
 	foreach (rglob_files($dir, 'php') as $path) {
