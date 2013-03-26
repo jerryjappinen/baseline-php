@@ -1,6 +1,8 @@
 <?php
 
-// Shorthand for chainable object creation
+/**
+* Create a new object
+*/
 function create ($object) {
 	return $object;
 }

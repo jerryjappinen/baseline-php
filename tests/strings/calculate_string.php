@@ -3,21 +3,21 @@
 class TestOfCalculateString extends UnitTestCase {
 
 	// Integers should work
-	function test_calculate_string_preserves_integers () {
-		$test = calculate_string(5);
-		$this->assertTrue($test === 5);
+	function test_preserves_integers () {
+		$test = 5;
+		$this->assertTrue(calculate_string($test) === $test);
 	}
 
 	// Floats should work
-	function test_calculate_string_preserves_floats () {
-		$test = calculate_string(5.238732);
-		$this->assertTrue($test === 5.238732);
+	function test_preserves_floats () {
+		$test = 5.238732;
+		$this->assertTrue(calculate_string($test) === $test);
 	}
 
 	// Float should become integers when requested
-	function test_calculate_string_forces_integers_when_asked () {
+	function test_forces_integers_when_asked () {
 		$test = calculate_string(8.2223, true);
-		$this->assertTrue($test === 8);
+		$this->assertTrue(is_int($test));
 	}
 
 }

@@ -1,19 +1,21 @@
 <?php
 
-// File system functionality
+/**
+* File system functionality
+*/
 
 
 
-// Alternative globs
-
-// Search for directories
+/**
+* Search for directories in a path
+*/
 function glob_dir ($path = '') {
-	$temp = glob(end_with($path, '/').'*', GLOB_MARK | GLOB_ONLYDIR);
-	foreach ($temp as $key => $value) {
-		$temp[$key] = str_replace('\\', '/', $value);
+	$directories = glob(end_with($path, '/').'*', GLOB_MARK | GLOB_ONLYDIR);
+	foreach ($directories as $key => $value) {
+		$directories[$key] = str_replace('\\', '/', $value);
 	}
-	natcasesort($temp);
-	return $temp;
+	natcasesort($directories);
+	return $directories;
 }
 
 // Search for files

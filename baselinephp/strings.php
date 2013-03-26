@@ -48,7 +48,7 @@ function from_camelcase ($string) {
 * @return
 *	Result of the calculation as an integer or float
 */
-function calculate_string($string, $forceInteger = false) {
+function calculate_string ($string, $forceInteger = false) {
 	$result = trim(preg_replace('/[^0-9\+\-\*\.\/\(\) ]/i', '', $string));
 	$compute = create_function('', 'return ('.(empty($result) ? 0 : $result).');');
 	$result = 0 + $compute();
@@ -119,7 +119,7 @@ function start_with ($subject, $substring = '') {
 
 	// No need to do anything
 	if (starts_with($subject, $substring)) {
-		$result = $string;
+		$result = $subject;
 
 	// Add substring to the beginning
 	} else {
