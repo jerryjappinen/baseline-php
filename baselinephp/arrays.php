@@ -1,7 +1,8 @@
 <?php
-// Low-level array functionality
 
-// Find a value from an array based on given keys (basically $values[ $tree[0] ][ $tree[1] ] ...)
+/**
+* Find a value from an array based on given keys (basically $values[ $tree[0] ][ $tree[1] ] ...)
+*/
 function array_traverse ($values, $tree) {
 
 	// Need to traverse tree
@@ -33,7 +34,9 @@ function array_traverse ($values, $tree) {
 
 }
 
-// Flattens an array, either with or without the content in child arrays
+/**
+* Flattens an array, either with or without the content in child arrays
+*/
 function array_flatten ($array, $removeChildren = false, $preserveKeys = false) {
 	$result = array();
 	foreach ($array as $key => $value) {
@@ -62,7 +65,9 @@ function array_flatten ($array, $removeChildren = false, $preserveKeys = false) 
 
 
 
-// Make sure value is array, convert if needed
+/**
+* Make sure value is array, convert if needed
+*/
 function to_array ($original) {
 
 	// Already an array
@@ -101,7 +106,9 @@ function to_array ($original) {
 
 
 
-// Allow giving a different last glue for implode
+/**
+* Allow giving a different last glue for implode
+*/
 function limplode ($glue, $array, $last = false) {
 
 	$result = '';

@@ -1,29 +1,74 @@
 <?php
-// String functions
 
-// Underscored to lower-camelcase 
+/**
+* String functions
+*/
+
+
+
+/**
+* Underscored to lower-camelcase 
+*
+* @param $string
+*	...
+*
+* @return
+*	...
+*/
 function to_camelcase ($string) {
 	return preg_replace('/ (.?)/e', 'strtoupper("$1")', strtolower($string)); 
 }
 
-// Camelcase to regular text 
+
+
+/**
+* Camelcase to regular text 
+*
+* @param $string
+*	...
+*
+* @return
+*	...
+*/
 function from_camelcase ($string) {
 	return strtolower(preg_replace('/([^A-Z])([A-Z])/', '$1 $2', $string)); 
 }
 
 
 
-// Do a calculation with a formula in a string
-function calculate_string($string, $intval = false) {
-    $string = trim(preg_replace('/[^0-9\+\-\*\.\/\(\) ]/i', '', $string));
-    $compute = create_function('', 'return ('.(empty($string) ? 0 : $string).');');
-    $result = 0 + $compute();
-    return $intval ? intval($result) : $result;
+/**
+* Do a calculation with a formula in a string
+*
+* @param $string
+*	...
+*
+* @param $forceInteger
+*	...
+*
+* @return
+*	Result of the calculation as an integer or float
+*/
+function calculate_string($string, $forceInteger = false) {
+	$result = trim(preg_replace('/[^0-9\+\-\*\.\/\(\) ]/i', '', $string));
+	$compute = create_function('', 'return ('.(empty($result) ? 0 : $result).');');
+	$result = 0 + $compute();
+	return $forceInteger ? intval($result) : $result;
 }
 
 
 
-// Check if string starts with a specific substring
+/**
+* Check if string starts with a specific substring
+*
+* @param $subject
+*	...
+*
+* @param $substring
+*	...
+*
+* @return
+*	TRUE if $subject starts with $substring, FALSE otherwise
+*/
 function starts_with ($subject, $substring) {
 	$result = false;
 	$substringLength = strlen($substring);
@@ -33,7 +78,20 @@ function starts_with ($subject, $substring) {
 	return $result;
 }
 
-// Check if string ends with a specific substring
+
+
+/**
+* Check if string ends with a specific substring
+*
+* @param $subject
+*	...
+*
+* @param $substring
+*	...
+*
+* @return
+*	TRUE if $subject ends with $substring, FALSE otherwise
+*/
 function ends_with ($subject, $substring) {
 	$result = false;
 	$substringLength = strlen($substring);
@@ -45,61 +103,152 @@ function ends_with ($subject, $substring) {
 
 
 
-// Make sure initial characters of a string are what they need to be
+/**
+* Make sure initial characters of a string are what they need to be
+*
+* @param $subject
+*	...
+*
+* @param $substring
+*	...
+*
+* @return
+*	The contents of $subject, guaranteed to begin with $substring
+*/
 function start_with ($subject, $substring = '') {
-	if (!starts_with($subject, $substring)) {
-		$subject = $substring.$subject;
-	}
-	return $subject;
-}
 
-// Make sure initial characters of a string are NOT what they shouldn't to be
-function dont_start_with ($subject, $substring = '', $onlyCheckOnce = false) {
+	// No need to do anything
 	if (starts_with($subject, $substring)) {
+		$result = $string;
+
+	// Add substring to the beginning
+	} else {
+		$result = $substring.$subject;
+	}
+
+	return $result;
+}
+
+
+
+/**
+* Make sure initial characters of a string are NOT what they shouldn't to be
+*
+* @param $subject
+*	...
+*
+* @param $substring
+*	...
+*
+* @param $onlyCheckOnce
+*	...
+*
+* @return
+*	The contents of $subject, guaranteed to not begin with $substring
+*/
+function dont_start_with ($subject, $substring = '', $onlyCheckOnce = false) {
+
+	// No need to do anything
+	if (!starts_with($subject, $substring)) {
+		$result = $subject;
+
+	} else {
 
 		// Cut the substring out
-		$subject = substr($subject, strlen($substring));
-		if ($subject === false) {
-			$subject = '';
+		$result = substr($subject, strlen($substring));
+		if ($result === false) {
+			$result = '';
 		}
 
 		// Make sure that the new string still doesn't start with the substring
 		if (!$onlyCheckOnce) {
-			$subject = dont_start_with($subject, $substring);
+			$result = dont_start_with($result, $substring);
 		}
-
 	}
-	return $subject;
+
+	return $result;
 }
 
-// Make sure final characters of a string are what they need to be
+
+
+/**
+* Make sure final characters of a string are what they need to be
+*
+* @param $subject
+*	...
+*
+* @param $substring
+*	...
+*
+* @return
+*	The contents $subject, guaranteed to end with $substring
+*/
 function end_with ($subject, $substring = '') {
-	if (!ends_with($subject, $substring)) {
-		$subject .= $substring;
+
+	// No need to do anything
+	if (ends_with($subject, $substring)) {
+		$result = $subject;
+
+	// Add substring to the end
+	} else {
+		$result = $subject.$substring;
 	}
-	return $subject;
+
+	return $result;
 }
 
-// Make sure final characters of a string are NOT what they shouldn't to be
+
+
+/**
+* Make sure final characters of a string are NOT what they shouldn't to be
+*
+* @param $subject
+*	...
+*
+* @param $substring
+*	...
+*
+* @param $onlyCheckOnce
+*	...
+*
+* @return
+*	The contents $subject, guaranteed to not end with $substring
+*/
 function dont_end_with ($subject, $substring = '', $onlyCheckOnce = false) {
-	if (ends_with($subject, $substring)) {
+
+	// No need to do anything
+	if (!ends_with($subject, $substring)) {
+		$result = $subject;
+
+	} else {
 
 		// Cut the substring out
-		$subject = substr($subject, 0, -(strlen($substring)));
+		$result = substr($subject, 0, -(strlen($substring)));
 
 		// Make sure that the new string still doesn't start with the substring
 		if (!$onlyCheckOnce) {
-			$subject = dont_end_with($subject, $substring);
+			$result = dont_end_with($result, $substring);
 		}
 
 	}
-	return $subject;
+	return $result;
 }
 
 
 
-// Decodes a string into an array
-// NOTE format: "key:value,anotherKey:value;nextSetOfValues;lastSetA,lastSetB"
+/**
+* Decodes a string into an array
+*
+* The format is roughly "key:value,anotherKey:value;nextSetOfValues;lastSetA,lastSetB"
+*
+* That's semicolon-separated key-value pairs or other values.
+*
+* @param $string
+*	...
+*
+* @return
+*	...
+*/
 function shorthand_decode ($string) {
 
 	$result = array();
@@ -135,31 +284,6 @@ function shorthand_decode ($string) {
 	foreach ($result as $key => $value) {
 		if (is_string($value) and empty($value)) {
 			unset($result[$key]);
-		}
-	}
-
-	return $result;
-}
-
-
-
-// Serialize an array into non-human-readable strings
-function array_serialize ($array) {
-	$string = '';
-	foreach ($array as $key => $value) {
-		$string .= '.'.base64_encode(serialize($value));
-	}
-	return substr($string, 1);
-}
-
-// Unserialize an array back into a sane format
-function array_unserialize ($string) {
-	$result = array();
-
-	// Exploding serialized data
-	if (!empty($string)) {
-		foreach (explode('.', $string) as $value) {
-			$result[] = unserialize(base64_decode($value));
 		}
 	}
 
