@@ -1,6 +1,14 @@
 <?php
 
 /**
+* Baseline PHP 2013-03-27 03:07
+*
+* Released under LGPL. Authored by Jerry Jäppinen.
+* http://eiskis.net/
+* eiskis@gmail.com
+*/
+
+/**
 * Flattens an array, either with or without the content in child arrays
 */
 function array_flatten ($array, $removeChildren = false, $preserveKeys = false) {
@@ -411,42 +419,6 @@ function create ($object) {
 
 
 /**
-* String functions
-*/
-
-
-
-/**
-* Underscored to lower-camelcase 
-*
-* @param $string
-*	...
-*
-* @return
-*	...
-*/
-function to_camelcase ($string) {
-	return preg_replace('/ (.?)/e', 'strtoupper("$1")', strtolower($string)); 
-}
-
-
-
-/**
-* Camelcase to regular text 
-*
-* @param $string
-*	...
-*
-* @return
-*	...
-*/
-function from_camelcase ($string) {
-	return strtolower(preg_replace('/([^A-Z])([A-Z])/', '$1 $2', $string)); 
-}
-
-
-
-/**
 * Do a calculation with a formula in a string
 *
 * @param $string
@@ -468,7 +440,7 @@ function calculate_string ($string, $forceInteger = false) {
 
 
 /**
-* Check if string starts with a specific substring
+* Make sure final characters of a string are NOT what they shouldn't to be
 *
 * @param $subject
 *	...
@@ -476,66 +448,29 @@ function calculate_string ($string, $forceInteger = false) {
 * @param $substring
 *	...
 *
-* @return
-*	TRUE if $subject starts with $substring, FALSE otherwise
-*/
-function starts_with ($subject, $substring) {
-	$result = false;
-	$substringLength = strlen($substring);
-	if (strlen($subject) >= $substringLength and substr($subject, 0, $substringLength) === $substring) {
-		$result = true;
-	}
-	return $result;
-}
-
-
-
-/**
-* Check if string ends with a specific substring
-*
-* @param $subject
-*	...
-*
-* @param $substring
+* @param $onlyCheckOnce
 *	...
 *
 * @return
-*	TRUE if $subject ends with $substring, FALSE otherwise
+*	The contents $subject, guaranteed to not end with $substring
 */
-function ends_with ($subject, $substring) {
-	$result = false;
-	$substringLength = strlen($substring);
-	if (strlen($subject) >= $substringLength and substr($subject, -($substringLength)) === $substring) {
-		$result = true;
-	}
-	return $result;
-}
-
-
-
-/**
-* Make sure initial characters of a string are what they need to be
-*
-* @param $subject
-*	...
-*
-* @param $substring
-*	...
-*
-* @return
-*	The contents of $subject, guaranteed to begin with $substring
-*/
-function start_with ($subject, $substring = '') {
+function dont_end_with ($subject, $substring = '', $onlyCheckOnce = false) {
 
 	// No need to do anything
-	if (starts_with($subject, $substring)) {
+	if (!ends_with($subject, $substring)) {
 		$result = $subject;
 
-	// Add substring to the beginning
 	} else {
-		$result = $substring.$subject;
-	}
 
+		// Cut the substring out
+		$result = substr($subject, 0, -(strlen($substring)));
+
+		// Make sure that the new string still doesn't start with the substring
+		if (!$onlyCheckOnce) {
+			$result = dont_end_with($result, $substring);
+		}
+
+	}
 	return $result;
 }
 
@@ -610,7 +545,7 @@ function end_with ($subject, $substring = '') {
 
 
 /**
-* Make sure final characters of a string are NOT what they shouldn't to be
+* Check if string ends with a specific substring
 *
 * @param $subject
 *	...
@@ -618,30 +553,31 @@ function end_with ($subject, $substring = '') {
 * @param $substring
 *	...
 *
-* @param $onlyCheckOnce
+* @return
+*	TRUE if $subject ends with $substring, FALSE otherwise
+*/
+function ends_with ($subject, $substring) {
+	$result = false;
+	$substringLength = strlen($substring);
+	if (strlen($subject) >= $substringLength and substr($subject, -($substringLength)) === $substring) {
+		$result = true;
+	}
+	return $result;
+}
+
+
+
+/**
+* Camelcase to regular text 
+*
+* @param $string
 *	...
 *
 * @return
-*	The contents $subject, guaranteed to not end with $substring
+*	...
 */
-function dont_end_with ($subject, $substring = '', $onlyCheckOnce = false) {
-
-	// No need to do anything
-	if (!ends_with($subject, $substring)) {
-		$result = $subject;
-
-	} else {
-
-		// Cut the substring out
-		$result = substr($subject, 0, -(strlen($substring)));
-
-		// Make sure that the new string still doesn't start with the substring
-		if (!$onlyCheckOnce) {
-			$result = dont_end_with($result, $substring);
-		}
-
-	}
-	return $result;
+function from_camelcase ($string) {
+	return strtolower(preg_replace('/([^A-Z])([A-Z])/', '$1 $2', $string)); 
 }
 
 
@@ -698,6 +634,72 @@ function shorthand_decode ($string) {
 	}
 
 	return $result;
+}
+
+
+
+/**
+* Make sure initial characters of a string are what they need to be
+*
+* @param $subject
+*	...
+*
+* @param $substring
+*	...
+*
+* @return
+*	The contents of $subject, guaranteed to begin with $substring
+*/
+function start_with ($subject, $substring = '') {
+
+	// No need to do anything
+	if (starts_with($subject, $substring)) {
+		$result = $subject;
+
+	// Add substring to the beginning
+	} else {
+		$result = $substring.$subject;
+	}
+
+	return $result;
+}
+
+
+
+/**
+* Check if string starts with a specific substring
+*
+* @param $subject
+*	...
+*
+* @param $substring
+*	...
+*
+* @return
+*	TRUE if $subject starts with $substring, FALSE otherwise
+*/
+function starts_with ($subject, $substring) {
+	$result = false;
+	$substringLength = strlen($substring);
+	if (strlen($subject) >= $substringLength and substr($subject, 0, $substringLength) === $substring) {
+		$result = true;
+	}
+	return $result;
+}
+
+
+
+/**
+* Underscored to lower-camelcase 
+*
+* @param $string
+*	...
+*
+* @return
+*	...
+*/
+function to_camelcase ($string) {
+	return preg_replace('/ (.?)/e', 'strtoupper("$1")', strtolower($string)); 
 }
 
 ?>

@@ -19,10 +19,7 @@ Usage
 
 Include all Baseline PHP files in the beginning of your PHP script:
 
-	foreach (glob('baselinephp/*.php') as $path) {
-		require_once $path;
-	}
-	unset($path);
+	require_once 'baseline.php';
 
 
 

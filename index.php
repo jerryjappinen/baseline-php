@@ -1,8 +1,9 @@
 <?php
-// Root of all problems
 error_reporting(E_ALL|E_STRICT);
 ini_set('display_errors', '1');
-date_default_timezone_set('UTC');
+ini_set('log_errors', '1');
+
+
 
 // Load Baseline PHP
 require_once 'baseline.php';
@@ -28,7 +29,7 @@ echo '
 
 		<h1>Welcome to Baseline PHP!</h1>
 
-		<p>This is Baseline PHP. Include <a href="scripts/generate-release.php?dontsave">baseline.php/</a> in your project or dive deeper:</p>
+		<p>This is Baseline PHP. Include <a href="scripts/generate-release.php?dontsave">baseline.php</a> in your project or dive deeper:</p>
 		';
 
 
@@ -36,7 +37,7 @@ echo '
 		// Output something using Baseline PHP
 		$files = array();
 		foreach (rglob_files('source', 'php') as $file) {
-			$files[] = to_camelcase(dont_end_with(basename($file), '.php'));
+			$files[] = to_camelcase(dont_end_with(basename($file), '.php')).'()';
 		}
 		echo htmlDump($files);
 
@@ -45,12 +46,14 @@ echo '
 		echo '
 		<p>Web site + documentation available at <del><a href="#">eiskis.net/baselinephp</a></del>.</p>
 
-		<p>Run automated tests with <a href="tests.php">tests.php</a>.</p>
+		<p>Run automated tests with <a href="tests/">tests/</a>.</p>
 
 		<p>There are some scripts under <a href="scripts/">scripts/</a> for repeated tasks like generating a single distributable file from the source files.</p>
 
 	</body>
 </html>
 ';
+
+die();
 
 ?>

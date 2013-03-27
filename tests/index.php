@@ -1,9 +1,7 @@
 <?php
-
-// Root of all problems
 error_reporting(E_ALL|E_STRICT);
 ini_set('display_errors', '1');
-date_default_timezone_set('UTC');
+ini_set('log_errors', '1');
 
 
 
@@ -14,6 +12,7 @@ date_default_timezone_set('UTC');
 // Basic variables
 $casePath = 'cases/';
 $simpletestPath = 'simpletest/';
+
 
 
 // Allow selecting a selection of tests via GET parameters
@@ -61,8 +60,8 @@ if (is_dir($dir)) {
 	echo '</ul></body></html>';
 	unset($path);
 }
-
 unset($dir);
+
 die();
 
 ?>
