@@ -5,24 +5,37 @@ class TestOfStartWith extends UnitTestCase {
 	// Doesn't add anything
 
 	// Doesn't add substring if it's already at the start
-	function test_leaves_alone_if_starts_with () {
+	function test_leaves_alone_if_starts_with_prefix () {
 		$prefix = 'foo';
 		$test = $prefix.'/bar/';
 		$this->assertTrue(start_with($test, $prefix) === $test);
 	}
 
 	// Works with spaces
-	function test_understands_spaces () {
+	function test_leaves_alone_if_starts_with_prefix_spaces () {
 		$prefix = '      ';
 		$test = $prefix.'foo/bar/';
 		$this->assertTrue(start_with($test, $prefix) === $test);
 	}
 
 	// Works with newlines
-	function test_understands_newlines () {
+	function test_leaves_alone_if_starts_with_prefix_newlines () {
 		$prefix = "\n\n";
 		$test = $prefix.'foo/bar/';
 		$this->assertTrue(start_with($test, $prefix) === $test);
+	}
+
+
+
+	// Avoids duplicate substrings
+	function test_trims_prefix () {
+		$this->assertTrue(start_with('apo', 'aaa') === 'aaapo');
+	}
+	function test_trims_prefix_on_short_prefix () {
+		$this->assertTrue(start_with('/path/foo', '//') === '//path/foo');
+	}
+	function test_trims_prefix_on_short_subject () {
+		$this->assertTrue(start_with('/b.fi', 'http://') === 'http://b.fi');
 	}
 
 

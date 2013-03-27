@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Baseline PHP 2013-03-27 03:07
+* Baseline PHP 2013-03-27 19:41
 *
 * Released under LGPL. Authored by Jerry Jäppinen.
 * http://eiskis.net/
@@ -528,6 +528,10 @@ function dont_start_with ($subject, $substring = '', $onlyCheckOnce = false) {
 * @return
 *	The contents $subject, guaranteed to end with $substring
 */
+
+// FLAG
+// add (optional) "strict" checking that only adds the characters from $substring that are
+// needed, so that end_with('www.foo.com/somewhere/', '/search/') becomes 'www.foo.com/somewhere/search/' and not 'www.foo.com/somewhere//search/'
 function end_with ($subject, $substring = '') {
 
 	// No need to do anything
@@ -576,6 +580,7 @@ function ends_with ($subject, $substring) {
 * @return
 *	...
 */
+// FLAG doesn't really work as expected
 function from_camelcase ($string) {
 	return strtolower(preg_replace('/([^A-Z])([A-Z])/', '$1 $2', $string)); 
 }
@@ -650,15 +655,38 @@ function shorthand_decode ($string) {
 * @return
 *	The contents of $subject, guaranteed to begin with $substring
 */
-function start_with ($subject, $substring = '') {
+
+function start_with ($subject, $substring = '', $onlyCheckOnce = false) {
 
 	// No need to do anything
 	if (starts_with($subject, $substring)) {
 		$result = $subject;
 
-	// Add substring to the beginning
-	} else {
+	// Fast check, just add prefix and be done with it
+	} else if ($onlyCheckOnce) {
 		$result = $substring.$subject;
+
+	// Look for the part of prefix that's NOT already in the beginning of subject string
+	} else {
+		$prefix = $substring;
+
+		// Maximum available length to cut from prefix
+		$prefixLength = strlen($prefix);
+		$max = min($prefixLength, strlen($subject));
+
+		// Check for characters
+		for ($i = 1; $i <= $max; $i++) {
+
+			// Find out which part is NOT already in the beginning of the subject string
+			if (substr($subject, 0, $i) !== substr($prefix, -$i)) {
+				break;
+			}
+
+		}
+
+		// Cut a little bit out of the prefix
+		$result = substr($prefix, 0, $prefixLength-($i-1)).$subject;
+
 	}
 
 	return $result;
@@ -698,6 +726,7 @@ function starts_with ($subject, $substring) {
 * @return
 *	...
 */
+// FLAG doesn't really work as expected
 function to_camelcase ($string) {
 	return preg_replace('/ (.?)/e', 'strtoupper("$1")', strtolower($string)); 
 }
