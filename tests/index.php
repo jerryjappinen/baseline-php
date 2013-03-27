@@ -33,7 +33,7 @@ if (isset($_GET['suite']) and is_string($_GET['suite'])) {
 
 // We have selected tests
 $dir = $casePath.implode('/', $suite);
-if (is_dir($dir)) {
+if (is_dir($dir) or is_file($dir.'.php')) {
 
 	// Load SimpleTest
 	require_once $simpletestPath.'autorun.php';
@@ -42,8 +42,12 @@ if (is_dir($dir)) {
 	require_once '../baseline.php';
 
 	// Load test cases
-	foreach (rglob_files($dir, 'php') as $path) {
-		require_once $path;
+	if (is_dir($dir)) {
+		foreach (rglob_files($dir, 'php') as $path) {
+			require_once $path;
+		}
+	} else if (is_file($dir.'.php')) {
+		require_once $dir.'.php';
 	}
 	unset($path);
 
