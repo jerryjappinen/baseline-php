@@ -7,6 +7,15 @@ date_default_timezone_set('UTC');
 
 
 
+/**
+* Run test suites
+*/
+
+// Basic variables
+$casePath = 'cases/';
+$simpletestPath = 'simpletest/';
+
+
 // Allow selecting a selection of tests via GET parameters
 $suite = array();
 if (isset($_GET['suite']) and is_string($_GET['suite'])) {
@@ -24,14 +33,14 @@ if (isset($_GET['suite']) and is_string($_GET['suite'])) {
 
 
 // We have selected tests
-$dir = 'tests/'.implode('/', $suite);
+$dir = $casePath.implode('/', $suite);
 if (is_dir($dir)) {
 
 	// Load SimpleTest
-	require_once('simpletest/autorun.php');
+	require_once $simpletestPath.'autorun.php';
 
 	// Load Baseline PHP
-	require_once 'baseline.php';
+	require_once '../baseline.php';
 
 	// Load test cases
 	foreach (rglob_files($dir, 'php') as $path) {
@@ -46,7 +55,7 @@ if (is_dir($dir)) {
 	header('Content-Type: text/html; charset=utf-8');
 	echo '<html><head><title>Baseline PHP tests</title></body>';
 	echo '<h1>No test suite found</h1><p>Try one of these:</p><ul>';
-	foreach (glob('tests/*', GLOB_ONLYDIR) as $path) {
+	foreach (glob($casePath.'*', GLOB_ONLYDIR) as $path) {
 		echo '<li><a href="?suite='.basename($path).'">'.basename($path).'</a></li>';
 	}
 	echo '</ul></body></html>';

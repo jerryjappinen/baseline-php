@@ -5,10 +5,7 @@ ini_set('display_errors', '1');
 date_default_timezone_set('UTC');
 
 // Load Baseline PHP
-foreach (glob('baselinephp/*.php') as $path) {
-	require_once $path;
-}
-unset($path);
+require_once 'baseline.php';
 
 // Print welcome page
 header('Content-Type: text/html; charset=utf-8');
@@ -31,8 +28,21 @@ echo '
 
 		<h1>Welcome to Baseline PHP!</h1>
 
-		<p>This is Baseline PHP. Use <em>baselinephp/</em> or <em>baselinephp.php</em>.</p>
+		<p>This is Baseline PHP. Include <a href="scripts/generate-release.php?dontsave">baseline.php/</a> in your project or dive deeper:</p>
+		';
 
+
+
+		// Output something using Baseline PHP
+		$files = array();
+		foreach (rglob_files('source', 'php') as $file) {
+			$files[] = to_camelcase(dont_end_with(basename($file), '.php'));
+		}
+		echo htmlDump($files);
+
+
+
+		echo '
 		<p>Web site + documentation available at <del><a href="#">eiskis.net/baselinephp</a></del>.</p>
 
 		<p>Run automated tests with <a href="tests.php">tests.php</a>.</p>

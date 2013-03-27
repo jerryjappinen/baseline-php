@@ -12,7 +12,7 @@ date_default_timezone_set('UTC');
 */
 
 // Basic variables
-$sourcePath = '../baselinephp/';
+$sourcePath = '../source/';
 $exportPath = '../baseline.php';
 
 

@@ -9,6 +9,7 @@
 /**#@+
  * include simpletest files
  */
+
 require_once dirname(__FILE__) . '/unit_tester.php';
 require_once dirname(__FILE__) . '/mock_objects.php';
 require_once dirname(__FILE__) . '/collector.php';

@@ -15,7 +15,7 @@
 * @return
 *	...
 */
-function to_camelcase ($string) {
+function from_camelcase ($string) {
 	return preg_replace('/ (.?)/e', 'strtoupper("$1")', strtolower($string)); 
 }
 
@@ -30,7 +30,7 @@ function to_camelcase ($string) {
 * @return
 *	...
 */
-function from_camelcase ($string) {
+function to_camelcase ($string) {
 	return strtolower(preg_replace('/([^A-Z])([A-Z])/', '$1 $2', $string)); 
 }
 
