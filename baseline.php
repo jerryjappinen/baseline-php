@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Baseline PHP 2013-03-28 22:41
+* Baseline PHP 2013-03-28 22:43
 *
 * Released under LGPL. Authored by Jerry Jäppinen.
 * http://eiskis.net/
@@ -825,6 +825,34 @@ function starts_with ($subject, $prefix, $caseInsensitive = false) {
 			$result = true;
 		}
 
+	}
+
+	return $result;
+}
+
+
+
+/**
+* Add a suffix to string if needed.
+*
+* @param $subject
+*	...
+*
+* @param $suffix
+*	...
+*
+* @param $caseInsensitive
+*	Check if suffix exists using case-insensitive comparison.
+*
+* @return
+*	A string that includes $suffix and $subject.
+*/
+function suffix ($subject, $suffix = '', $caseInsensitive = false) {
+	$result = $subject;
+
+	// suffix if needed
+	if (!empty($suffix) and !ends_with($subject, $suffix, $caseInsensitive)) {
+		$result = $subject.$suffix;
 	}
 
 	return $result;
