@@ -5,49 +5,23 @@ class TestOfEndWith extends UnitTestCase {
 	// Doesn't add anything
 
 	// Doesn't add substring if it's already at the end
-	function test_leaves_alone_if_ends_with () {
-		$this->assertTrue(end_with('/bar/foo/', 'foo/') === '/bar/foo/');
+	function test_leaves_alone_if_ends_with_suffix () {
+		$this->assertTrue(end_with('foo/', '/') === 'foo/');
 	}
 
 	// Works with spaces
-	function test_leaves_alone_if_ends_with_spaces () {
-		$this->assertTrue(end_with('foo'.'      ', '      ') === 'foo'.'      ');
+	function test_leaves_alone_if_ends_with_suffix_spaces () {
+		$this->assertTrue(end_with('foo ', ' ') === 'foo ');
 	}
 
 	// Works with newlines
-	function test_leaves_alone_if_ends_with_newlines () {
+	function test_leaves_alone_if_ends_with_suffix_newlines () {
 		$this->assertTrue(end_with('foo'."\n\n", "\n\n") === 'foo'."\n\n");
 	}
 
 
 
-	// Avoids duplicate substrings
-	function test_trims_substring () {
-		$this->assertTrue(end_with('Lo', 'ol') === 'Lol');
-	}
-	function test_trims_substring_on_short_substring () {
-		$this->assertTrue(end_with('Loo', 'ol') === 'Lool');
-	}
-	function test_trims_substring_on_short_subject () {
-		$this->assertTrue(end_with('Lo', 'ool') === 'Lool');
-	}
-
-
-
-	// Respects fast checks
-	function test_on_check_only_once_doesnt_trim_substring () {
-		$this->assertTrue(end_with('Lo', 'ol', true) === 'Lool');
-	}
-	function test_on_check_only_once_doesnt_trim_substring_on_short_substring () {
-		$this->assertTrue(end_with('Loo', 'ol', true) === 'Loool');
-	}
-	function test_on_check_only_once_doesnt_trim_substring_on_short_subject () {
-		$this->assertTrue(end_with('Lo', 'ool', true) === 'Loool');
-	}
-
-
-
-	// Adds substring as expected
+	// Adds suffix as expected
 
 	// Can add newlines properly
 	function test_can_add_newlines () {
@@ -56,9 +30,35 @@ class TestOfEndWith extends UnitTestCase {
 
 	// Doesn't care about converting integers to strings
 	function test_can_add_integers () {
-		$prefix = 123;
-		$test = 'foo';
-		$this->assertTrue(end_with($test, $prefix) === 'foo123');
+		$this->assertTrue(end_with('foo', 123) === 'foo123');
+	}
+
+	// Avoids duplicate substrings
+	function test_trims_suffix () {
+		$this->assertTrue(end_with('Lo', 'ol') === 'Lol');
+	}
+	function test_trims_suffix_on_short_subject () {
+		$this->assertTrue(end_with('Loo', 'ol') === 'Lool');
+	}
+	function test_trims_suffix_on_short_suffix () {
+		$this->assertTrue(end_with('www.foo.bar', '.bar/') === 'www.foo.bar/');
+	}
+
+
+
+	// Case-insensitive checking
+
+	function test_disregard_case_in_suffix () {
+		$this->assertTrue(end_with('integer', 'EGER', true) === end_with('integer', 'eger', true));
+	}
+	function test_disregard_case_in_subject () {
+		$this->assertTrue(strtolower(end_with('INTEGER', 'eger', true)) === strtolower(end_with('integer', 'eger', true)));
+	}
+	function test_disregard_case_in_suffix_when_adding_only_part () {
+		$this->assertTrue(strtolower(end_with('inte', 'EGER', true)) === strtolower(end_with('inte', 'eger', true)));
+	}
+	function test_disregard_case_in_subject_when_adding_only_part () {
+		$this->assertTrue(strtolower(end_with('INTE', 'eger', true)) === strtolower(end_with('inte', 'eger', true)));
 	}
 
 }

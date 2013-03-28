@@ -30,7 +30,7 @@ class TestOfStartWith extends UnitTestCase {
 
 	// Doesn't care about converting integers to strings
 	function test_can_add_integers () {
-		$this->assertTrue(start_with('/foo', 123) === '123/foo');
+		$this->assertTrue(start_with('foo', 123) === '123foo');
 	}
 
 	// Avoids duplicate substrings
@@ -51,11 +51,11 @@ class TestOfStartWith extends UnitTestCase {
 	function test_disregard_case_in_prefix () {
 		$this->assertTrue(start_with('integer', 'INTE', true) === start_with('integer', 'inte', true));
 	}
-	function test_disregard_case_in_prefix_when_adding_only_part () {
-		$this->assertTrue(strtolower(start_with('eger', 'INTE', true)) === strtolower(start_with('eger', 'inte', true)));
-	}
 	function test_disregard_case_in_subject () {
 		$this->assertTrue(strtolower(start_with('INTEGER', 'inte', true)) === strtolower(start_with('integer', 'inte', true)));
+	}
+	function test_disregard_case_in_prefix_when_adding_only_part () {
+		$this->assertTrue(strtolower(start_with('eger', 'INTE', true)) === strtolower(start_with('eger', 'inte', true)));
 	}
 	function test_disregard_case_in_subject_when_adding_only_part () {
 		$this->assertTrue(strtolower(start_with('EGER', 'inte', true)) === strtolower(start_with('eger', 'inte', true)));

@@ -1,11 +1,14 @@
 <?php
 
 /**
-* Baseline PHP 2013-03-28 23:01
+* Baseline PHP 0.1
 *
-* Released under LGPL. Authored by Jerry Jäppinen.
+* Released under LGPL
+* Authored by Jerry Jäppinen
 * http://eiskis.net/
 * eiskis@gmail.com
+*
+* Compiled from source on 2013-03-29 00:19
 */
 
 /**
@@ -188,16 +191,17 @@ function to_boolean ($value) {
 /**
 * Silently log a dump()'d object or variable to error log.
 *
-* @param $value
-*	Any object or value to be passed to dump()
+* @param (any number of parameters)
+*	Any objects or values to be passed to dump()
 *
 * @return
 *	No return value.
 */
 function debug ($value) {
+	$arguments = func_get_args();
 	$displayErrors = ini_get('display_errors');
 	ini_set('display_errors', '0');
-	error_log("\n\n\n".dump($value), 0)."\n\n";
+	error_log("\n\n\n".call_user_func_array('dump', $arguments), 0)."\n\n";
 	ini_set('display_errors', $displayErrors);
 }
 
@@ -206,14 +210,15 @@ function debug ($value) {
 /**
 * Dump objects or variables into a (mostly) human-readable format.
 *
-* @param $value
-*	Any object or value to be passed to var_dump()
+* @param (any number of parameters)
+*	Any objects or values to be passed to var_dump()
 *
 * @return
 *	var_dump()'d $value
 */
-function dump ($value) {
-	return var_export($value, true);
+function dump () {
+	$values = func_get_args();
+	return var_export(count($values) < 2 ? $values[0] : $values, true);
 }
 
 
@@ -221,14 +226,15 @@ function dump ($value) {
 /**
 * dump() objects or values into HTML.
 *
-* @param $value
-*	Any object or value to be passed to dump()
+* @param (any number of parameters)
+*	Any objects or values to be passed to dump()
 *
 * @return
 *	dump()'d $value wrapped in <pre>, ready to be used in HTML
 */
-function htmlDump ($value) {
-	return '<pre>'.dump($value).'</pre>';
+function htmlDump () {
+	$arguments = func_get_args();
+	return '<pre>'.call_user_func_array('dump', $arguments).'</pre>';
 }
 
 
@@ -517,53 +523,58 @@ function dont_start_with ($subject, $substring = '', $onlyCheckOnce = false) {
 
 
 /**
-* Make sure final characters of a string are what they need to be
+* Make sure final characters of a string are what they need to be. Compares the last characters of $subject to $suffix's first characters and avoids duplicate substrings, unlike suffix().
+*
+* For example, end_with('www.domain.co', '.com') returns 'www.domain.com'. prefix() would return 'www.domain.co.com'.
 *
 * @param $subject
 *	...
 *
-* @param $substring
+* @param $suffix
 *	...
 *
-* @param $onlyCheckOnce
-*	Only check if the exact substring is found in the beginning of the subject, do not check substrings.
-*
-*	For example, starts_with('www.domain.com', 'http://') will return 'http://www.domain.com', but with $onlyCheckOnce set to true the result will be 'http:///www.domain.com/'. Checking only once is faster, so use it if you can.
+* @param $caseInsensitive
+*	Use case-insensitive comparison.
 *
 * @return
-*	The contents $subject, guaranteed to end with $substring
+*	The contents of $subject, guaranteed to end with $suffix.
 */
-
-function end_with ($subject, $substring = '', $onlyCheckOnce = false) {
+function end_with ($subject, $suffix = '', $caseInsensitive = false) {
 
 	// No need to do anything
-	if (ends_with($subject, $substring)) {
+	if (empty($suffix) or ends_with($subject, $suffix, $caseInsensitive)) {
 		$result = $subject;
 
-	// Fast check, just add substring and be done with it
-	} else if ($onlyCheckOnce) {
-		$result = $subject.$substring;
-
-	// Look for the part of substring that's NOT already at the end of subject string
+	// Look for the part of suffix that's NOT already in the beginning of subject string
 	} else {
 
-		// Maximum available length to cut from substring
-		$substringLength = strlen($substring);
-		$subjectLength = strlen($subject);
-		$max = min($substringLength, $subjectLength);
+		// Need these for comparison
+		$suffixLength = mb_strlen($suffix);
+		$subjectLength = mb_strlen($subject);
 
-		// Check for characters
-		for ($i = 1; $i <= $max; $i++) {
+		// Separate items for comparison we can play with
+		$comparisonSubject = $subject;
+		$comparisonsuffix = $suffix;
 
-			// Find out which part is NOT already at the end of the subject string
-			if (substr($subject, -$i) !== substr($substring, 0, $i)) {
+		// Prepare subject and suffix for comparison
+		if ($caseInsensitive) {
+			$comparisonSubject = mb_strtolower($subject);
+			$comparisonsuffix = mb_strtolower($suffix);
+		}
+
+		// Iterate through substrings of suffix to see which part might already be included
+		for ($i = $suffixLength-1; $i > 0 and $suffixLength-$i <= $subjectLength; $i--) {
+
+			// Compare latter part of subject to beginning of suffix
+			if (mb_substr($comparisonSubject, -$i) === mb_substr($comparisonsuffix, 0, $i)) {
 				break;
 			}
 
 		}
 
-		// Cut a little bit out of the substring
-		$result = $subject.substr($substring, $i-1);
+		// Cut a little bit out of the suffix
+		$cut = $suffixLength-$i;
+		$result = $subject.mb_substr($suffix, -$cut);
 
 	}
 
@@ -770,6 +781,7 @@ function start_with ($subject, $prefix = '', $caseInsensitive = false) {
 			}
 
 		}
+
 		// Cut a little bit out of the prefix
 		$cut = $prefixLength-$i;
 		$result = mb_substr($prefix, 0, $cut).$subject;

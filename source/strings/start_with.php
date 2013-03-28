@@ -47,6 +47,7 @@ function start_with ($subject, $prefix = '', $caseInsensitive = false) {
 			}
 
 		}
+
 		// Cut a little bit out of the prefix
 		$cut = $prefixLength-$i;
 		$result = mb_substr($prefix, 0, $cut).$subject;

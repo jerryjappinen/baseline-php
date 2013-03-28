@@ -89,7 +89,7 @@ $output = '<?php
 
 
 
-// Optional saving
+// Optional saving, on localhost
 if (!isset($_GET['dontsave']) and in_array($_SERVER['SERVER_ADDR'], array('127.0.0.1', '::1'))) {
 
 	// Create export path
