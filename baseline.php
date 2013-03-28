@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Baseline PHP 2013-03-28 20:15
+* Baseline PHP 2013-03-28 20:35
 *
 * Released under LGPL. Authored by Jerry Jäppinen.
 * http://eiskis.net/
@@ -573,23 +573,51 @@ function end_with ($subject, $substring = '', $onlyCheckOnce = false) {
 
 
 /**
-* Check if string ends with a specific substring
+* Check if string ends with a specific suffix
 *
 * @param $subject
 *	...
 *
-* @param $substring
+* @param $suffix
 *	...
 *
+* @param $caseInsensitive
+*	Use case-insensitive comparison.
+*
 * @return
-*	TRUE if $subject ends with $substring, FALSE otherwise
+*	TRUE if $subject ends with $suffix, FALSE otherwise. Empty suffix always returns true.
 */
-function ends_with ($subject, $substring) {
+function ends_with ($subject, $suffix, $caseInsensitive = false) {
 	$result = false;
-	$substringLength = strlen($substring);
-	if (strlen($subject) >= $substringLength and substr($subject, -($substringLength)) === $substring) {
+
+	// Need these for parsing
+	$suffixLength = mb_strlen($suffix);
+	$subjectLength = mb_strlen($subject);
+
+	// Empty substring is always true
+	if (!$suffixLength) {
 		$result = true;
+
+	// suffix can't be bigger than subject
+	} else if ($subjectLength >= $suffixLength) {
+
+		// Part of subject to compare suffix to
+		$cutout = mb_substr($subject, -$suffixLength);
+		$comparison = $suffix;
+
+		// Case-insensitive comparison
+		if ($caseInsensitive) {
+			$cutout = mb_strtolower($cutout);
+			$comparison = mb_strtolower($comparison);
+		}
+
+		// Compare
+		if ($cutout === $comparison) {
+			$result = true;
+		}
+
 	}
+
 	return $result;
 }
 
@@ -735,7 +763,7 @@ function start_with ($subject, $substring = '', $onlyCheckOnce = false) {
 *	Use case-insensitive comparison.
 *
 * @return
-*	TRUE if $subject starts with $prefix, FALSE otherwise. Empty substring always returns true.
+*	TRUE if $subject starts with $prefix, FALSE otherwise. Empty prefix always returns true.
 */
 function starts_with ($subject, $prefix, $caseInsensitive = false) {
 	$result = false;

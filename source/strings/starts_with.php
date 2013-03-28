@@ -13,7 +13,7 @@
 *	Use case-insensitive comparison.
 *
 * @return
-*	TRUE if $subject starts with $prefix, FALSE otherwise. Empty substring always returns true.
+*	TRUE if $subject starts with $prefix, FALSE otherwise. Empty prefix always returns true.
 */
 function starts_with ($subject, $prefix, $caseInsensitive = false) {
 	$result = false;
