@@ -11,7 +11,6 @@ class TestOfEndsWith extends UnitTestCase {
 
 	// Any string ends with an empty string
 	function test_handles_empty_substring () {
-		debug(ends_with('foo', ''));
 		$this->assertTrue(ends_with('foo', '') === true);
 	}
 

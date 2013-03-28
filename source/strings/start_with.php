@@ -6,47 +6,50 @@
 * @param $subject
 *	...
 *
-* @param $substring
+* @param $prefix
 *	...
 *
-* @param $onlyCheckOnce
-*	Set to true to force prefix $subject with the whole $substring, even when $subject already has part of what's needed. This is faster than checking for substrings.
-*
-*	For example, starts_with('www.domain.com', 'http://') will return 'http://www.domain.com', but with $onlyCheckOnce set to true the result will be 'http:///www.domain.com/'. Checking only once is faster, so use it if you can.
+* @param $caseInsensitive
+*	Use case-insensitive comparison.
 *
 * @return
-*	The contents of $subject, guaranteed to begin with $substring
+*	The contents of $subject, guaranteed to begin with $prefix.
 */
-
-function start_with ($subject, $substring = '', $onlyCheckOnce = false) {
+function start_with ($subject, $prefix = '', $caseInsensitive = false) {
 
 	// No need to do anything
-	if (starts_with($subject, $substring)) {
+	if (empty($prefix) or starts_with($subject, $prefix, $caseInsensitive)) {
 		$result = $subject;
 
-	// Fast check, just add substring and be done with it
-	} else if ($onlyCheckOnce) {
-		$result = $substring.$subject;
-
-	// Look for the part of substring that's NOT already in the beginning of subject string
+	// Look for the part of prefix that's NOT already in the beginning of subject string
 	} else {
 
-		// Maximum available length to cut from substring
-		$substringLength = strlen($substring);
-		$max = min($substringLength, strlen($subject));
+		// Need these for comparison
+		$prefixLength = mb_strlen($prefix);
+		$subjectLength = mb_strlen($subject);
 
-		// Check for characters
-		for ($i = 1; $i <= $max; $i++) {
+		// Separate items for comparison we can play with
+		$comparisonSubject = $subject;
+		$comparisonPrefix = $prefix;
 
-			// Find out which part is NOT already in the beginning of the subject string
-			if (substr($subject, 0, $i) !== substr($substring, -$i)) {
+		// Prepare subject and prefix for comparison
+		if ($caseInsensitive) {
+			$comparisonSubject = mb_strtolower($subject);
+			$comparisonPrefix = mb_strtolower($prefix);
+		}
+
+		// Iterate through substrings of prefix to see which part might already be included
+		for ($i = $prefixLength-1; $i > 0 and $prefixLength-$i <= $subjectLength; $i--) {
+
+			// Compare latter part of prefix to beginning of subject
+			if (mb_substr($comparisonPrefix, -$i) === mb_substr($comparisonSubject, 0, $i)) {
 				break;
 			}
 
 		}
-
-		// Cut a little bit out of the substring
-		$result = substr($substring, 0, $substringLength-($i-1)).$subject;
+		// Cut a little bit out of the prefix
+		$cut = $prefixLength-$i;
+		$result = mb_substr($prefix, 0, $cut).$subject;
 
 	}
 

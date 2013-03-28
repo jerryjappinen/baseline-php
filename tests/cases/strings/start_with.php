@@ -6,36 +6,17 @@ class TestOfStartWith extends UnitTestCase {
 
 	// Doesn't add substring if it's already at the start
 	function test_leaves_alone_if_starts_with_prefix () {
-		$prefix = '/';
-		$test = $prefix.'bar/';
-		$this->assertTrue(start_with($test, $prefix) === $test);
+		$this->assertTrue(start_with('/foo', '/') === '/foo');
 	}
 
 	// Works with spaces
 	function test_leaves_alone_if_starts_with_prefix_spaces () {
-		$prefix = '      ';
-		$test = $prefix.'foo/bar/';
-		$this->assertTrue(start_with($test, $prefix) === $test);
+		$this->assertTrue(start_with(' foo', ' ') === ' foo');
 	}
 
 	// Works with newlines
 	function test_leaves_alone_if_starts_with_prefix_newlines () {
-		$prefix = "\n\n";
-		$test = $prefix.'foo/bar/';
-		$this->assertTrue(start_with($test, $prefix) === $test);
-	}
-
-
-
-	// Avoids duplicate substrings
-	function test_trims_prefix () {
-		$this->assertTrue(start_with('ol', 'Lo') === 'Lol');
-	}
-	function test_trims_prefix_on_short_prefix () {
-		$this->assertTrue(start_with('/path/foo', 'http://') === 'http://path/foo');
-	}
-	function test_trims_prefix_on_short_subject () {
-		$this->assertTrue(start_with('ol', 'Loo') === 'Lool');
+		$this->assertTrue(start_with("\n\n".'foo', "\n\n") === "\n\n".'foo');
 	}
 
 
@@ -44,16 +25,40 @@ class TestOfStartWith extends UnitTestCase {
 
 	// Can add newlines properly
 	function test_can_add_newlines () {
-		$prefix = "\n\n";
-		$test = 'foo/bar/';
-		$this->assertTrue(start_with($test, $prefix) === $prefix.$test);
+		$this->assertTrue(start_with('foo', "\n\n") === "\n\n".'foo');
 	}
 
 	// Doesn't care about converting integers to strings
 	function test_can_add_integers () {
-		$prefix = 123;
-		$test = '/foo';
-		$this->assertTrue(start_with($test, $prefix) === '123/foo');
+		$this->assertTrue(start_with('/foo', 123) === '123/foo');
+	}
+
+	// Avoids duplicate substrings
+	function test_trims_prefix () {
+		$this->assertTrue(start_with('ol', 'Lo') === 'Lol');
+	}
+	function test_trims_prefix_on_short_subject () {
+		$this->assertTrue(start_with('ol', 'Loo') === 'Lool');
+	}
+	function test_trims_prefix_on_short_prefix () {
+		$this->assertTrue(start_with('://www.foo.bar', 'http://') === 'http://www.foo.bar');
+	}
+
+
+
+	// Case-insensitive checking
+
+	function test_disregard_case_in_prefix () {
+		$this->assertTrue(start_with('integer', 'INTE', true) === start_with('integer', 'inte', true));
+	}
+	function test_disregard_case_in_prefix_when_adding_only_part () {
+		$this->assertTrue(strtolower(start_with('eger', 'INTE', true)) === strtolower(start_with('eger', 'inte', true)));
+	}
+	function test_disregard_case_in_subject () {
+		$this->assertTrue(strtolower(start_with('INTEGER', 'inte', true)) === strtolower(start_with('integer', 'inte', true)));
+	}
+	function test_disregard_case_in_subject_when_adding_only_part () {
+		$this->assertTrue(strtolower(start_with('EGER', 'inte', true)) === strtolower(start_with('eger', 'inte', true)));
 	}
 
 }

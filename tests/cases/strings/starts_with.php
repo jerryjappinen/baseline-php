@@ -11,7 +11,6 @@ class TestOfStartsWith extends UnitTestCase {
 
 	// Any string starts with an empty string
 	function test_handles_empty_substring () {
-		debug(starts_with('foo', ''));
 		$this->assertTrue(starts_with('foo', '') === true);
 	}
 
