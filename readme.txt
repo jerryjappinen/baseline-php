@@ -3,7 +3,7 @@ Baseline PHP 0.1
 ================
 
 - Web site & docs
-	- http://www.eiskis.net/baselinephp/
+	- http://www.eiskis.net/servant/baselinephp/
 - Source & issues
 	- http://bitbucket.org/Eiskis/baseline-php/
 - By Jerry Jäppinen
@@ -17,26 +17,38 @@ Baseline PHP 0.1
 Usage
 -----
 
-Include all Baseline PHP files in the beginning of your PHP script:
+Simply include all Baseline PHP in the beginning of your PHP script:
 
 	require_once 'baseline.php';
+
+You can now use Baseline PHP's functions in the script.
 
 
 
 Documentation
 -------------
 
-Documentation is available online at http://eiskis.net/baselinephp/
+Documentation is available online at http://eiskis.net/servant/baselinephp/
 
 
 
-General TODO notes
-------------------
+TODO
+----
 
-- Stop hardcoding class names when validating object type
-	- e.g. in ServantArticle, ServantObject
-- Add caching
-- Set some headers
-- Detect localhost to go into debug mode
-	- caching disabled
-	- debug log visible
+- dont_start_with() and dont_end_with() should match their counterparts
+- there should be unprefix() and unsuffix()
+- tests missing for
+	- arrays/
+		- array_flatten()
+		- array_traverse()
+		- limplode()
+	- debug/
+	- exceptions/
+	- files/
+	- glob/
+	- objects/
+	- strings/
+		- dont_end_with() *
+		- dont_start_with() *
+		- from_camelcase() *
+		- shorthand_decode() *
