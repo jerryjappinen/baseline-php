@@ -1,6 +1,6 @@
 
-Baseline PHP
-============
+Baseline PHP 0.1
+================
 
 - Web site & docs
 	- http://www.eiskis.net/baselinephp/

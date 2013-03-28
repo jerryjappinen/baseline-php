@@ -11,8 +11,10 @@ mb_internal_encoding('UTF-8');
 */
 
 // Basic variables
-$sourcePath = '../source/';
-$exportPath = '../baseline.php';
+$root = '../';
+$readmePath = $root.'readme.txt';
+$sourcePath = $root.'source/';
+$exportPath = $root.'baseline.php';
 
 
 
@@ -66,14 +68,19 @@ foreach (findSourceFilesRecursively($sourcePath) as $file) {
 }
 
 // Wrap output in PHP tags, add comments
+$readme = trim(file_get_contents($readmePath));
+$title = substr($readme, 0, strpos($readme, "\n"));
 $output = '<?php
 
 /**
-* Baseline PHP '.date('Y-m-d H:i') .'
+* '.(stripos($title, 'baseline') === false ? 'Baseline PHP' : $title).'
 *
-* Released under LGPL. Authored by Jerry Jäppinen.
+* Released under LGPL
+* Authored by Jerry Jäppinen
 * http://eiskis.net/
 * eiskis@gmail.com
+*
+* Compiled from source on '.date('Y-m-d H:i') .'
 */
 
 '.trim($output).'
