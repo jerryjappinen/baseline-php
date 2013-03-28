@@ -10,7 +10,7 @@
 *	...
 *
 * @param $onlyCheckOnce
-*	Only check if the exact substring is found in the beginning of the subject, do not check substrings.
+*	Set to true to force prefix $subject with the whole $substring, even when $subject already has part of what's needed. This is faster than checking for substrings.
 *
 *	For example, starts_with('www.domain.com', 'http://') will return 'http://www.domain.com', but with $onlyCheckOnce set to true the result will be 'http:///www.domain.com/'. Checking only once is faster, so use it if you can.
 *

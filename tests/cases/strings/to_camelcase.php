@@ -113,7 +113,7 @@ class TestOfToCamelcase extends UnitTestCase {
 
 	// Lowercases multibyte capital letter at start
 	function test_lowercase_capital_letter_at_start_multibyte () {
-		$this->assertTrue(mb_substr(to_camelcase('Ääää'), 0, 1) === 'ä');
+		$this->assertTrue(mb_substr(to_camelcase('Äfoo'), 0, 1) === 'ä');
 	}
 
 	// Lowercases capital letter at start after trimming special characters
@@ -154,6 +154,25 @@ class TestOfToCamelcase extends UnitTestCase {
 	// Uppercases multibyte capital letter after space
 	function test_uppercase_capital_letter_after_space_multibyte () {
 		$this->assertTrue(to_camelcase('politische-ökonomie') === 'politischeÖkonomie');
+	}
+
+
+
+	// Doesn't break with edge cases
+
+	// Empty string
+	function test_handles_empty_string () {
+		$this->assertTrue(to_camelcase('') === '');
+	}
+
+	// Empty string after trimming
+	function test_handles_empty_string_after_trimming () {
+		$this->assertTrue(to_camelcase('  - ') === '');
+	}
+
+	// Only special characters
+	function test_handles_only_special_characters () {
+		$this->assertTrue(to_camelcase('/()]]>  <[[()\'') === '/()]]><[[()\'');
 	}
 
 }

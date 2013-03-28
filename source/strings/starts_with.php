@@ -6,18 +6,46 @@
 * @param $subject
 *	...
 *
-* @param $substring
+* @param $prefix
 *	...
 *
+* @param $caseInsensitive
+*	Use case-insensitive comparison.
+*
 * @return
-*	TRUE if $subject starts with $substring, FALSE otherwise
+*	TRUE if $subject starts with $prefix, FALSE otherwise. Empty substring always returns true.
 */
-function starts_with ($subject, $substring) {
+function starts_with ($subject, $prefix, $caseInsensitive = false) {
 	$result = false;
-	$substringLength = strlen($substring);
-	if (strlen($subject) >= $substringLength and substr($subject, 0, $substringLength) === $substring) {
+
+	// Need these for parsing
+	$prefixLength = mb_strlen($prefix);
+	$subjectLength = mb_strlen($subject);
+
+	// Empty substring is always true
+	if (!$prefixLength) {
 		$result = true;
+
+	// Prefix can't be bigger than subject
+	} else if ($subjectLength >= $prefixLength) {
+
+		// Part of subject to compare prefix to
+		$cutout = mb_substr($subject, 0, $prefixLength);
+		$comparison = $prefix;
+
+		// Case-insensitive comparison
+		if ($caseInsensitive) {
+			$cutout = mb_strtolower($cutout);
+			$comparison = mb_strtolower($comparison);
+		}
+
+		// Compare
+		if ($cutout === $comparison) {
+			$result = true;
+		}
+
 	}
+
 	return $result;
 }
 

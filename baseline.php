@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Baseline PHP 2013-03-28 16:19
+* Baseline PHP 2013-03-28 20:15
 *
 * Released under LGPL. Authored by Jerry Jäppinen.
 * http://eiskis.net/
@@ -677,7 +677,7 @@ function shorthand_decode ($string) {
 *	...
 *
 * @param $onlyCheckOnce
-*	Only check if the exact substring is found in the beginning of the subject, do not check substrings.
+*	Set to true to force prefix $subject with the whole $substring, even when $subject already has part of what's needed. This is faster than checking for substrings.
 *
 *	For example, starts_with('www.domain.com', 'http://') will return 'http://www.domain.com', but with $onlyCheckOnce set to true the result will be 'http:///www.domain.com/'. Checking only once is faster, so use it if you can.
 *
@@ -728,18 +728,46 @@ function start_with ($subject, $substring = '', $onlyCheckOnce = false) {
 * @param $subject
 *	...
 *
-* @param $substring
+* @param $prefix
 *	...
 *
+* @param $caseInsensitive
+*	Use case-insensitive comparison.
+*
 * @return
-*	TRUE if $subject starts with $substring, FALSE otherwise
+*	TRUE if $subject starts with $prefix, FALSE otherwise. Empty substring always returns true.
 */
-function starts_with ($subject, $substring) {
+function starts_with ($subject, $prefix, $caseInsensitive = false) {
 	$result = false;
-	$substringLength = strlen($substring);
-	if (strlen($subject) >= $substringLength and substr($subject, 0, $substringLength) === $substring) {
+
+	// Need these for parsing
+	$prefixLength = mb_strlen($prefix);
+	$subjectLength = mb_strlen($subject);
+
+	// Empty substring is always true
+	if (!$prefixLength) {
 		$result = true;
+
+	// Prefix can't be bigger than subject
+	} else if ($subjectLength >= $prefixLength) {
+
+		// Part of subject to compare prefix to
+		$cutout = mb_substr($subject, 0, $prefixLength);
+		$comparison = $prefix;
+
+		// Case-insensitive comparison
+		if ($caseInsensitive) {
+			$cutout = mb_strtolower($cutout);
+			$comparison = mb_strtolower($comparison);
+		}
+
+		// Compare
+		if ($cutout === $comparison) {
+			$result = true;
+		}
+
 	}
+
 	return $result;
 }
 
