@@ -1,6 +1,14 @@
 <?php
 
-// Search for stuff recursively
+/**
+* Search for stuff recursively
+*
+* @param $path
+*	...
+*
+* @return
+*	...
+*/
 function rglob_dir ($path = '') {
 	$directories = glob_dir($path);
 	foreach ($directories as $path) {

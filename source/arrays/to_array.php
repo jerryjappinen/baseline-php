@@ -2,6 +2,12 @@
 
 /**
 * Make sure value is array, convert if needed
+*
+* @param $original
+*	...
+*
+* @return
+*	An array, with the value of $original if possible.
 */
 function to_array ($original) {
 

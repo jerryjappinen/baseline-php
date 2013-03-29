@@ -2,6 +2,12 @@
 
 /**
 * Search for directories in a path
+*
+* @param $path
+*	...
+*
+* @return
+*	...
 */
 function glob_dir ($path = '') {
 	$directories = glob(end_with($path, '/').'*', GLOB_MARK | GLOB_ONLYDIR);

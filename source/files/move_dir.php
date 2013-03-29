@@ -1,6 +1,18 @@
 <?php
 
-// Move directory
+
+/**
+* Move directory
+*
+* @param $path
+*	...
+*
+* @param $newLocation
+*	...
+*
+* @return
+*	...
+*/
 function move_dir ($path, $newLocation) {
 	$path = end_with($path, '/');
 

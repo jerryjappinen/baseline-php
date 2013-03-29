@@ -2,6 +2,18 @@
 
 /**
 * Allow giving a different last glue for implode
+*
+* @param $glue
+*	...
+*
+* @param $array
+*	...
+*
+* @param $last
+*	...
+*
+* @return
+*	...
 */
 function limplode ($glue, $array, $last = false) {
 

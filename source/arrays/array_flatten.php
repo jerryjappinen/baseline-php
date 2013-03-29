@@ -2,6 +2,18 @@
 
 /**
 * Flattens an array, either with or without the content in child arrays
+*
+* @param $array
+*	...
+*
+* @param $removeChildren
+*	...
+*
+* @param $preserveKeys
+*	...
+*
+* @return
+*	...
 */
 function array_flatten ($array, $removeChildren = false, $preserveKeys = false) {
 	$result = array();

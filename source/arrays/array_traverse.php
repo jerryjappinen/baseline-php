@@ -1,25 +1,34 @@
 <?php
 
 /**
-* Find a value from an array based on given keys (basically $values[ $tree[0] ][ $tree[1] ] ...)
+* Find a value from an array based on given keys (basically $subject[ $keys[0] ][ $keys[1] ] ...)
+*
+* @param $subject
+*	...
+*
+* @param $keys
+*	...
+*
+* @return
+*	...
 */
-function array_traverse ($values, $tree) {
+function array_traverse ($subject, $keys) {
 
 	// Need to traverse tree
-	if (isset($tree[0])) {
+	if (isset($keys[0])) {
 
 		// Exists
-		if (array_key_exists($tree[0], $values)) {
+		if (array_key_exists($keys[0], $subject)) {
 				
 			// This will be the last, no need to iterate
-			if (!isset($tree[1])) {
-				return $values[$tree[0]];
+			if (!isset($keys[1])) {
+				return $subject[$keys[0]];
 
 			// Going deeper
 			} else {
-				$newTree = $tree;
+				$newTree = $keys;
 				array_shift($newTree);
-				return array_traverse($values[$tree[0]], $newTree);
+				return array_traverse($subject[$keys[0]], $newTree);
 			}
 
 		// Doesn't exist
@@ -29,7 +38,7 @@ function array_traverse ($values, $tree) {
 
 	// We got what we came for
 	} else {
-		return $values;
+		return $subject;
 	}
 
 }

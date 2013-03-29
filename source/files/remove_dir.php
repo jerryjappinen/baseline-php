@@ -1,6 +1,15 @@
 <?php
 
-// Remove a complete directory, including its contents
+
+/**
+* Remove a complete directory, including its contents
+*
+* @param $path
+*	...
+*
+* @return
+*	...
+*/
 function remove_dir ($path) {
 
 	if (is_dir($path)) {

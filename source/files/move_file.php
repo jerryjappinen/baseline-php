@@ -1,6 +1,18 @@
 <?php
 
-// Move one file
+
+/**
+* Move one file
+*
+* @param $path
+*	...
+*
+* @param $newLocation
+*	...
+*
+* @return
+*	...
+*/
 function move_file ($path, $newLocation) {
 
 	if (is_file($path) and is_writable($path)) {

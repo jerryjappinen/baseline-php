@@ -1,6 +1,17 @@
 <?php
 
-// Search for files
+/**
+* Search for files
+*
+* @param $path
+*	...
+*
+* @param $filetypes
+*	...
+*
+* @return
+*	...
+*/
 function glob_files ($path = '', $filetypes = array()) {
 	$result = array();
 
