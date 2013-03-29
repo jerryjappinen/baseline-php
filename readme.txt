@@ -3,7 +3,7 @@ Baseline PHP 0.1
 ================
 
 - Web site & docs
-	- http://www.eiskis.net/servant/baselinephp/
+	- http://www.eiskis.net/baseline-php/
 - Source & issues
 	- http://bitbucket.org/Eiskis/baseline-php/
 - By Jerry Jäppinen
@@ -28,7 +28,7 @@ You can now use Baseline PHP's functions in the script.
 Documentation
 -------------
 
-Documentation is available online at http://eiskis.net/servant/baselinephp/
+Documentation is available online at http://eiskis.net/baseline-php/
 
 
 
@@ -36,7 +36,8 @@ TODO
 ----
 
 - dont_start_with() and dont_end_with() should match their counterparts
-- there should be unprefix() and unsuffix()
+- starts_with() and ends_with() should work like their counterparts
+- there should be prefixed()/suffixed()
 - tests missing for
 	- arrays/
 		- array_flatten()

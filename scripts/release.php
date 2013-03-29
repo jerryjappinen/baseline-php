@@ -44,9 +44,9 @@ function findSourceFilesRecursively ($root) {
 
 // Something little for parsing
 $prefix = '<?php';
-$postfix = '?>';
+$suffix = '?>';
 $prefixLength = strlen($prefix);
-$postfixLength = strlen($postfix);
+$suffixLength = strlen($suffix);
 
 // Go through all source files
 $output = '';
@@ -59,8 +59,8 @@ foreach (findSourceFilesRecursively($sourcePath) as $file) {
 	}
 
 	// Remove PHP end tag
-	if (substr($fileContents, -$postfixLength) === $postfix) {
-		$fileContents = substr($fileContents, 0, strlen($fileContents)-$postfixLength);
+	if (substr($fileContents, -$suffixLength) === $suffix) {
+		$fileContents = substr($fileContents, 0, strlen($fileContents)-$suffixLength);
 	}
 
 	$output .= $fileContents;

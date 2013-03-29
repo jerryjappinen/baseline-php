@@ -8,7 +8,7 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-03-29 00:19
+* Compiled from source on 2013-03-29 15:20
 */
 
 /**
@@ -679,62 +679,6 @@ function prefix ($subject, $prefix = '', $caseInsensitive = false) {
 
 
 /**
-* Decodes a string into an array
-*
-* The format is roughly "key:value,anotherKey:value;nextSetOfValues;lastSetA,lastSetB"
-*
-* That's semicolon-separated key-value pairs or other values.
-*
-* @param $string
-*	...
-*
-* @return
-*	...
-*/
-function shorthand_decode ($string) {
-
-	$result = array();
-
-	// Iterate through all the values/key-value pairs
-	foreach (explode(';', $string) as $key => $value) {
-
-		// Individual value
-		if (strpos($value, ',') === false and strpos($value, ':') === false) {
-			$result[$key] = trim($value);
-
-		// List
-		} else {
-			foreach (explode(',', $value) as $key2 => $value2) {
-
-				$value2 = trim($value2, '"');
-
-				// Key-value pair
-				if (strpos($value2, ':') !== false) {
-					$temp2 = explode(':', $value2);
-					$result[$key][$temp2[0]] = $temp2[1];
-
-				// Plain value
-				} else {
-					$result[$key][$key2] = $value2;
-				}
-
-			}
-		}
-	}
-
-	// FLAG I'm looping the results twice
-	foreach ($result as $key => $value) {
-		if (is_string($value) and empty($value)) {
-			unset($result[$key]);
-		}
-	}
-
-	return $result;
-}
-
-
-
-/**
 * Make sure initial characters of a string are what they need to be
 *
 * @param $subject
@@ -901,6 +845,68 @@ function to_camelcase ($subject, $preserveUppercase = false) {
 
 		// Uppercase all words, remove spaces
 		$result = str_replace(' ', '', preg_replace_callback('/ (.?)/u', create_function('$matches', 'return mb_strtoupper($matches[0]);'), $result));
+	}
+
+	return $result;
+}
+
+
+
+/**
+* Remove a part from the start of a string if it exists.
+*
+* @param $subject
+*	...
+*
+* @param $prefix
+*	...
+*
+* @param $caseInsensitive
+*	...
+*
+* @return
+*	The contents $subject, with $prefix removed if needed.
+*/
+function unprefix ($subject, $prefix = '', $caseInsensitive = false) {
+
+	// No need to do anything
+	if (!starts_with($subject, $prefix, $caseInsensitive)) {
+		$result = $subject;
+
+	// Cut the prefix out
+	} else {
+		$result = mb_substr($subject, mb_strlen($prefix));
+	}
+
+	return $result;
+}
+
+
+
+/**
+* Remove a part from the end of a string if it exists.
+*
+* @param $subject
+*	...
+*
+* @param $suffix
+*	...
+*
+* @param $caseInsensitive
+*	...
+*
+* @return
+*	The contents $subject, with $suffix removed if needed.
+*/
+function unsuffix ($subject, $suffix = '', $caseInsensitive = false) {
+
+	// No need to do anything
+	if (!ends_with($subject, $suffix, $caseInsensitive)) {
+		$result = $subject;
+
+	// Cut the suffix out
+	} else {
+		$result = mb_substr($subject, 0, -(mb_strlen($suffix)));
 	}
 
 	return $result;
