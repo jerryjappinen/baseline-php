@@ -37,7 +37,6 @@ TODO
 
 - starts_with() and ends_with() should work like their counterparts
 - dont_start_with() and dont_end_with() should match their counterparts, removing any parts of substrings
-- there should be prefixed()/suffixed()
 - tests missing for
 	- arrays/
 		- array_flatten()

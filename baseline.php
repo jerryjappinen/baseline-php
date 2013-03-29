@@ -8,7 +8,7 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-03-29 21:06
+* Compiled from source on 2013-03-29 21:13
 */
 
 /**
@@ -603,6 +603,58 @@ function calculate_string ($string, $forceInteger = false) {
 
 
 /**
+* Camelcase to regular text 
+*
+* @param $string
+*	...
+*
+* @return
+*	...
+*/
+// FLAG doesn't really work as expected
+function from_camelcase ($string) {
+	return strtolower(preg_replace('/([^A-Z])([A-Z])/', '$1 $2', $string)); 
+}
+
+
+
+/**
+* Convert a string to camelCase 
+*
+* @param $subject
+*	String to convert into camelcase.
+*
+* @param $preserveUpperCase
+*	When se to true, all existing uppercase characters are left untouched, including the first character of the string. Normally consecutive uppercase letters are downcased and the result string always begins with a lowercase letter.
+*
+* @return
+*	A string with no spaces, dashes or underscores. Each word in the subject string now begins with a capitalized letter.
+*/
+function to_camelcase ($subject, $preserveUppercase = false) {
+
+	// Treat dashes and underscores as spaces, disregard whitespace at ends
+	$result = trim(str_replace(array('-', '_'), ' ', $subject));
+
+	if (!empty($result)) {
+
+		// Disregard existing consecutive caps
+		if (!$preserveUppercase) {
+			$result = preg_replace_callback('/[A-Z][A-Z]+/u', create_function('$matches', 'return mb_strtolower($matches[0]);'), $result);
+
+			// Start with a lowercase letter
+			$result = mb_strtolower(mb_substr($result, 0, 1)).mb_substr($result, 1);
+		}
+
+		// Uppercase all words, remove spaces
+		$result = str_replace(' ', '', preg_replace_callback('/ (.?)/u', create_function('$matches', 'return mb_strtoupper($matches[0]);'), $result));
+	}
+
+	return $result;
+}
+
+
+
+/**
 * Make sure final characters of a string are NOT what they shouldn't to be
 *
 * @param $subject
@@ -634,46 +686,6 @@ function dont_end_with ($subject, $substring = '', $onlyCheckOnce = false) {
 		}
 
 	}
-	return $result;
-}
-
-
-
-/**
-* Make sure initial characters of a string are NOT what they shouldn't to be
-*
-* @param $subject
-*	...
-*
-* @param $substring
-*	...
-*
-* @param $onlyCheckOnce
-*	...
-*
-* @return
-*	The contents of $subject, guaranteed to not begin with $substring
-*/
-function dont_start_with ($subject, $substring = '', $onlyCheckOnce = false) {
-
-	// No need to do anything
-	if (!starts_with($subject, $substring)) {
-		$result = $subject;
-
-	} else {
-
-		// Cut the substring out
-		$result = substr($subject, strlen($substring));
-		if ($result === false) {
-			$result = '';
-		}
-
-		// Make sure that the new string still doesn't start with the substring
-		if (!$onlyCheckOnce) {
-			$result = dont_start_with($result, $substring);
-		}
-	}
-
 	return $result;
 }
 
@@ -792,22 +804,6 @@ function ends_with ($subject, $suffix, $caseInsensitive = false) {
 
 
 /**
-* Camelcase to regular text 
-*
-* @param $string
-*	...
-*
-* @return
-*	...
-*/
-// FLAG doesn't really work as expected
-function from_camelcase ($string) {
-	return strtolower(preg_replace('/([^A-Z])([A-Z])/', '$1 $2', $string)); 
-}
-
-
-
-/**
 * Add a prefix to string if needed.
 *
 * @param $subject
@@ -879,6 +875,77 @@ function prefixed ($subject, $prefix, $caseInsensitive = false) {
 			$result = true;
 		}
 
+	}
+
+	return $result;
+}
+
+
+
+/**
+* Remove a part from the start of a string if it exists.
+*
+* @param $subject
+*	...
+*
+* @param $prefix
+*	...
+*
+* @param $caseInsensitive
+*	...
+*
+* @return
+*	The contents $subject, with $prefix removed if needed.
+*/
+function unprefix ($subject, $prefix = '', $caseInsensitive = false) {
+
+	// No need to do anything
+	if (empty($prefix) or !prefixed($subject, $prefix, $caseInsensitive)) {
+		$result = $subject;
+
+	// Cut the prefix out
+	} else {
+		$result = mb_substr($subject, mb_strlen($prefix));
+	}
+
+	return $result;
+}
+
+
+
+/**
+* Make sure initial characters of a string are NOT what they shouldn't to be
+*
+* @param $subject
+*	...
+*
+* @param $substring
+*	...
+*
+* @param $onlyCheckOnce
+*	...
+*
+* @return
+*	The contents of $subject, guaranteed to not begin with $substring
+*/
+function dont_start_with ($subject, $substring = '', $onlyCheckOnce = false) {
+
+	// No need to do anything
+	if (!starts_with($subject, $substring)) {
+		$result = $subject;
+
+	} else {
+
+		// Cut the substring out
+		$result = substr($subject, strlen($substring));
+		if ($result === false) {
+			$result = '';
+		}
+
+		// Make sure that the new string still doesn't start with the substring
+		if (!$onlyCheckOnce) {
+			$result = dont_start_with($result, $substring);
+		}
 	}
 
 	return $result;
@@ -1068,73 +1135,6 @@ function suffixed ($subject, $suffix, $caseInsensitive = false) {
 			$result = true;
 		}
 
-	}
-
-	return $result;
-}
-
-
-
-/**
-* Convert a string to camelCase 
-*
-* @param $subject
-*	String to convert into camelcase.
-*
-* @param $preserveUpperCase
-*	When se to true, all existing uppercase characters are left untouched, including the first character of the string. Normally consecutive uppercase letters are downcased and the result string always begins with a lowercase letter.
-*
-* @return
-*	A string with no spaces, dashes or underscores. Each word in the subject string now begins with a capitalized letter.
-*/
-function to_camelcase ($subject, $preserveUppercase = false) {
-
-	// Treat dashes and underscores as spaces, disregard whitespace at ends
-	$result = trim(str_replace(array('-', '_'), ' ', $subject));
-
-	if (!empty($result)) {
-
-		// Disregard existing consecutive caps
-		if (!$preserveUppercase) {
-			$result = preg_replace_callback('/[A-Z][A-Z]+/u', create_function('$matches', 'return mb_strtolower($matches[0]);'), $result);
-
-			// Start with a lowercase letter
-			$result = mb_strtolower(mb_substr($result, 0, 1)).mb_substr($result, 1);
-		}
-
-		// Uppercase all words, remove spaces
-		$result = str_replace(' ', '', preg_replace_callback('/ (.?)/u', create_function('$matches', 'return mb_strtoupper($matches[0]);'), $result));
-	}
-
-	return $result;
-}
-
-
-
-/**
-* Remove a part from the start of a string if it exists.
-*
-* @param $subject
-*	...
-*
-* @param $prefix
-*	...
-*
-* @param $caseInsensitive
-*	...
-*
-* @return
-*	The contents $subject, with $prefix removed if needed.
-*/
-function unprefix ($subject, $prefix = '', $caseInsensitive = false) {
-
-	// No need to do anything
-	if (empty($prefix) or !prefixed($subject, $prefix, $caseInsensitive)) {
-		$result = $subject;
-
-	// Cut the prefix out
-	} else {
-		$result = mb_substr($subject, mb_strlen($prefix));
 	}
 
 	return $result;

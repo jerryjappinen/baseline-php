@@ -18,7 +18,7 @@ $exportPath = $root.'baseline.php';
 
 
 
-// Find files recursively (= rglob_files())
+// Find source files recursively
 function findSourceFilesRecursively ($root) {
 	$files = array();
 
