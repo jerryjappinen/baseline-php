@@ -18,7 +18,7 @@
 function unsuffix ($subject, $suffix = '', $caseInsensitive = false) {
 
 	// No need to do anything
-	if (!ends_with($subject, $suffix, $caseInsensitive)) {
+	if (empty($suffix) or !ends_with($subject, $suffix, $caseInsensitive)) {
 		$result = $subject;
 
 	// Cut the suffix out

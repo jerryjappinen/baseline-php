@@ -35,8 +35,8 @@ Documentation is available online at http://eiskis.net/baseline-php/
 TODO
 ----
 
-- dont_start_with() and dont_end_with() should match their counterparts
 - starts_with() and ends_with() should work like their counterparts
+- dont_start_with() and dont_end_with() should match their counterparts, removing any parts of substrings
 - there should be prefixed()/suffixed()
 - tests missing for
 	- arrays/

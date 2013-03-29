@@ -18,7 +18,7 @@
 function unprefix ($subject, $prefix = '', $caseInsensitive = false) {
 
 	// No need to do anything
-	if (!starts_with($subject, $prefix, $caseInsensitive)) {
+	if (empty($prefix) or !prefixed($subject, $prefix, $caseInsensitive)) {
 		$result = $subject;
 
 	// Cut the prefix out

@@ -19,7 +19,7 @@ function prefix ($subject, $prefix = '', $caseInsensitive = false) {
 	$result = $subject;
 
 	// Prefix if needed
-	if (!empty($prefix) and !starts_with($subject, $prefix, $caseInsensitive)) {
+	if (!empty($prefix) and !prefixed($subject, $prefix, $caseInsensitive)) {
 		$result = $prefix.$subject;
 	}
 

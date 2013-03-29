@@ -8,11 +8,23 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-03-29 15:20
+* Compiled from source on 2013-03-29 21:03
 */
 
 /**
 * Flattens an array, either with or without the content in child arrays
+*
+* @param $array
+*	...
+*
+* @param $removeChildren
+*	...
+*
+* @param $preserveKeys
+*	...
+*
+* @return
+*	...
 */
 function array_flatten ($array, $removeChildren = false, $preserveKeys = false) {
 	$result = array();
@@ -43,25 +55,34 @@ function array_flatten ($array, $removeChildren = false, $preserveKeys = false) 
 
 
 /**
-* Find a value from an array based on given keys (basically $values[ $tree[0] ][ $tree[1] ] ...)
+* Find a value from an array based on given keys (basically $subject[ $keys[0] ][ $keys[1] ] ...)
+*
+* @param $subject
+*	...
+*
+* @param $keys
+*	...
+*
+* @return
+*	...
 */
-function array_traverse ($values, $tree) {
+function array_traverse ($subject, $keys) {
 
 	// Need to traverse tree
-	if (isset($tree[0])) {
+	if (isset($keys[0])) {
 
 		// Exists
-		if (array_key_exists($tree[0], $values)) {
+		if (array_key_exists($keys[0], $subject)) {
 				
 			// This will be the last, no need to iterate
-			if (!isset($tree[1])) {
-				return $values[$tree[0]];
+			if (!isset($keys[1])) {
+				return $subject[$keys[0]];
 
 			// Going deeper
 			} else {
-				$newTree = $tree;
+				$newTree = $keys;
 				array_shift($newTree);
-				return array_traverse($values[$tree[0]], $newTree);
+				return array_traverse($subject[$keys[0]], $newTree);
 			}
 
 		// Doesn't exist
@@ -71,7 +92,7 @@ function array_traverse ($values, $tree) {
 
 	// We got what we came for
 	} else {
-		return $values;
+		return $subject;
 	}
 
 }
@@ -80,6 +101,18 @@ function array_traverse ($values, $tree) {
 
 /**
 * Allow giving a different last glue for implode
+*
+* @param $glue
+*	...
+*
+* @param $array
+*	...
+*
+* @param $last
+*	...
+*
+* @return
+*	...
 */
 function limplode ($glue, $array, $last = false) {
 
@@ -125,6 +158,12 @@ function limplode ($glue, $array, $last = false) {
 
 /**
 * Make sure value is array, convert if needed
+*
+* @param $original
+*	...
+*
+* @return
+*	An array, with the value of $original if possible.
 */
 function to_array ($original) {
 
@@ -175,10 +214,19 @@ function to_array ($original) {
 */
 function to_boolean ($value) {
 	if (
+
+		// Falsy
 		!$value or
+
+		// Empty
 		empty($value) or
+
+		// Zero or less
 		(is_numeric($value) and strval($value) <= 0) or
+
+		// Keyword
 		(is_string($value) and in_array(trim(strtolower($value)), array('null', 'nul', 'nil', 'false')))
+
 	) {
 		return false;
 	} else {
@@ -239,14 +287,37 @@ function htmlDump () {
 
 
 
-// Shorthand error throwing
+/**
+* Shorthand error throwing
+*
+* @param $message
+*	...
+*
+* @param $code
+*	...
+*
+* @return
+*	...
+*/
 function fail ($message, $code = null) {
 	throw new Exception($message, isset($code) ? $code : 500);
 }
 
 
 
-// Move directory
+
+/**
+* Move directory
+*
+* @param $path
+*	...
+*
+* @param $newLocation
+*	...
+*
+* @return
+*	...
+*/
 function move_dir ($path, $newLocation) {
 	$path = end_with($path, '/');
 
@@ -276,7 +347,19 @@ function move_dir ($path, $newLocation) {
 
 
 
-// Move one file
+
+/**
+* Move one file
+*
+* @param $path
+*	...
+*
+* @param $newLocation
+*	...
+*
+* @return
+*	...
+*/
 function move_file ($path, $newLocation) {
 
 	if (is_file($path) and is_writable($path)) {
@@ -299,7 +382,16 @@ function move_file ($path, $newLocation) {
 
 
 
-// Remove a complete directory, including its contents
+
+/**
+* Remove a complete directory, including its contents
+*
+* @param $path
+*	...
+*
+* @return
+*	...
+*/
 function remove_dir ($path) {
 
 	if (is_dir($path)) {
@@ -326,7 +418,16 @@ function remove_dir ($path) {
 
 
 
-// Remove one file
+
+/**
+* Remove one file
+*
+* @param $path
+*	...
+*
+* @return
+*	...
+*/
 function remove_file ($path) {
 	if (is_file($path)) {
 		unlink($path);
@@ -339,6 +440,12 @@ function remove_file ($path) {
 
 /**
 * Search for directories in a path
+*
+* @param $path
+*	...
+*
+* @return
+*	...
 */
 function glob_dir ($path = '') {
 	$directories = glob(end_with($path, '/').'*', GLOB_MARK | GLOB_ONLYDIR);
@@ -351,7 +458,18 @@ function glob_dir ($path = '') {
 
 
 
-// Search for files
+/**
+* Search for files
+*
+* @param $path
+*	...
+*
+* @param $filetypes
+*	...
+*
+* @return
+*	...
+*/
 function glob_files ($path = '', $filetypes = array()) {
 	$result = array();
 
@@ -379,7 +497,21 @@ function glob_files ($path = '', $filetypes = array()) {
 
 
 
-// Search for stuff recursively
+/**
+* Search for stuff recursively
+*
+* @param $path
+*	...
+*
+* @param $pattern
+*	...
+*
+* @param $flags
+*	...
+*
+* @return
+*	...
+*/
 function rglob ($path = '', $pattern = '*', $flags = 0) {
 	$directories = glob_dir($path);
 	$files = glob(end_with($path, '/').$pattern, $flags);
@@ -393,7 +525,15 @@ function rglob ($path = '', $pattern = '*', $flags = 0) {
 
 
 
-// Search for stuff recursively
+/**
+* Search for stuff recursively
+*
+* @param $path
+*	...
+*
+* @return
+*	...
+*/
 function rglob_dir ($path = '') {
 	$directories = glob_dir($path);
 	foreach ($directories as $path) {
@@ -404,7 +544,18 @@ function rglob_dir ($path = '') {
 
 
 
-// Search for files recursively
+/**
+* Search for files recursively
+*
+* @param $path
+*	...
+*
+* @param $filetypes
+*	...
+*
+* @return
+*	...
+*/
 function rglob_files ($path = '', $filetypes = array()) {
 	$files = glob_files($path, $filetypes);
 	foreach (glob_dir($path) as $child) {
@@ -417,6 +568,12 @@ function rglob_files ($path = '', $filetypes = array()) {
 
 /**
 * Create a new object
+*
+* @param $object
+*	...
+*
+* @return
+*	...
 */
 function create ($object) {
 	return $object;
@@ -669,8 +826,59 @@ function prefix ($subject, $prefix = '', $caseInsensitive = false) {
 	$result = $subject;
 
 	// Prefix if needed
-	if (!empty($prefix) and !starts_with($subject, $prefix, $caseInsensitive)) {
+	if (!empty($prefix) and !prefixed($subject, $prefix, $caseInsensitive)) {
 		$result = $prefix.$subject;
+	}
+
+	return $result;
+}
+
+
+
+/**
+* Check if a string has a prefix
+*
+* @param $subject
+*	...
+*
+* @param $prefix
+*	...
+*
+* @param $caseInsensitive
+*	Use case-insensitive comparison.
+*
+* @return
+*	TRUE if $subject starts with $prefix, FALSE otherwise. Empty prefix always returns true.
+*/
+function prefixed ($subject, $prefix, $caseInsensitive = false) {
+	$result = false;
+
+	// Need these for parsing
+	$prefixLength = mb_strlen($prefix);
+	$subjectLength = mb_strlen($subject);
+
+	// Empty substring is always true
+	if (!$prefixLength) {
+		$result = true;
+
+	// Prefix can't be bigger than subject
+	} else if ($subjectLength >= $prefixLength) {
+
+		// Part of subject to compare prefix to
+		$cutout = mb_substr($subject, 0, $prefixLength);
+		$comparison = $prefix;
+
+		// Case-insensitive comparison
+		if ($caseInsensitive) {
+			$cutout = mb_strtolower($cutout);
+			$comparison = mb_strtolower($comparison);
+		}
+
+		// Compare
+		if ($cutout === $comparison) {
+			$result = true;
+		}
+
 	}
 
 	return $result;
@@ -870,7 +1078,7 @@ function to_camelcase ($subject, $preserveUppercase = false) {
 function unprefix ($subject, $prefix = '', $caseInsensitive = false) {
 
 	// No need to do anything
-	if (!starts_with($subject, $prefix, $caseInsensitive)) {
+	if (empty($prefix) or !prefixed($subject, $prefix, $caseInsensitive)) {
 		$result = $subject;
 
 	// Cut the prefix out
@@ -901,7 +1109,7 @@ function unprefix ($subject, $prefix = '', $caseInsensitive = false) {
 function unsuffix ($subject, $suffix = '', $caseInsensitive = false) {
 
 	// No need to do anything
-	if (!ends_with($subject, $suffix, $caseInsensitive)) {
+	if (empty($suffix) or !ends_with($subject, $suffix, $caseInsensitive)) {
 		$result = $subject;
 
 	// Cut the suffix out
