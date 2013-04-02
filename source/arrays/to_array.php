@@ -3,29 +3,29 @@
 /**
 * Make sure value is array, convert if needed
 *
-* @param $original
+* @param $value
 *	...
 *
 * @return
-*	An array, with the value of $original if possible.
+*	An array, with the value of $value if possible.
 */
-function to_array ($original) {
+function to_array ($value) {
 
 	// Already an array
-	if (is_array($original)) {
-		$result = $original;
+	if (is_array($value)) {
+		$result = $value;
 
 	// Object
-	} else if (is_object($original)) {
+	} else if (is_object($value)) {
 
 		// Convert to array
-		$original = (array) $original;
+		$value = (array) $value;
 		
-		if (is_array($original)) {
+		if (is_array($value)) {
 
 			// Convert children
 			$result = array();
-			foreach($original as $key => $value) {
+			foreach($value as $key => $value) {
 				if (is_object($value)) {
 					$result[$key] = to_array($value);
 				} else {
@@ -34,12 +34,12 @@ function to_array ($original) {
 			}
 
 		} else {
-			$result = to_array($original);
+			$result = to_array($value);
 		}
 
   	// Default
 	} else {
-		$result = array($original);
+		$result = array($value);
 	}
 
 	return $result;

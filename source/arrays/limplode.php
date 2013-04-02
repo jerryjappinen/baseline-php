@@ -6,7 +6,7 @@
 * @param $glue
 *	...
 *
-* @param $array
+* @param $pieces
 *	...
 *
 * @param $lastGlue
@@ -15,22 +15,22 @@
 * @return
 *	...
 */
-function limplode ($glue = '', $array = array(), $lastGlue = false) {
+function limplode ($glue = '', $pieces = array(), $lastGlue = false) {
 
 	// Allow giving glue and array in reverse order, like implode() does
 	if (is_array($glue)) {
-		$realGlue = $array;
+		$realGlue = $pieces;
 		$realArray = $glue;
 	} else {
 		$realGlue = $glue;
-		$realArray = $array;
+		$realArray = $pieces;
 	}
 
 	$count = count($realArray);
 
 	// Return implode() if last glue is missing or we have no use for last glue
 	if (!$lastGlue or $count < 3 or $lastGlue === $glue) {
-		return implode($glue, $array);
+		return implode($glue, $pieces);
 
 	// Last glue was given
 	} else {

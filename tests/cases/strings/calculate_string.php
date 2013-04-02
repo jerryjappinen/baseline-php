@@ -16,6 +16,10 @@ class TestOfCalculateString extends UnitTestCase {
 
 	// Float should become integers when requested
 	function test_forces_integers_when_asked () {
+		$test = calculate_string('4/3', true);
+		$this->assertTrue(is_int($test));
+	}
+	function test_forces_integers_when_asked_float () {
 		$test = calculate_string(8.2223, true);
 		$this->assertTrue(is_int($test));
 	}
