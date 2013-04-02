@@ -8,7 +8,7 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-04-02 18:43
+* Compiled from source on 2013-04-02 18:59
 */
 
 /**
@@ -26,7 +26,7 @@
 * @return
 *	...
 */
-function array_flatten ($array, $removeChildren = false, $preserveKeys = false) {
+function array_flatten (array $array, $removeChildren = false, $preserveKeys = false) {
 	$result = array();
 	foreach ($array as $key => $value) {
 
@@ -66,14 +66,15 @@ function array_flatten ($array, $removeChildren = false, $preserveKeys = false) 
 * @return
 *	...
 */
-function array_traverse ($subject, $keys) {
+function array_traverse (array $subject, $keys) {
+	$keys = to_array($keys);
 
 	// Need to traverse tree
 	if (isset($keys[0])) {
 
 		// Exists
 		if (array_key_exists($keys[0], $subject)) {
-				
+
 			// This will be the last, no need to iterate
 			if (!isset($keys[1])) {
 				return $subject[$keys[0]];
@@ -116,7 +117,16 @@ function array_traverse ($subject, $keys) {
 */
 function limplode ($glue = '', $array = array(), $lastGlue = false) {
 
-	$count = count($array);
+	// Allow giving glue and array in reverse order, like implode() does
+	if (is_array($glue)) {
+		$realGlue = $array;
+		$realArray = $glue;
+	} else {
+		$realGlue = $glue;
+		$realArray = $array;
+	}
+
+	$count = count($realArray);
 
 	// Return implode() if last glue is missing or we have no use for last glue
 	if (!$lastGlue or $count < 3 or $lastGlue === $glue) {
@@ -125,11 +135,11 @@ function limplode ($glue = '', $array = array(), $lastGlue = false) {
 	// Last glue was given
 	} else {
 
-		$temp = $array;
+		$temp = $realArray;
 		$lastItem = array_pop($temp);
 
 		// Implode array without last item
-		return implode($glue, $temp).$lastGlue.$lastItem;
+		return implode($realGlue, $temp).$lastGlue.$lastItem;
 
 	}
 

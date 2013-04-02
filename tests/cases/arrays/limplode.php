@@ -47,6 +47,14 @@ class TestOfLimplode extends UnitTestCase {
 		$this->assertTrue(limplode(', ', array(1, 2, 3, 4), ' and ') === '1, 2, 3 and 4');
 	}
 
+	// Reverse argument order
+	function test_reverse_argument_order () {
+		$this->assertTrue(limplode(', ', array(1, 2, 3, 4)) === limplode(array(1, 2, 3, 4), ', '));
+	}
+	function test_reverse_argument_order_last_glue () {
+		$this->assertTrue(limplode(', ', array(1, 2, 3, 4), ' and ') === limplode(array(1, 2, 3, 4), ', ', ' and '));
+	}
+
 }
 
 ?>

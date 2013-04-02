@@ -12,14 +12,15 @@
 * @return
 *	...
 */
-function array_traverse ($subject, $keys) {
+function array_traverse (array $subject, $keys) {
+	$keys = to_array($keys);
 
 	// Need to traverse tree
 	if (isset($keys[0])) {
 
 		// Exists
 		if (array_key_exists($keys[0], $subject)) {
-				
+
 			// This will be the last, no need to iterate
 			if (!isset($keys[1])) {
 				return $subject[$keys[0]];
