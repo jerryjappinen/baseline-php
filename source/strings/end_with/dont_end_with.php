@@ -6,33 +6,68 @@
 * @param $subject
 *	...
 *
-* @param $substring
+* @param $suffix
 *	...
 *
-* @param $onlyCheckOnce
+* @param $caseInsensitive
 *	...
 *
 * @return
-*	The contents $subject, guaranteed to not end with $substring
+*	The contents $subject, guaranteed to not end with $suffix
 */
-function dont_end_with ($subject, $substring = '', $onlyCheckOnce = false) {
+function dont_end_with ($subject, $suffix = '', $caseInsensitive = false) {
 
 	// No need to do anything
-	if (!ends_with($subject, $substring)) {
+	if (empty($suffix) or !suffixed($subject, $suffix, $caseInsensitive) or !ends_with($subject, $suffix, $caseInsensitive)) {
 		$result = $subject;
 
 	} else {
 
-		// Cut the substring out
-		$result = substr($subject, 0, -(strlen($substring)));
+		// Need these for comparison
+		$suffixLength = mb_strlen($suffix);
+		$subjectLength = mb_strlen($subject);
 
-		// Make sure that the new string still doesn't start with the substring
-		if (!$onlyCheckOnce) {
-			$result = dont_end_with($result, $substring);
+		// Separate items for comparison we can play with
+		$comparisonSubject = $subject;
+		$comparisonSuffix = $suffix;
+
+		// Prepare subject and suffix for comparison
+		if ($caseInsensitive) {
+			$comparisonSubject = mb_strtolower($comparisonSubject);
+			$comparisonSuffix = mb_strtolower($comparisonSuffix);
 		}
 
+		// Iterate through substrings of suffix to see which part might be included
+		for ($i = $suffixLength; $i > 0 and $suffixLength-$i <= $subjectLength; $i--) {
+
+			// Compare latter part of subject to beginning of suffix
+			if (mb_substr($comparisonSubject, -$i) === mb_substr($comparisonSuffix, 0, $i)) {
+				break;
+			}
+
+		}
+
+		// Cut a little bit out of the subject
+		$result = mb_substr($subject, 0, $subjectLength-$i);
+
 	}
+
 	return $result;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ?>

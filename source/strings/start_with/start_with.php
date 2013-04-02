@@ -18,7 +18,7 @@
 function start_with ($subject, $prefix = '', $caseInsensitive = false) {
 
 	// No need to do anything
-	if (empty($prefix) or starts_with($subject, $prefix, $caseInsensitive)) {
+	if (empty($prefix) or prefixed($subject, $prefix, $caseInsensitive)) {
 		$result = $subject;
 
 	// Look for the part of prefix that's NOT already in the beginning of subject string
@@ -34,8 +34,8 @@ function start_with ($subject, $prefix = '', $caseInsensitive = false) {
 
 		// Prepare subject and prefix for comparison
 		if ($caseInsensitive) {
-			$comparisonSubject = mb_strtolower($subject);
-			$comparisonPrefix = mb_strtolower($prefix);
+			$comparisonSubject = mb_strtolower($comparisonSubject);
+			$comparisonPrefix = mb_strtolower($comparisonPrefix);
 		}
 
 		// Iterate through substrings of prefix to see which part might already be included

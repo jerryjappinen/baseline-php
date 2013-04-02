@@ -8,7 +8,7 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-03-29 21:13
+* Compiled from source on 2013-04-02 17:15
 */
 
 /**
@@ -108,50 +108,31 @@ function array_traverse ($subject, $keys) {
 * @param $array
 *	...
 *
-* @param $last
+* @param $lastGlue
 *	...
 *
 * @return
 *	...
 */
-function limplode ($glue, $array, $last = false) {
+function limplode ($glue = '', $array = array(), $lastGlue = false) {
 
-	$result = '';
 	$count = count($array);
 
-	// Only one item
-	if ($count === 1) {
-		$temp = array_keys($array);
-		$result = $array[$temp[0]];
+	// Return implode() if last glue is missing or we have no use for last glue
+	if (!$lastGlue or $count < 3 or $lastGlue === $glue) {
+		return implode($glue, $array);
 
-		// Make sure array is flattened
-		if (is_array($result)) {
-			$result = limplode($glue, array_flatten($result), $last);
-		}
+	// Last glue was given
+	} else {
 
-	// Multiple items
-	} else if ($count > 1) {
+		$temp = $array;
+		$lastItem = array_pop($temp);
 
-		// Make sure array is flattened
-		$array = array_flatten($array);
+		// Implode array without last item
+		return implode($glue, $temp).$lastGlue.$lastItem;
 
-		// Iterate through each item
-		foreach ($array as $value) {
-			$count--;
-
-			// Switch glue for last two items
-			if ($count == 1 && is_string($last)) {
-				$glue = $last;
-			} else if ($count == 0) {
-				$glue = '';
-			}
-
-			// Add to return string
-			$result .= $value.$glue;
-		}
 	}
 
-	return $result;
 }
 
 
@@ -660,34 +641,69 @@ function to_camelcase ($subject, $preserveUppercase = false) {
 * @param $subject
 *	...
 *
-* @param $substring
+* @param $suffix
 *	...
 *
-* @param $onlyCheckOnce
+* @param $caseInsensitive
 *	...
 *
 * @return
-*	The contents $subject, guaranteed to not end with $substring
+*	The contents $subject, guaranteed to not end with $suffix
 */
-function dont_end_with ($subject, $substring = '', $onlyCheckOnce = false) {
+function dont_end_with ($subject, $suffix = '', $caseInsensitive = false) {
 
 	// No need to do anything
-	if (!ends_with($subject, $substring)) {
+	if (empty($suffix) or !suffixed($subject, $suffix, $caseInsensitive) or !ends_with($subject, $suffix, $caseInsensitive)) {
 		$result = $subject;
 
 	} else {
 
-		// Cut the substring out
-		$result = substr($subject, 0, -(strlen($substring)));
+		// Need these for comparison
+		$suffixLength = mb_strlen($suffix);
+		$subjectLength = mb_strlen($subject);
 
-		// Make sure that the new string still doesn't start with the substring
-		if (!$onlyCheckOnce) {
-			$result = dont_end_with($result, $substring);
+		// Separate items for comparison we can play with
+		$comparisonSubject = $subject;
+		$comparisonSuffix = $suffix;
+
+		// Prepare subject and suffix for comparison
+		if ($caseInsensitive) {
+			$comparisonSubject = mb_strtolower($comparisonSubject);
+			$comparisonSuffix = mb_strtolower($comparisonSuffix);
 		}
 
+		// Iterate through substrings of suffix to see which part might be included
+		for ($i = $suffixLength; $i > 0 and $suffixLength-$i <= $subjectLength; $i--) {
+
+			// Compare latter part of subject to beginning of suffix
+			if (mb_substr($comparisonSubject, -$i) === mb_substr($comparisonSuffix, 0, $i)) {
+				break;
+			}
+
+		}
+
+		// Cut a little bit out of the subject
+		$result = mb_substr($subject, 0, $subjectLength-$i);
+
 	}
+
 	return $result;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -711,7 +727,7 @@ function dont_end_with ($subject, $substring = '', $onlyCheckOnce = false) {
 function end_with ($subject, $suffix = '', $caseInsensitive = false) {
 
 	// No need to do anything
-	if (empty($suffix) or ends_with($subject, $suffix, $caseInsensitive)) {
+	if (empty($suffix) or suffixed($subject, $suffix, $caseInsensitive)) {
 		$result = $subject;
 
 	// Look for the part of suffix that's NOT already in the beginning of subject string
@@ -723,19 +739,19 @@ function end_with ($subject, $suffix = '', $caseInsensitive = false) {
 
 		// Separate items for comparison we can play with
 		$comparisonSubject = $subject;
-		$comparisonsuffix = $suffix;
+		$comparisonSuffix = $suffix;
 
 		// Prepare subject and suffix for comparison
 		if ($caseInsensitive) {
-			$comparisonSubject = mb_strtolower($subject);
-			$comparisonsuffix = mb_strtolower($suffix);
+			$comparisonSubject = mb_strtolower($comparisonSubject);
+			$comparisonSuffix = mb_strtolower($comparisonSuffix);
 		}
 
 		// Iterate through substrings of suffix to see which part might already be included
 		for ($i = $suffixLength-1; $i > 0 and $suffixLength-$i <= $subjectLength; $i--) {
 
 			// Compare latter part of subject to beginning of suffix
-			if (mb_substr($comparisonSubject, -$i) === mb_substr($comparisonsuffix, 0, $i)) {
+			if (mb_substr($comparisonSubject, -$i) === mb_substr($comparisonSuffix, 0, $i)) {
 				break;
 			}
 
@@ -971,7 +987,7 @@ function dont_start_with ($subject, $substring = '', $onlyCheckOnce = false) {
 function start_with ($subject, $prefix = '', $caseInsensitive = false) {
 
 	// No need to do anything
-	if (empty($prefix) or starts_with($subject, $prefix, $caseInsensitive)) {
+	if (empty($prefix) or prefixed($subject, $prefix, $caseInsensitive)) {
 		$result = $subject;
 
 	// Look for the part of prefix that's NOT already in the beginning of subject string
@@ -987,8 +1003,8 @@ function start_with ($subject, $prefix = '', $caseInsensitive = false) {
 
 		// Prepare subject and prefix for comparison
 		if ($caseInsensitive) {
-			$comparisonSubject = mb_strtolower($subject);
-			$comparisonPrefix = mb_strtolower($prefix);
+			$comparisonSubject = mb_strtolower($comparisonSubject);
+			$comparisonPrefix = mb_strtolower($comparisonPrefix);
 		}
 
 		// Iterate through substrings of prefix to see which part might already be included

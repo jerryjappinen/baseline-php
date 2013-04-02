@@ -20,7 +20,7 @@
 function end_with ($subject, $suffix = '', $caseInsensitive = false) {
 
 	// No need to do anything
-	if (empty($suffix) or ends_with($subject, $suffix, $caseInsensitive)) {
+	if (empty($suffix) or suffixed($subject, $suffix, $caseInsensitive)) {
 		$result = $subject;
 
 	// Look for the part of suffix that's NOT already in the beginning of subject string
@@ -32,19 +32,19 @@ function end_with ($subject, $suffix = '', $caseInsensitive = false) {
 
 		// Separate items for comparison we can play with
 		$comparisonSubject = $subject;
-		$comparisonsuffix = $suffix;
+		$comparisonSuffix = $suffix;
 
 		// Prepare subject and suffix for comparison
 		if ($caseInsensitive) {
-			$comparisonSubject = mb_strtolower($subject);
-			$comparisonsuffix = mb_strtolower($suffix);
+			$comparisonSubject = mb_strtolower($comparisonSubject);
+			$comparisonSuffix = mb_strtolower($comparisonSuffix);
 		}
 
 		// Iterate through substrings of suffix to see which part might already be included
 		for ($i = $suffixLength-1; $i > 0 and $suffixLength-$i <= $subjectLength; $i--) {
 
 			// Compare latter part of subject to beginning of suffix
-			if (mb_substr($comparisonSubject, -$i) === mb_substr($comparisonsuffix, 0, $i)) {
+			if (mb_substr($comparisonSubject, -$i) === mb_substr($comparisonSuffix, 0, $i)) {
 				break;
 			}
 

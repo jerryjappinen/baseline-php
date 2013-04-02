@@ -2,16 +2,31 @@
 
 class TestOfToArray extends UnitTestCase {
 
-	// String input results in array
-	function test_makes_array_from_string () {
-		$test = 'someString';
-		$this->assertTrue(is_array(to_array($test)));
+	// Output must always be an array
+
+	// Int
+	function test_makes_array_from_int () {
+		$this->assertTrue(is_array(to_array(299)));
 	}
 
-	// Array from any object
+	// Float
+	function test_makes_array_from_float () {
+		$this->assertTrue(is_array(to_array(18.299)));
+	}
+
+	// String
+	function test_makes_array_from_string () {
+		$this->assertTrue(is_array(to_array('someString')));
+	}
+
+	// Object
 	function test_makes_array_from_object () {
-		$test = new UnitTestCase;
-		$this->assertTrue(is_array(to_array($test)));
+		$this->assertTrue(is_array(to_array(new UnitTestCase)));
+	}
+
+	// Array
+	function test_makes_array_from_array () {
+		$this->assertTrue(is_array(to_array(array(1, 2, 3))));
 	}
 
 }

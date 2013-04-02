@@ -51,4 +51,3 @@ TODO
 		- dont_end_with() *
 		- dont_start_with() *
 		- from_camelcase() *
-		- shorthand_decode() *

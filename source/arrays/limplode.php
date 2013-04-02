@@ -9,50 +9,31 @@
 * @param $array
 *	...
 *
-* @param $last
+* @param $lastGlue
 *	...
 *
 * @return
 *	...
 */
-function limplode ($glue, $array, $last = false) {
+function limplode ($glue = '', $array = array(), $lastGlue = false) {
 
-	$result = '';
 	$count = count($array);
 
-	// Only one item
-	if ($count === 1) {
-		$temp = array_keys($array);
-		$result = $array[$temp[0]];
+	// Return implode() if last glue is missing or we have no use for last glue
+	if (!$lastGlue or $count < 3 or $lastGlue === $glue) {
+		return implode($glue, $array);
 
-		// Make sure array is flattened
-		if (is_array($result)) {
-			$result = limplode($glue, array_flatten($result), $last);
-		}
+	// Last glue was given
+	} else {
 
-	// Multiple items
-	} else if ($count > 1) {
+		$temp = $array;
+		$lastItem = array_pop($temp);
 
-		// Make sure array is flattened
-		$array = array_flatten($array);
+		// Implode array without last item
+		return implode($glue, $temp).$lastGlue.$lastItem;
 
-		// Iterate through each item
-		foreach ($array as $value) {
-			$count--;
-
-			// Switch glue for last two items
-			if ($count == 1 && is_string($last)) {
-				$glue = $last;
-			} else if ($count == 0) {
-				$glue = '';
-			}
-
-			// Add to return string
-			$result .= $value.$glue;
-		}
 	}
 
-	return $result;
 }
 
 ?>
