@@ -26,6 +26,14 @@ function limplode ($glue = '', $array = array(), $lastGlue = false) {
 	// Last glue was given
 	} else {
 
+		// Allow giving glue and array in reverse order, like implode() does
+		if (is_array($glue)) {
+			$realGlue = $array;
+			$array = $glue;
+			$glue = $realGlue;
+			unset($realGlue);
+		}
+
 		$temp = $array;
 		$lastItem = array_pop($temp);
 

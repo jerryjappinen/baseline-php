@@ -15,16 +15,16 @@
 * @return
 *	...
 */
-function array_flatten ($array, $removeChildren = false, $preserveKeys = false) {
+function array_flatten (array $array, $removeChildren = false, $preserveKeys = false) {
 	$result = array();
 	foreach ($array as $key => $value) {
+
+		// Value isn't child array
 		if (!is_array($value)) {
 
-			// Preseve keys
+			// Preseve keys if possible
 			if ($preserveKeys) {
-
-				// ...but treat overlapping keys right
-				if ($removeChildren or !isset($result[$key])) {
+				if (!isset($result[$key])) {
 					$result[$key] = $value;
 				}
 
@@ -33,9 +33,9 @@ function array_flatten ($array, $removeChildren = false, $preserveKeys = false) 
 				$result[] = $value;
 			}
 
-		// FLatten child arrays if they're kept
+		// Flatten child arrays if they're kept
 		} else if (!$removeChildren) {
-			$result = array_merge($result, array_flatten($value));
+			$result = array_merge($result, array_flatten($value, $removeChildren, $preserveKeys));
 		}
 	}
 	return $result;
