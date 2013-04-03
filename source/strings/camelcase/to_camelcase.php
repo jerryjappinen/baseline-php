@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Convert a string to camelCase 
+* Convert a string to camelCase.
 *
 * @param $subject
 *	String to convert into camelcase.

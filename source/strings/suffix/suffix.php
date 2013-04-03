@@ -13,7 +13,7 @@
 *	Check if suffix exists using case-insensitive comparison.
 *
 * @return
-*	A string that includes $suffix and $subject.
+*	A string that includes $subject and $suffix.
 */
 function suffix ($subject, $suffix = '', $caseInsensitive = false) {
 	$result = $subject;

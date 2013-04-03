@@ -8,11 +8,11 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-04-02 19:00
+* Compiled from source on 2013-04-03 16:38
 */
 
 /**
-* Flattens an array, either with or without the content in child arrays
+* Flatten an array, either keeping or discarding content of child arrays.
 *
 * @param $array
 *	...
@@ -55,7 +55,9 @@ function array_flatten (array $array, $removeChildren = false, $preserveKeys = f
 
 
 /**
-* Find a value from an array based on given keys (basically $subject[ $keys[0] ][ $keys[1] ] ...)
+* Traverse a a multidimensional array based on given keys.
+*
+* I.e. $subject[ $keys[0] ][ $keys[1] ] ...
 *
 * @param $subject
 *	...
@@ -67,7 +69,11 @@ function array_flatten (array $array, $removeChildren = false, $preserveKeys = f
 *	...
 */
 function array_traverse (array $subject, $keys) {
-	$keys = to_array($keys);
+
+	// Accept keys as a single array or multiple independent values
+	$arguments = func_get_args();
+	array_shift($arguments);
+	$keys = array_flatten($arguments);
 
 	// Need to traverse tree
 	if (isset($keys[0])) {
@@ -106,7 +112,7 @@ function array_traverse (array $subject, $keys) {
 * @param $glue
 *	...
 *
-* @param $array
+* @param $pieces
 *	...
 *
 * @param $lastGlue
@@ -115,22 +121,22 @@ function array_traverse (array $subject, $keys) {
 * @return
 *	...
 */
-function limplode ($glue = '', $array = array(), $lastGlue = false) {
+function limplode ($glue = '', $pieces = array(), $lastGlue = false) {
 
 	// Allow giving glue and array in reverse order, like implode() does
 	if (is_array($glue)) {
-		$realGlue = $array;
+		$realGlue = $pieces;
 		$realArray = $glue;
 	} else {
 		$realGlue = $glue;
-		$realArray = $array;
+		$realArray = $pieces;
 	}
 
 	$count = count($realArray);
 
 	// Return implode() if last glue is missing or we have no use for last glue
 	if (!$lastGlue or $count < 3 or $lastGlue === $glue) {
-		return implode($glue, $array);
+		return implode($glue, $pieces);
 
 	// Last glue was given
 	} else {
@@ -150,29 +156,29 @@ function limplode ($glue = '', $array = array(), $lastGlue = false) {
 /**
 * Make sure value is array, convert if needed
 *
-* @param $original
+* @param $value
 *	...
 *
 * @return
-*	An array, with the value of $original if possible.
+*	An array, with the value of $value if possible.
 */
-function to_array ($original) {
+function to_array ($value) {
 
 	// Already an array
-	if (is_array($original)) {
-		$result = $original;
+	if (is_array($value)) {
+		$result = $value;
 
 	// Object
-	} else if (is_object($original)) {
+	} else if (is_object($value)) {
 
 		// Convert to array
-		$original = (array) $original;
+		$value = (array) $value;
 		
-		if (is_array($original)) {
+		if (is_array($value)) {
 
 			// Convert children
 			$result = array();
-			foreach($original as $key => $value) {
+			foreach($value as $key => $value) {
 				if (is_object($value)) {
 					$result[$key] = to_array($value);
 				} else {
@@ -181,12 +187,12 @@ function to_array ($original) {
 			}
 
 		} else {
-			$result = to_array($original);
+			$result = to_array($value);
 		}
 
   	// Default
 	} else {
-		$result = array($original);
+		$result = array($value);
 	}
 
 	return $result;
@@ -573,9 +579,9 @@ function create ($object) {
 
 
 /**
-* Do a calculation with a formula in a string
+* Calculate a formula in a string.
 *
-* @param $string
+* @param $formula
 *	...
 *
 * @param $forceInteger
@@ -584,8 +590,8 @@ function create ($object) {
 * @return
 *	Result of the calculation as an integer or float
 */
-function calculate_string ($string, $forceInteger = false) {
-	$result = trim(preg_replace('/[^0-9\+\-\*\.\/\(\) ]/i', '', $string));
+function calculate_string ($formula, $forceInteger = false) {
+	$result = trim(preg_replace('/[^0-9\+\-\*\.\/\(\) ]/i', '', $formula));
 	$compute = create_function('', 'return ('.(empty($result) ? 0 : $result).');');
 	$result = 0 + $compute();
 	return $forceInteger ? intval($result) : $result;
@@ -594,7 +600,7 @@ function calculate_string ($string, $forceInteger = false) {
 
 
 /**
-* Camelcase to regular text 
+* Turn camelCase into regular text.
 *
 * @param $string
 *	...
@@ -610,7 +616,7 @@ function from_camelcase ($string) {
 
 
 /**
-* Convert a string to camelCase 
+* Convert a string to camelCase.
 *
 * @param $subject
 *	String to convert into camelcase.
@@ -646,7 +652,7 @@ function to_camelcase ($subject, $preserveUppercase = false) {
 
 
 /**
-* Make sure final characters of a string are NOT what they shouldn't to be
+* Make sure final characters of a string are NOT what they shouldn't to be.
 *
 * @param $subject
 *	...
@@ -779,7 +785,7 @@ function end_with ($subject, $suffix = '', $caseInsensitive = false) {
 
 
 /**
-* Check if string ends with a specific suffix
+* Check if string ends with a specific suffix.
 *
 * @param $subject
 *	...
@@ -858,7 +864,7 @@ function prefix ($subject, $prefix = '', $caseInsensitive = false) {
 
 
 /**
-* Check if a string has a prefix
+* Check if a string has a prefix.
 *
 * @param $subject
 *	...
@@ -940,7 +946,7 @@ function unprefix ($subject, $prefix = '', $caseInsensitive = false) {
 
 
 /**
-* Make sure initial characters of a string are NOT what they shouldn't to be
+* Make sure initial characters of a string are NOT what they shouldn't to be.
 *
 * @param $subject
 *	...
@@ -980,7 +986,7 @@ function dont_start_with ($subject, $substring = '', $onlyCheckOnce = false) {
 
 
 /**
-* Make sure initial characters of a string are what they need to be
+* Make sure initial characters of a string are what they need to be.
 *
 * @param $subject
 *	...
@@ -1039,7 +1045,7 @@ function start_with ($subject, $prefix = '', $caseInsensitive = false) {
 
 
 /**
-* Check if string starts with a specific substring
+* Check if string starts with a specific substring.
 *
 * @param $subject
 *	...
@@ -1102,7 +1108,7 @@ function starts_with ($subject, $prefix, $caseInsensitive = false) {
 *	Check if suffix exists using case-insensitive comparison.
 *
 * @return
-*	A string that includes $suffix and $subject.
+*	A string that includes $subject and $suffix.
 */
 function suffix ($subject, $suffix = '', $caseInsensitive = false) {
 	$result = $subject;
@@ -1118,7 +1124,7 @@ function suffix ($subject, $suffix = '', $caseInsensitive = false) {
 
 
 /**
-* Check if a string has a suffix
+* Check if a string has a suffix.
 *
 * @param $subject
 *	...

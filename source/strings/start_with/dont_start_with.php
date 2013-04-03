@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Make sure initial characters of a string are NOT what they shouldn't to be
+* Make sure initial characters of a string are NOT what they shouldn't to be.
 *
 * @param $subject
 *	...

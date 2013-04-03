@@ -1,7 +1,9 @@
 <?php
 
 /**
-* Find a value from an array based on given keys (basically $subject[ $keys[0] ][ $keys[1] ] ...)
+* Traverse a a multidimensional array based on given keys.
+*
+* I.e. $subject[ $keys[0] ][ $keys[1] ] ...
 *
 * @param $subject
 *	...
@@ -13,7 +15,11 @@
 *	...
 */
 function array_traverse (array $subject, $keys) {
-	$keys = to_array($keys);
+
+	// Accept keys as a single array or multiple independent values
+	$arguments = func_get_args();
+	array_shift($arguments);
+	$keys = array_flatten($arguments);
 
 	// Need to traverse tree
 	if (isset($keys[0])) {

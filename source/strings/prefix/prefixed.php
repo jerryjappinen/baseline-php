@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Check if a string has a prefix
+* Check if a string has a prefix.
 *
 * @param $subject
 *	...

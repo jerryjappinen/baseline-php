@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Flattens an array, either with or without the content in child arrays
+* Flatten an array, either keeping or discarding content of child arrays.
 *
 * @param $array
 *	...

@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Camelcase to regular text 
+* Turn camelCase into regular text.
 *
 * @param $string
 *	...

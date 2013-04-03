@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Check if string starts with a specific substring
+* Check if string starts with a specific substring.
 *
 * @param $subject
 *	...

@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Do a calculation with a formula in a string
+* Calculate a formula in a string.
 *
 * @param $formula
 *	...

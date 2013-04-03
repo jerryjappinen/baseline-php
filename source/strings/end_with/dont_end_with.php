@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Make sure final characters of a string are NOT what they shouldn't to be
+* Make sure final characters of a string are NOT what they shouldn't to be.
 *
 * @param $subject
 *	...

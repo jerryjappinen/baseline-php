@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Check if a string has a suffix
+* Check if a string has a suffix.
 *
 * @param $subject
 *	...
