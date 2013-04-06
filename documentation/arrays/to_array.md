@@ -9,39 +9,22 @@ If `$value` is already an array, it will be returned untouched. If `$value` is a
 
 
 
-## I/O examples
+## Examples
 
-<table>
+### Basics
 
-	<tr>
-		<th scope="col">Input</th>
-		<th scope="col">Return value</th>
-		<th scope="col">Notes</th>
-	</tr>
+##### Array input is not touched
+	to_array(array())
+	// Returns array()
 
-	<tr>
-		<td><code>to_array(array())</code></td>
-		<td><code>array()</code></td>
-		<td>Array input is not touched</td>
-	</tr>
+##### Single values become the first (and only) item of the return array
+	to_array('Some string.')
+	// Returns array(0 => 'Some string.')
 
-	<tr>
-		<td><code>to_array('Some string.')</code></td>
-		<td><code>array(0 => 'Some string.')</code></td>
-		<td></td>
-	</tr>
-
-	<tr>
-		<td><code>to_array(200)</code></td>
-		<td><code>array(0 => 200)</code></td>
-		<td></td>
-	</tr>
-
-</table>
+	to_array(200)
+	// Returns array(0 => 200)
 
 
-
-## Real-life examples
 
 ### Normalize function parameters
 
@@ -59,7 +42,7 @@ If `$value` is already an array, it will be returned untouched. If `$value` is a
 
 And this is how we'd use it:
 
-##### Without to_array()
+##### Without `to_array()`
 	$var = 'foo';
 
 	...

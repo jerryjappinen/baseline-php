@@ -11,9 +11,9 @@ This function returns a list of files on the first level of a given directory. F
 
 
 
-## I/O examples
+## Examples
 
-##### Example directory contents
+### Basics
 
 	documentation/about.md
 
@@ -22,47 +22,28 @@ This function returns a list of files on the first level of a given directory. F
 	documentation/arrays/limplode.txt
 	documentation/arrays/to_array.html
 
-<table>
+Assume this sample directory structure for the following examples.
 
-	<tr>
-		<th scope="col">Input</th>
-		<th scope="col">Return value</th>
-		<th scope="col">Notes</th>
-	</tr>
+##### List files
+	glob_files('documentation')
+	// array('about.md')
 
-	<tr>
-		<td><code>glob_files('documentation')</code></td>
-		<td><code>array('about.md')</code></td>
-		<td></td>
-	</tr>
+	glob_files('documentation/arrays/', array('md'))
+	// array('documentation/arrays/array_flatten.md', 'documentation/arrays/array_traverse.md')
+	
+##### File types can be given as independent values
+	glob_files('documentation/arrays/', 'txt', 'html')
+	// array('documentation/arrays/limplode.txt', 'documentation/arrays/to_array.txt')
 
-	<tr>
-		<td><code>glob_files('documentation/arrays/', array('md'))</code></td>
-		<td><code>array('documentation/arrays/array_flatten.md', 'documentation/arrays/array_traverse.md')</code></td>
-		<td></td>
-	</tr>
-
-	<tr>
-		<td><code>glob_files('documentation/arrays/', 'txt', 'html')</code></td>
-		<td><code>array('documentation/arrays/limplode.txt', 'documentation/arrays/to_array.txt')</code></td>
-		<td>File types can be given as independent values.</td>
-	</tr>
-
-	<tr>
-		<td><code>glob_files('documentation/somefolder')</code></td>
-		<td><code>array()</code></td>
-		<td>Non-existing path returns an empty array.</td>
-	</tr>
-
-</table>
+##### Non-existing path returns an empty array
+	glob_files('documentation/somefolder')
+	// array()
 
 
 
-## Real-life examples
+### Comparison to glob()
 
-### Make listing files saner
-
-##### With `glob()`
+##### File listing with `glob()`
 
 	// Assume (only) files have extensions
 	$files = glob('my/folder/*.*');
@@ -75,5 +56,5 @@ This function returns a list of files on the first level of a given directory. F
 		}
 	}
 
-##### With `glob_files()`
+##### File listing with `glob_files()`
 	$files = glob_files('my/folder/');

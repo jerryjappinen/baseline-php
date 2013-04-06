@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Remove a part from the start of a string if it exists.
+* Remove a part of a string from the beginning if it exists.
 *
 * @param $subject
 *	...

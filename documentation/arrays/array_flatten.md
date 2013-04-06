@@ -13,49 +13,35 @@ When `$removeChildren` is set to `true`, all child arrays are removed. When `$pr
 
 
 
-## I/O examples
+## Examples
 
-<table>
+### Basics
 
-	<tr>
-		<th scope="col">Input</th>
-		<th scope="col">Return value</th>
-	</tr>
+##### Flatten a multi-dimensional array
+	array_flatten(array(
+		1,
+		2,
+		array(
+			'a',
+			'b'
+		)
+	))
+	// Returns array(1, 2, 'a', 'b')
 
-	<tr>
-		<td><pre><code>
-array_flatten(array(
-	1,
-	2,
+##### Empty child arrays are discarded
+	array_flatten(array('value', array()))
+	// Returns array('value')
+
+##### Keys are ditched by default
+	array_flatten(array(
+		'a' => 'val 1',
+		'b' => 'val 2',
+		'c' => 'val 3'
+	))
+	/* Returns
 	array(
-		'a',
-		'b'
+		0 => 'val 1',
+		1 => 'val 2',
+		2 => 'val 3'
 	)
-))
-</code></pre></td>
-		<td><code>array(1, 2, 'a', 'b')</code></td>
-	</tr>
-
-	<tr>
-		<td><code>array_flatten(array('value', array()))</code></td>
-		<td><code>array('value')</code></td>
-	</tr>
-
-	<tr>
-<td><pre><code>
-array_flatten(array(
-	'a' => 'val 1',
-	'b' => 'val 2',
-	'c' => 'val 3'
-))
-</code></pre></td>
-		<td><pre><code>
-array(
-	0 => 'val 1',
-	1 => 'val 2',
-	2 => 'val 3'
-)
-</code></pre></td>
-	</tr>
-
-</table>
+	*/

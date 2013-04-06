@@ -8,7 +8,7 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-04-06 16:42
+* Compiled from source on 2013-04-06 22:02
 */
 
 /**
@@ -68,7 +68,7 @@ function array_flatten (array $array, $removeChildren = false, $preserveKeys = f
 * @return
 *	...
 */
-function array_traverse (array $subject, $keys) {
+function array_traverse (array $subject, $keys = array()) {
 
 	// Accept keys as a single array or multiple independent values
 	$arguments = func_get_args();
@@ -242,7 +242,7 @@ function to_boolean ($value) {
 * @return
 *	No return value.
 */
-function debug ($value) {
+function debug () {
 	$arguments = func_get_args();
 	$displayErrors = ini_get('display_errors');
 	ini_set('display_errors', '0');
@@ -277,7 +277,7 @@ function dump () {
 * @return
 *	dump()'d $value wrapped in <pre>, ready to be used in HTML
 */
-function htmlDump () {
+function html_dump () {
 	$arguments = func_get_args();
 	return '<pre>'.call_user_func_array('dump', $arguments).'</pre>';
 }
@@ -435,7 +435,7 @@ function remove_file ($path) {
 
 
 /**
-* Search for directories in a path
+* List all directories within a path.
 *
 * @param $path
 *	...
@@ -530,7 +530,7 @@ function rglob ($path = '', $pattern = '*', $flags = 0) {
 
 
 /**
-* Search for stuff recursively
+* List all directories within a path, recursively.
 *
 * @param $path
 *	...
@@ -549,7 +549,7 @@ function rglob_dir ($path = '') {
 
 
 /**
-* Search for files recursively
+* List all files in a directory, recursively.
 *
 * @param $path
 *	...
@@ -605,11 +605,30 @@ function create ($object) {
 * @return
 *	Result of the calculation as an integer or float
 */
-function calculate_string ($formula, $forceInteger = false) {
+function calculate ($formula, $forceInteger = false) {
 	$result = trim(preg_replace('/[^0-9\+\-\*\.\/\(\) ]/i', '', $formula));
 	$compute = create_function('', 'return ('.(empty($result) ? 0 : $result).');');
 	$result = 0 + $compute();
 	return $forceInteger ? intval($result) : $result;
+}
+
+
+
+/**
+* Trims excess whitespaces, empty lines etc. from a string.
+*
+* @param $subject
+*	...
+*
+* @return
+*	...
+*/
+function trim_text ($subject) {
+	if (is_string($subject)) {
+		return preg_replace('/^ +/', '', preg_replace('/ +/', ' ', preg_replace("/(\r\n){3,}/","\r\n\r\n",trim($subject))));
+	} else {
+		return $subject;
+	}
 }
 
 
@@ -929,7 +948,7 @@ function prefixed ($subject, $prefix, $caseInsensitive = false) {
 
 
 /**
-* Remove a part from the start of a string if it exists.
+* Remove a part of a string from the beginning if it exists.
 *
 * @param $subject
 *	...

@@ -3,7 +3,7 @@
 
 **Traverse a a multidimensional array based on given keys.** [View source](https://bitbucket.org/Eiskis/baseline-php/src/default/source/arrays/array_flatten.php?at=default)
 
-	function array_traverse (array $subject, $keys [, $secondKey ...])
+	function array_traverse (array $subject, $keys = array() [, $secondKey ...])
 
 This function lets you traverse a multidimensional array with provided keys. Keys can be provided as a single array in the second parameter, or as multiple independent parameters.
 
@@ -11,7 +11,9 @@ If a value for the provided keys is not set, `null` is returned.
 
 
 
-## I/O examples
+## Examples
+
+### Basics
 
 	$test = array(
 		'a' => array(
@@ -26,51 +28,30 @@ If a value for the provided keys is not set, `null` is returned.
 		)
 	);
 
-<table>
+We're using this sample array for the these basic examples.
 
-	<tr>
-		<th scope="col">Input</th>
-		<th scope="col">Return value</th>
-		<th scope="col">Notes</th>
-	</tr>
+	// Instead of `$array['a']['b']['c']`, we can write
+	array_traverse($test, array('a', 'b', 'c'))
+	// Returns 'foo'
 
-	<tr>
-		<td><code>array_traverse($test, array('a', 'b', 'c'))</code></td>
-		<td><code>'foo'</code></td>
-		<td>This would be the same as `$array['a']['b']['c']`</td>
-	</tr>
+	// Keys can also be provided as independent parameters
+	array_traverse($test, 'b')
+	// Returns array('bar', 'blah', array())
 
-	<tr>
-		<td><code>array_traverse($test, 'b')</code></td>
-		<td><code>array('bar', 'blah', array())</code></td>
-		<td>Second parameter will be turned into an array automatically</td>
-	</tr>
+	// Numerical keys work as expected
+	array_traverse($test, 'b', 0)
+	// Returns 'bar'
 
-	<tr>
-		<td><code>array_traverse($test, array('b', 0))</code></td>
-		<td><code>'bar'</code></td>
-		<td>Numeric keys work as expected</td>
-	</tr>
+	// If the key is not in the subject array...
+	array_traverse($test, 'b', 0, 0)
+	// Returns null
 
-	<tr>
-		<td><code>array_traverse($test, array('b', 0, 0))</code></td>
-		<td><code>null</code></td>
-		<td></td>
-	</tr>
-
-	<tr>
-		<td><code>array_traverse(array(1, 2, 3), array())</code></td>
-		<td><code>array(1, 2, 3)</code></td>
-		<td></td>
-	</tr>
-
-</table>
+	array_traverse(array(1, 2, 3), array())
+	// Returns array(1, 2, 3)
 
 
 
-## Real-life examples
-
-### Getter methods with traversing
+### Getter methods with optional traversing
 
 When writing getter methods for a class, we can use `array_traverse` to spice getter methods up for any properties that have multidimensional arrays as values. In a CMS, for example, we might have a bunch of categorized pages:
 

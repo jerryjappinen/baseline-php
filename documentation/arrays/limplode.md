@@ -11,51 +11,31 @@ Like with `implode()`, this function accepts `$glue` and `$pieces` in reversed o
 
 
 
-## I/O examples
+## Examples
 
-<table>
+### Basics
 
-	<tr>
-		<th scope="col">Input</th>
-		<th scope="col">Return value</th>
-		<th scope="col">Notes</th>
-	</tr>
+##### Works exactly like `implode()`
+	limplode(', ', array(1, 2, 3))
+	// Returns '1, 2, 3'
 
-	<tr>
-		<td><code>limplode(', ', array(1, 2, 3))</code></td>
-		<td><code>'1, 2, 3'</code></td>
-		<td>Works exactly like `implode()`</td>
-	</tr>
+##### Provide a different last glue
+	limplode(', ', array(1, 2, 3), ' and ')
+	// Returns '1, 2 and 3'
 
-	<tr>
-		<td><code>limplode(', ', array(1, 2, 3), ' and ')</code></td>
-		<td><code>'1, 2 and 3'</code></td>
-		<td></td>
-	</tr>
+##### `$glue` is used over `$lastGlue` when there are not enough array items.
+	limplode(', ', array(1, 2), ' and ')
+	// Returns '1, 2'
 
-	<tr>
-		<td><code>limplode(', ', array(1, 2), ' and ')</code></td>
-		<td><code>'1, 2'</code></td>
-		<td>`$glue` is used over `$lastGlue` when there are not enough array items.</td>
-	</tr>
+##### Reversed parameter order supported.
+	limplode(array(1, 2, 3))
+	// Returns '123'
 
-	<tr>
-		<td><code>limplode(array(1, 2, 3))</code></td>
-		<td><code>'123'</code></td>
-		<td>Reversed parameter order supported.</td>
-	</tr>
-
-	<tr>
-		<td><code>limplode(array(1, 2, 3), ', ', ' and ')</code></td>
-		<td><code>'1, 2 and 3'</code></td>
-		<td>Reversed parameter order supported.</td>
-	</tr>
-
-</table>
+##### Reversed parameter order supported.
+	limplode(array(1, 2, 3), ', ', ' and ')
+	// Returns '1, 2 and 3'
 
 
-
-## Real-life examples
 
 ### Output listings for humans
 

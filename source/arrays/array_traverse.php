@@ -14,7 +14,7 @@
 * @return
 *	...
 */
-function array_traverse (array $subject, $keys) {
+function array_traverse (array $subject, $keys = array()) {
 
 	// Accept keys as a single array or multiple independent values
 	$arguments = func_get_args();

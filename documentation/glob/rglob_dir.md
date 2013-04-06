@@ -7,11 +7,15 @@
 
 ...
 
+**Note!** Unlike for the native `glob()`, `glob_files()` only wants the path of a directory and **not** a glob-style pattern.
 
 
-## I/O examples
 
-##### Example directory contents
+## Examples
+
+### Basics
+
+Assume this sample directory structure for the following examples.
 
 	documentation/about.md
 
@@ -19,27 +23,5 @@
 	documentation/arrays/array_traverse.md
 	documentation/arrays/limplode.txt
 	documentation/arrays/to_array.html
-
-<table>
-
-	<tr>
-		<th scope="col">Input</th>
-		<th scope="col">Return value</th>
-		<th scope="col">Notes</th>
-	</tr>
-
-	<tr>
-		<td><code></code></td>
-		<td><code></code></td>
-		<td></td>
-	</tr>
-
-</table>
-
-
-
-## Real-life examples
-
-### ...
 
 ...

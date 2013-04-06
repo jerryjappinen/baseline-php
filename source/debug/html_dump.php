@@ -9,7 +9,7 @@
 * @return
 *	dump()'d $value wrapped in <pre>, ready to be used in HTML
 */
-function htmlDump () {
+function html_dump () {
 	$arguments = func_get_args();
 	return '<pre>'.call_user_func_array('dump', $arguments).'</pre>';
 }
