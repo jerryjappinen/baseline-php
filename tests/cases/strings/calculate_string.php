@@ -24,6 +24,14 @@ class TestOfCalculateString extends UnitTestCase {
 		$this->assertTrue(is_int($test));
 	}
 
+
+
+	// Errors
+	function test_error_on_array_input () {
+		$this->expectError();
+		calculate_string(array(1, 2, 3));
+	}
+
 }
 
 ?>

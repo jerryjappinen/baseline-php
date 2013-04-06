@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Search for files
+* List files on the first level of a directory.
 *
 * @param $path
 *	...
@@ -15,8 +15,12 @@
 function glob_files ($path = '', $filetypes = array()) {
 	$result = array();
 
+	// Accept file type restrictions as a single array or multiple independent values
+	$arguments = func_get_args();
+	array_shift($arguments);
+	$filetypes = array_flatten($arguments);
+
 	// Handle filetype input
-	$filetypes = array_flatten(to_array($filetypes));
 	if (empty($filetypes)) {
 		$brace = '';
 	} else {
@@ -28,12 +32,16 @@ function glob_files ($path = '', $filetypes = array()) {
 		$path = end_with($path, '/');
 	}
 
+	// Do the glob()
 	foreach (glob($path.'*'.$brace, GLOB_BRACE) as $value) {
 		if (is_file($value)) {
 			$result[] = $value;
 		}
 	}
+
+	// Sort results properly
 	natcasesort($result);
+
 	return $result;
 }
 

@@ -8,7 +8,7 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-04-03 16:38
+* Compiled from source on 2013-04-06 16:27
 */
 
 /**
@@ -302,7 +302,6 @@ function fail ($message, $code = null) {
 
 
 
-
 /**
 * Move directory
 *
@@ -456,7 +455,7 @@ function glob_dir ($path = '') {
 
 
 /**
-* Search for files
+* List files on the first level of a directory.
 *
 * @param $path
 *	...
@@ -470,8 +469,12 @@ function glob_dir ($path = '') {
 function glob_files ($path = '', $filetypes = array()) {
 	$result = array();
 
+	// Accept file type restrictions as a single array or multiple independent values
+	$arguments = func_get_args();
+	array_shift($arguments);
+	$filetypes = array_flatten($arguments);
+
 	// Handle filetype input
-	$filetypes = array_flatten(to_array($filetypes));
 	if (empty($filetypes)) {
 		$brace = '';
 	} else {
@@ -483,12 +486,16 @@ function glob_files ($path = '', $filetypes = array()) {
 		$path = end_with($path, '/');
 	}
 
+	// Do the glob()
 	foreach (glob($path.'*'.$brace, GLOB_BRACE) as $value) {
 		if (is_file($value)) {
 			$result[] = $value;
 		}
 	}
+
+	// Sort results properly
 	natcasesort($result);
+
 	return $result;
 }
 
@@ -608,9 +615,8 @@ function calculate_string ($formula, $forceInteger = false) {
 * @return
 *	...
 */
-// FLAG doesn't really work as expected
 function from_camelcase ($string) {
-	return strtolower(preg_replace('/([^A-Z])([A-Z])/', '$1 $2', $string)); 
+	return trim(mb_strtolower(preg_replace('/(?!\ )([^A-Z])([A-Z])/', '$1 $2', $string))); 
 }
 
 

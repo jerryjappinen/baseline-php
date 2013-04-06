@@ -13,6 +13,8 @@ mb_internal_encoding('UTF-8');
 // Basic variables
 $casePath = 'cases/';
 $simpletestPath = 'simpletest/';
+$testHelpersPath = 'helpers/';
+$sandboxPath = 'temp/';
 
 
 
@@ -28,6 +30,8 @@ if (isset($_GET['suite']) and is_string($_GET['suite'])) {
 			break;
 		}
 	}
+	unset($value);
+
 }
 
 
@@ -36,21 +40,49 @@ if (isset($_GET['suite']) and is_string($_GET['suite'])) {
 $dir = $casePath.implode('/', $suite);
 if (is_dir($dir) or is_file($dir.'.php')) {
 
-	// Load SimpleTest
-	require_once $simpletestPath.'autorun.php';
 
-	// Load Baseline PHP
-	require_once '../baseline.php';
 
-	// Load test cases
-	if (is_dir($dir)) {
-		foreach (rglob_files($dir, 'php') as $path) {
-			require_once $path;
-		}
-	} else if (is_file($dir.'.php')) {
-		require_once $dir.'.php';
+	// Load custom test helpers
+	foreach (glob($testHelpersPath.'/*.php') as $path) {
+		require_once $path;
 	}
 	unset($path);
+
+
+
+	// Run tests
+	try {
+
+		// Prepare a sandbox directory for tests to work with
+		test_helper_prepare_dir($sandboxPath);
+
+		// Load SimpleTest
+		require_once $simpletestPath.'autorun.php';
+
+		// Load Baseline PHP
+		require_once '../baseline.php';
+
+		// Load test cases
+		if (is_dir($dir)) {
+			foreach (test_helper_rglob_files($dir, 'php') as $path) {
+				require_once $path;
+			}
+		} else if (is_file($dir.'.php')) {
+			require_once $dir.'.php';
+		}
+		unset($path);
+
+		// Clear sandbox
+		test_helper_purge_dir($sandboxPath);
+
+
+
+	// Everything went to shit, let's try to recover
+	} catch (Exception $e) {
+		test_helper_purge_dir($sandboxPath);		
+	}
+
+
 
 } else {
 
