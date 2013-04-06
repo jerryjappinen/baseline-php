@@ -3,7 +3,7 @@
 
 **List files on the first level of a directory.** [View source](https://bitbucket.org/Eiskis/baseline-php/src/default/source/glob/glob_files.php?at=default)
 
-	function glob_files ($path = '', $filetypes = array())
+	function glob_files ($path = '', $filetypes = array() [, $secondFiletype ...])
 
 This function returns a list of files on the first level of a given directory. Files can optionally be filtered with one or more file extensions. Files are returned in the same format as with the native `glob()`.
 

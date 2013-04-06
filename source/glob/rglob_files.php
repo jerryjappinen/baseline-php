@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Search for files recursively
+* List all files in a directory, recursively.
 *
 * @param $path
 *	...

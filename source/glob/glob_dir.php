@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Search for directories in a path
+* List all directories within a path.
 *
 * @param $path
 *	...
