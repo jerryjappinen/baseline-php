@@ -13,7 +13,7 @@
 *	...
 */
 function glob_files ($path = '', $filetypes = array()) {
-	$result = array();
+	$files = array();
 
 	// Accept file type restrictions as a single array or multiple independent values
 	$arguments = func_get_args();
@@ -35,14 +35,14 @@ function glob_files ($path = '', $filetypes = array()) {
 	// Do the glob()
 	foreach (glob($path.'*'.$brace, GLOB_BRACE) as $value) {
 		if (is_file($value)) {
-			$result[] = $value;
+			$files[] = $value;
 		}
 	}
 
-	// Sort results properly
-	natcasesort($result);
+	// Sort results
+	usort($files, 'strcasecmp');
 
-	return $result;
+	return $files;
 }
 
 ?>

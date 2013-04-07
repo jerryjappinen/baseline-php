@@ -8,7 +8,7 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-04-06 22:02
+* Compiled from source on 2013-04-06 22:15
 */
 
 /**
@@ -615,7 +615,7 @@ function calculate ($formula, $forceInteger = false) {
 
 
 /**
-* Trims excess whitespaces, empty lines etc. from a string.
+* Trim excess whitespaces, empty lines etc. from a string.
 *
 * @param $subject
 *	...
@@ -625,7 +625,7 @@ function calculate ($formula, $forceInteger = false) {
 */
 function trim_text ($subject) {
 	if (is_string($subject)) {
-		return preg_replace('/^ +/', '', preg_replace('/ +/', ' ', preg_replace("/(\r\n){3,}/","\r\n\r\n",trim($subject))));
+		return preg_replace('/[ \t]+/', ' ', preg_replace('/\s*$^\s*/m', "\n\n", trim($subject)));
 	} else {
 		return $subject;
 	}

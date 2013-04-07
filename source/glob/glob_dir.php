@@ -14,7 +14,10 @@ function glob_dir ($path = '') {
 	foreach ($directories as $key => $value) {
 		$directories[$key] = str_replace('\\', '/', $value);
 	}
-	natcasesort($directories);
+	
+	// Sort results
+	usort($directories, 'strcasecmp');
+
 	return $directories;
 }
 

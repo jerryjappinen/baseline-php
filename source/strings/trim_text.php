@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Trims excess whitespaces, empty lines etc. from a string.
+* Trim excess whitespaces, empty lines etc. from a string.
 *
 * @param $subject
 *	...

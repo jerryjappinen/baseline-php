@@ -9,7 +9,7 @@
 * @return
 *	No return value.
 */
-function debug () {
+function log_dump () {
 	$arguments = func_get_args();
 	$displayErrors = ini_get('display_errors');
 	ini_set('display_errors', '0');
