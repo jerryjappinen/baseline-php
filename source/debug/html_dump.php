@@ -7,11 +7,11 @@
 *	Any objects or values to be passed to dump()
 *
 * @return
-*	dump()'d $value wrapped in <pre>, ready to be used in HTML
+*	dump()'d $value wrapped in <pre> and <code> tags, ready to be used in HTML
 */
 function html_dump () {
 	$arguments = func_get_args();
-	return '<pre>'.call_user_func_array('dump', $arguments).'</pre>';
+	return '<pre><code>'.call_user_func_array('dump', $arguments).'</code></pre>';
 }
 
 ?>

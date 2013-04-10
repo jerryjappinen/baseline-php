@@ -26,6 +26,26 @@ echo '
 				max-width: 65em;
 				margin: 0 auto;
 				font-weight: 200;
+				line-height: 1.6;
+			}
+
+			p {
+				max-width: 50em;
+			}
+
+			ul {
+				list-style: none;
+				padding-left: 0;
+			}
+
+			ul li {
+				float: left;
+				width: 25%;
+				margin-bottom: 0.6em;
+			}
+
+			.clear {
+				clear: both;
 			}
 
 			h1 {
@@ -45,21 +65,6 @@ echo '
 				color: #0080bf;
 			}
 
-			ul {
-				list-style: none;
-				padding-left: 0;
-			}
-
-			ul li {
-				float: left;
-				width: 25%;
-				margin-bottom: 1.0em;
-			}
-
-			.clear {
-				clear: both;
-			}
-
 			@media handheld,only screen and (max-width: 40em) {
 				ul li {
 					width: 50%;
@@ -70,9 +75,9 @@ echo '
 	</head>
 	<body>
 
-		<h1>Welcome to Baseline PHP!</h1>
+		<h1>Baseline PHP</h1>
 
-		<p>Save and include <a href="compile/?dontsave" target="_blank"><code>baseline.php</code></a> in your project to get started. Documentation is available at <a href="http://eiskis.net/baseline-php" target="_blank">eiskis.net/baseline-php</a>.</p>
+		<p>It\'s a set of low-level helpers missing from stock PHP. Save and include <a href="compile/?dontsave" target="_blank"><code>baseline.php</code></a> in your project to get started. Documentation is available at <a href="http://eiskis.net/baseline-php" target="_blank">eiskis.net/baseline-php</a>.</p>
 
 		<h2>Tasks</h2>
 

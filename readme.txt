@@ -38,7 +38,7 @@ TODO
 - starts_with() and ends_with() should work like their counterparts
 - dont_start_with() and dont_end_with() should match their counterparts, removing any parts of substrings
 
-- tests missing for
+- Automated tests missing for
 	- debug/
 		- debug()
 		- dump()
@@ -62,3 +62,4 @@ TODO
 	- strings/
 		- dont_end_with() *
 		- dont_start_with() *
+		- trim_text()
