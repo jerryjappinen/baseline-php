@@ -3,6 +3,7 @@ error_reporting(E_ALL|E_STRICT);
 ini_set('display_errors', '1');
 ini_set('log_errors', '1');
 mb_internal_encoding('UTF-8');
+date_default_timezone_set('UTC');
 
 
 
@@ -80,7 +81,7 @@ $output = '<?php
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on '.date('Y-m-d H:i') .'
+* Compiled from source on '.date('Y-m-d H:i e') .'
 */
 
 '.trim($output).'

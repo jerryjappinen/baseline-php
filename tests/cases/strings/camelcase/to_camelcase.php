@@ -175,14 +175,6 @@ class TestOfToCamelcase extends UnitTestCase {
 		$this->assertTrue(to_camelcase('/()]]>  <[[()\'') === '/()]]><[[()\'');
 	}
 
-
-
-	// Errors
-	function test_error_on_array_input () {
-		$this->expectError();
-		to_camelcase(array(1, 2, 3));
-	}
-
 }
 
 ?>

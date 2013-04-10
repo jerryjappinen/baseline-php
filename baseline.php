@@ -8,7 +8,7 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-04-06 22:15
+* Compiled from source on 2013-04-10 21:41 UTC
 */
 
 /**
@@ -234,25 +234,6 @@ function to_boolean ($value) {
 
 
 /**
-* Silently log a dump()'d object or variable to error log.
-*
-* @param (any number of parameters)
-*	Any objects or values to be passed to dump()
-*
-* @return
-*	No return value.
-*/
-function debug () {
-	$arguments = func_get_args();
-	$displayErrors = ini_get('display_errors');
-	ini_set('display_errors', '0');
-	error_log("\n\n\n".call_user_func_array('dump', $arguments), 0)."\n\n";
-	ini_set('display_errors', $displayErrors);
-}
-
-
-
-/**
 * Dump objects or variables into a (mostly) human-readable format.
 *
 * @param (any number of parameters)
@@ -280,6 +261,25 @@ function dump () {
 function html_dump () {
 	$arguments = func_get_args();
 	return '<pre>'.call_user_func_array('dump', $arguments).'</pre>';
+}
+
+
+
+/**
+* Silently log a dump()'d object or variable to error log.
+*
+* @param (any number of parameters)
+*	Any objects or values to be passed to dump()
+*
+* @return
+*	No return value.
+*/
+function log_dump () {
+	$arguments = func_get_args();
+	$displayErrors = ini_get('display_errors');
+	ini_set('display_errors', '0');
+	error_log("\n\n\n".call_user_func_array('dump', $arguments), 0)."\n\n";
+	ini_set('display_errors', $displayErrors);
 }
 
 
@@ -435,6 +435,60 @@ function remove_file ($path) {
 
 
 /**
+* Run scripts files cleanly (no visible variables left)
+*
+* @param 1
+*   Path to a file
+*
+* @param 2
+*   Array of variables and values to be created for the script
+*
+* @return 
+*   String content of output buffer after the script has run.
+*/
+function run_script () {
+
+	if (is_file(func_get_arg(0))) {
+
+		// Set up variables for the script
+		foreach (func_get_arg(1) as $____key => $____value) {
+			if (is_string($____key)) {
+				${$____key} = $____value;
+			}
+		}
+
+		// Clean up variables
+		if (!array_key_exists('____key', func_get_arg(1))) {
+			unset($____key);
+		}
+		if (!array_key_exists('____value', func_get_arg(1))) {
+			unset($____value);
+		}
+
+		// Run each script
+		ob_start();
+
+		// Include script
+		include func_get_arg(0);
+
+		// Catch output reliably
+		$output = ob_get_contents();
+		if ($output === false) {
+			$output = '';
+		}
+
+		// Clear buffer
+		ob_end_clean();
+
+	}
+
+	// Return any output
+	return $output;
+}
+
+
+
+/**
 * List all directories within a path.
 *
 * @param $path
@@ -448,7 +502,10 @@ function glob_dir ($path = '') {
 	foreach ($directories as $key => $value) {
 		$directories[$key] = str_replace('\\', '/', $value);
 	}
-	natcasesort($directories);
+	
+	// Sort results
+	usort($directories, 'strcasecmp');
+
 	return $directories;
 }
 
@@ -467,7 +524,7 @@ function glob_dir ($path = '') {
 *	...
 */
 function glob_files ($path = '', $filetypes = array()) {
-	$result = array();
+	$files = array();
 
 	// Accept file type restrictions as a single array or multiple independent values
 	$arguments = func_get_args();
@@ -489,14 +546,14 @@ function glob_files ($path = '', $filetypes = array()) {
 	// Do the glob()
 	foreach (glob($path.'*'.$brace, GLOB_BRACE) as $value) {
 		if (is_file($value)) {
-			$result[] = $value;
+			$files[] = $value;
 		}
 	}
 
-	// Sort results properly
-	natcasesort($result);
+	// Sort results
+	usort($files, 'strcasecmp');
 
-	return $result;
+	return $files;
 }
 
 

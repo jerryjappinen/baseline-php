@@ -3,6 +3,7 @@ error_reporting(E_ALL|E_STRICT);
 ini_set('display_errors', '1');
 ini_set('log_errors', '1');
 mb_internal_encoding('UTF-8');
+date_default_timezone_set('UTC');
 
 
 
@@ -18,11 +19,14 @@ echo '
 		<style type="text/css">
 			body {
 				background-color: #fafafa;
-				color: #0d0d0d;
+				color: #333;
 				font-family: sans-serif;
 				padding: 5%;
 				max-width: 50em;
 				margin: 0 auto;
+			}
+			a, a:visited {
+				color: #0080bf;
 			}
 		</style>
 	</head>
@@ -30,22 +34,24 @@ echo '
 
 		<h1>Welcome to Baseline PHP!</h1>
 
-		<p>This is Baseline PHP. Include <a href="scripts/generate-release.php?dontsave">baseline.php</a> in your project or dive deeper:</p>
+		<p>This is Baseline PHP. Include <a href="release/?dontsave">baseline.php</a> in your project or dive deeper:</p>
+
+		<h3>Available functions</h3>
+		<ul>
 		';
 
-
-
-		// Output something using Baseline PHP
+		// Output list based on source files
 		$files = array();
 		foreach (rglob_files('source', 'php') as $file) {
-			$files[] = to_camelcase(dont_end_with(basename($file), '.php')).'()';
+			echo '<li><code>'.to_camelcase(unsuffix(basename($file), '.php')).'()</code></li>';
 		}
-		echo htmlDump($files);
 
 
 
 		echo '
-		<p>Web site + documentation available at <del><a href="#">eiskis.net/baselinephp</a></del>.</p>
+		</ul>
+
+		<p>Web site + documentation available at <a href="#">eiskis.net/baselinephp</a>.</p>
 
 		<p>Run automated tests with <a href="tests/">tests/</a>.</p>
 

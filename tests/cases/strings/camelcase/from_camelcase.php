@@ -36,12 +36,6 @@ class TestOfFromCamelcase extends UnitTestCase {
 		$this->assertTrue(from_camelcase('/()]]>barFoo<[[()\'') === '/()]]>bar foo<[[()\'');
 	}
 
-	// Errors
-	function test_error_on_array_input () {
-		$this->expectError();
-		from_camelcase(array(1, 2, 3));
-	}
-
 }
 
 ?>

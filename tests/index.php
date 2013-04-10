@@ -3,6 +3,7 @@ error_reporting(E_ALL|E_STRICT);
 ini_set('display_errors', '1');
 ini_set('log_errors', '1');
 mb_internal_encoding('UTF-8');
+date_default_timezone_set('UTC');
 
 
 

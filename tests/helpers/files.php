@@ -23,7 +23,7 @@ function test_helper_purge_dir ($path) {
 		foreach ($scan as $value) {
 			if ($value != '.' && $value != '..') {
 				if (filetype($path.'/'.$value) == 'dir') {
-					remove_dir($path.'/'.$value);
+					test_helper_purge_dir($path.'/'.$value);
 				} else {
 					unlink($path.'/'.$value);
 				}
