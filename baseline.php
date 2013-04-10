@@ -8,7 +8,7 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-04-10 21:41 UTC
+* Compiled from source on 2013-04-10 21:53 UTC
 */
 
 /**
@@ -343,7 +343,6 @@ function move_dir ($path, $newLocation) {
 
 
 
-
 /**
 * Move one file
 *
@@ -375,7 +374,6 @@ function move_file ($path, $newLocation) {
 
 	return false;
 }
-
 
 
 
@@ -411,7 +409,6 @@ function remove_dir ($path) {
 
 	return false;
 }
-
 
 
 
@@ -644,7 +641,7 @@ function rglob_files ($path = '', $filetypes = array()) {
 * @return
 *	...
 */
-function create ($object) {
+function create_object ($object) {
 	return $object;
 }
 
@@ -795,21 +792,6 @@ function dont_end_with ($subject, $suffix = '', $caseInsensitive = false) {
 
 	return $result;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -50,6 +50,7 @@ TODO
 		- move_file()
 		- remove_dir()
 		- remove_file()
+		- run_script()
 	- glob/
 		- glob_dir()
 		- glob_files()
@@ -57,7 +58,7 @@ TODO
 		- rglob_dir()
 		- rglob_files()
 	- objects/
-		- create()
+		- create_object()
 	- strings/
 		- dont_end_with() *
 		- dont_start_with() *

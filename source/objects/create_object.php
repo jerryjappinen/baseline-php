@@ -9,7 +9,7 @@
 * @return
 *	...
 */
-function create ($object) {
+function create_object ($object) {
 	return $object;
 }
 

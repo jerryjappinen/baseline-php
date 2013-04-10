@@ -1,6 +1,5 @@
 <?php
 
-
 /**
 * Remove a complete directory, including its contents
 *

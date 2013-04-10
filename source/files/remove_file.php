@@ -1,6 +1,5 @@
 <?php
 
-
 /**
 * Remove one file
 *

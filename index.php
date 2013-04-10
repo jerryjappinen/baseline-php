@@ -17,46 +17,85 @@ echo '
 	<head>
 		<title>Baseline PHP</title>
 		<style type="text/css">
+
 			body {
 				background-color: #fafafa;
-				color: #333;
+				color: #373f45;
 				font-family: sans-serif;
-				padding: 5%;
-				max-width: 50em;
+				padding: 5% 5% 8em 5%;
+				max-width: 65em;
 				margin: 0 auto;
+				font-weight: 200;
 			}
+
+			h1 {
+				font-weight: 100;
+			}
+
+			h2, h3, h4 {
+				font-weight: 200;
+				margin-top: 2em;
+			}
+
+			code {
+				font-size: 1.1em;
+			}
+
 			a, a:visited {
 				color: #0080bf;
 			}
+
+			ul {
+				list-style: none;
+				padding-left: 0;
+			}
+
+			ul li {
+				float: left;
+				width: 25%;
+				margin-bottom: 1.0em;
+			}
+
+			.clear {
+				clear: both;
+			}
+
+			@media handheld,only screen and (max-width: 40em) {
+				ul li {
+					width: 50%;
+				}
+			}
+
 		</style>
 	</head>
 	<body>
 
 		<h1>Welcome to Baseline PHP!</h1>
 
-		<p>This is Baseline PHP. Include <a href="release/?dontsave">baseline.php</a> in your project or dive deeper:</p>
+		<p>Save and include <a href="compile/?dontsave" target="_blank"><code>baseline.php</code></a> in your project to get started. Documentation is available at <a href="http://eiskis.net/baseline-php" target="_blank">eiskis.net/baseline-php</a>.</p>
 
-		<h3>Available functions</h3>
+		<h2>Tasks</h2>
+
+		<p>Automated tests can be run at <a href="tests/" target="_blank">tests/</a>. You can also <a href="compile/" target="_blank">compile/</a> baseline.php from the source files.</p>
+
+		<h2>Available functions</h2>
 		<ul>
 		';
 
 		// Output list based on source files
-		$files = array();
-		foreach (rglob_files('source', 'php') as $file) {
-			echo '<li><code>'.to_camelcase(unsuffix(basename($file), '.php')).'()</code></li>';
+		$files = rglob_files('source', 'php');
+		foreach ($files as $key => $value) {
+			$files[$key] = unsuffix(basename($value));
 		}
-
-
+		sort($files);
+		foreach ($files as $file) {
+			echo '<li><code>'.unsuffix(basename($file), '.php').'()</code></li>';
+		}
 
 		echo '
 		</ul>
 
-		<p>Web site + documentation available at <a href="#">eiskis.net/baselinephp</a>.</p>
-
-		<p>Run automated tests with <a href="tests/">tests/</a>.</p>
-
-		<p>There are some scripts under <a href="scripts/">scripts/</a> for repeated tasks like generating a single distributable file from the source files.</p>
-
+		<div class="clear"></div>
 	</body>
 </html>
 ';

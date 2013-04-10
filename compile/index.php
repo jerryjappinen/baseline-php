@@ -64,7 +64,7 @@ foreach (findSourceFilesRecursively($sourcePath) as $file) {
 		$fileContents = substr($fileContents, 0, strlen($fileContents)-$suffixLength);
 	}
 
-	$output .= $fileContents;
+	$output .= "\n\n".trim($fileContents)."\n\n";
 	unset($fileContents);
 }
 
@@ -100,12 +100,12 @@ if (!isset($_GET['dontsave']) and in_array($_SERVER['SERVER_ADDR'], array('127.0
 		// Save output
 		file_put_contents($exportPath, $output);
 
-		// Re-read output back to make sure things went smoothly
+		// Re-read output back to make sure we get an accurate reflection of what was saved
 		$output = '';
 		$output = file_get_contents($exportPath);
 
 	} else {
-		throw new Exception('Cannot write to exposrt directory', 500);
+		throw new Exception('Cannot write to export directory', 500);
 	}
 
 
