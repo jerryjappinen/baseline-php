@@ -1,5 +1,5 @@
 
-Baseline PHP 0.1
+Baseline.php 0.1
 ================
 
 - Web site & docs
@@ -17,11 +17,11 @@ Baseline PHP 0.1
 Usage
 -----
 
-Simply include all Baseline PHP in the beginning of your PHP script:
+Simply include all Baseline.php in the beginning of your PHP script:
 
 	require_once 'baseline.php';
 
-You can now use Baseline PHP's functions in the script.
+You can now use Baseline.php's functions in the script.
 
 
 

@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Baseline PHP 0.1
+* Baseline.php 0.1
 *
 * Released under LGPL
 * Authored by Jerry Jäppinen

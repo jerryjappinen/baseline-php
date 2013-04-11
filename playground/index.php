@@ -7,7 +7,7 @@ mb_internal_encoding('UTF-8');
 
 
 /**
-* Try out misc. stuff with Baseline PHP functions
+* Try out misc. stuff with Baseline.php
 */
 
 // Used for loading source files
@@ -55,7 +55,7 @@ header('Content-Type: text/html; charset=utf-8');
 echo '
 <html>
 	<head>
-		<title>Baseline PHP</title>
+		<title>Baseline.php</title>
 		<link rel="stylesheet" href="prism.css" media="screen">
 		<style type="text/css">
 
@@ -84,7 +84,7 @@ echo '
 	</head>
 	<body class="language-javascript">
 
-		<h1>Baseline PHP</h1>
+		<h1>Baseline.php</h1>
 
 		'.html_dump($dump).'
 

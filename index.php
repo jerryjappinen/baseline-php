@@ -7,7 +7,7 @@ date_default_timezone_set('UTC');
 
 
 
-// Load Baseline PHP
+// Load Baseline.php
 require_once 'baseline.php';
 
 // Print welcome page
@@ -15,7 +15,7 @@ header('Content-Type: text/html; charset=utf-8');
 echo '
 <html>
 	<head>
-		<title>Baseline PHP</title>
+		<title>Baseline.php</title>
 		<style type="text/css">
 
 			body {
@@ -75,7 +75,7 @@ echo '
 	</head>
 	<body>
 
-		<h1>Baseline PHP</h1>
+		<h1>Baseline.php</h1>
 
 		<p>It\'s a set of low-level helpers missing from stock PHP. Save and include <a href="compile/?dontsave" target="_blank"><code>baseline.php</code></a> in your project to get started. Documentation is available at <a href="http://eiskis.net/baseline-php" target="_blank">eiskis.net/baseline-php</a>.</p>
 

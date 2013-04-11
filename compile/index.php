@@ -74,7 +74,7 @@ $title = substr($readme, 0, strpos($readme, "\n"));
 $output = '<?php
 
 /**
-* '.(stripos($title, 'baseline') === false ? 'Baseline PHP' : $title).'
+* '.(stripos($title, 'baseline') === false ? 'Baseline.php' : $title).'
 *
 * Released under LGPL
 * Authored by Jerry Jäppinen
