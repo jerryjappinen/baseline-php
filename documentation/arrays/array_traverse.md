@@ -53,13 +53,17 @@ We're using this sample array for the these basic examples.
 
 ### Getter methods with optional traversing
 
-When writing getter methods for a class, we can use `array_traverse` to spice getter methods up for any properties that have multidimensional arrays as values. In a CMS, for example, we might have a bunch of categorized pages:
+When writing getter methods for a class, we can use `array_traverse` to spice them up when getting multidimensional arrays. In a CMS, for example, we might have a bunch of categorized pages:
 
 ##### MyCMS.php
 
-	public function getPages() {
-		$arguments = function_get_args();
-		return array_traverse($this->pages, $arguments);
+	class MyCMS {
+
+		public function getPages() {
+			$arguments = function_get_args();
+			return array_traverse($this->pages, $arguments);
+		}
+
 	}
 
 ##### Another script

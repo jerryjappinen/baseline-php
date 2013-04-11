@@ -62,4 +62,3 @@ TODO
 	- strings/
 		- dont_end_with() *
 		- dont_start_with() *
-		- trim_text()
