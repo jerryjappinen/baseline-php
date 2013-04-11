@@ -8,7 +8,7 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-04-10 21:53 UTC
+* Compiled from source on 2013-04-11 08:30 UTC
 */
 
 /**
@@ -256,11 +256,11 @@ function dump () {
 *	Any objects or values to be passed to dump()
 *
 * @return
-*	dump()'d $value wrapped in <pre>, ready to be used in HTML
+*	dump()'d $value wrapped in <pre> and <code> tags, ready to be used in HTML
 */
 function html_dump () {
 	$arguments = func_get_args();
-	return '<pre>'.call_user_func_array('dump', $arguments).'</pre>';
+	return '<pre><code>'.call_user_func_array('dump', $arguments).'</code></pre>';
 }
 
 
@@ -445,7 +445,9 @@ function remove_file ($path) {
 */
 function run_script () {
 
-	if (is_file(func_get_arg(0))) {
+	$script = func_get_arg(0);
+	if (is_file($script)) {
+		unset($script);
 
 		// Set up variables for the script
 		foreach (func_get_arg(1) as $____key => $____value) {
@@ -455,12 +457,15 @@ function run_script () {
 		}
 
 		// Clean up variables
-		if (!array_key_exists('____key', func_get_arg(1))) {
+		// FLAG It's possibly for these to confuse the parameters provided as input in extremely rare circumstances
+		$____params = func_get_arg(1);
+		if (!array_key_exists('____key', $____params)) {
 			unset($____key);
 		}
-		if (!array_key_exists('____value', func_get_arg(1))) {
+		if (!array_key_exists('____value', $____params)) {
 			unset($____value);
 		}
+		unset($____params);
 
 		// Run each script
 		ob_start();
