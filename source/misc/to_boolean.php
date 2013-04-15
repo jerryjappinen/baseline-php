@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Convert an object or variable into boolean
+* Convert an object or variable into boolean.
 *
 * @param $value
 *	Any object or variable whose value is used for interpretation

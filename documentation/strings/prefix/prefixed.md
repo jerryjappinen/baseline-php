@@ -1,7 +1,7 @@
 
 # prefixed
 
-**Check if a string has a prefix.** [View source](https://bitbucket.org/Eiskis/baseline-php/src/default/source/strings/prefix/prefixed.php?at=default)
+**Check if a string has a prefix.** [View source](https://bitbucket.org/Eiskis/baseline.php/src/default/source/strings/prefix/prefixed.php?at=default)
 
 	function prefixed ($subject, $prefix, $caseInsensitive = false)
 

@@ -1,7 +1,7 @@
 
 # log_dump
 
-**Silently log a `dump()`'d object or variable to error log.** [View source](https://bitbucket.org/Eiskis/baseline-php/src/default/source/debug/log_dump.php?at=default)
+**Silently log a `dump()`'d object or variable to error log.** [View source](https://bitbucket.org/Eiskis/baseline.php/src/default/source/debug/log_dump.php?at=default)
 
 	function log_dump ($value [, $anotherValue])
 

@@ -1,7 +1,7 @@
 
 # calculate
 
-**Calculate a formula in a string.** [View source](https://bitbucket.org/Eiskis/baseline-php/src/default/source/strings/calculate.php?at=default)
+**Calculate a formula in a string.** [View source](https://bitbucket.org/Eiskis/baseline.php/src/default/source/strings/calculate.php?at=default)
 
 	function calculate ($formula = '', $forceInteger = false)
 

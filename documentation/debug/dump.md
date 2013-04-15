@@ -1,7 +1,7 @@
 
 # dump
 
-**Dump objects or variables into a (mostly) human-readable format.** [View source](https://bitbucket.org/Eiskis/baseline-php/src/default/source/debug/dump.php?at=default)
+**Dump objects or variables into a (mostly) human-readable format.** [View source](https://bitbucket.org/Eiskis/baseline.php/src/default/source/debug/dump.php?at=default)
 
 	function dump ($value [, $anotherValue])
 

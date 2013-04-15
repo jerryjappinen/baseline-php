@@ -1,7 +1,7 @@
 
 # rglob_files
 
-**List all files in a directory, recursively.** [View source](https://bitbucket.org/Eiskis/baseline-php/src/default/source/glob/rglob_files.php?at=default)
+**List all files in a directory, recursively.** [View source](https://bitbucket.org/Eiskis/baseline.php/src/default/source/glob/rglob_files.php?at=default)
 
 	function rglob_files ($path = '', $filetypes = array() [, $secondFiletype ...])
 

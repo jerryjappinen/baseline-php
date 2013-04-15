@@ -1,7 +1,7 @@
 
 # array_traverse
 
-**Traverse a a multidimensional array based on given keys.** [View source](https://bitbucket.org/Eiskis/baseline-php/src/default/source/arrays/array_flatten.php?at=default)
+**Traverse a a multidimensional array based on given keys.** [View source](https://bitbucket.org/Eiskis/baseline.php/src/default/source/arrays/array_flatten.php?at=default)
 
 	function array_traverse (array $subject, $keys = array() [, $secondKey ...])
 

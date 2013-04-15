@@ -1,7 +1,7 @@
 
 # glob_files
 
-**List files on the first level of a directory.** [View source](https://bitbucket.org/Eiskis/baseline-php/src/default/source/glob/glob_files.php?at=default)
+**List files on the first level of a directory.** [View source](https://bitbucket.org/Eiskis/baseline.php/src/default/source/glob/glob_files.php?at=default)
 
 	function glob_files ($path = '', $filetypes = array() [, $secondFiletype ...])
 

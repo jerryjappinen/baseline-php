@@ -1,7 +1,7 @@
 
 # to_camelcase
 
-**Convert a string to camelCase.** [View source](https://bitbucket.org/Eiskis/baseline-php/src/default/source/strings/to_camelcase.php?at=default)
+**Convert a string to camelCase.** [View source](https://bitbucket.org/Eiskis/baseline.php/src/default/source/strings/to_camelcase.php?at=default)
 
 	function to_camelcase ($subject, $preserveUppercase = false)
 

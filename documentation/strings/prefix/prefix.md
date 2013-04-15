@@ -1,7 +1,7 @@
 
 # prefix
 
-**Add a prefix to string if needed.** [View source](https://bitbucket.org/Eiskis/baseline-php/src/default/source/strings/prefix/prefix.php?at=default)
+**Add a prefix to string if needed.** [View source](https://bitbucket.org/Eiskis/baseline.php/src/default/source/strings/prefix/prefix.php?at=default)
 
 	function prefix ($subject, $prefix = '', $caseInsensitive = false)
 

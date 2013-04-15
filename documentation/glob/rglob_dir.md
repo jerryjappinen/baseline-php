@@ -1,7 +1,7 @@
 
 # rglob_dir
 
-**List all directories within a path, recursively.** [View source](https://bitbucket.org/Eiskis/baseline-php/src/default/source/glob/rglob_dir.php?at=default)
+**List all directories within a path, recursively.** [View source](https://bitbucket.org/Eiskis/baseline.php/src/default/source/glob/rglob_dir.php?at=default)
 
 	function rglob_dir ($path = '')
 

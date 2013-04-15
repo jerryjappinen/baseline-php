@@ -1,7 +1,7 @@
 
 # trim_text
 
-**Trim excess whitespaces, empty lines etc. from a string.** [View source](https://bitbucket.org/Eiskis/baseline-php/src/default/source/strings/trim_text.php?at=default)
+**Trim excess whitespaces, empty lines etc. from a string.** [View source](https://bitbucket.org/Eiskis/baseline.php/src/default/source/strings/trim_text.php?at=default)
 
 	function trim_text ($subject)
 

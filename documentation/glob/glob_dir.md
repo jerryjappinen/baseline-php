@@ -1,7 +1,7 @@
 
 # glob_dir
 
-**List all directories within a path.** [View source](https://bitbucket.org/Eiskis/baseline-php/src/default/source/glob/glob_dir.php?at=default)
+**List all directories within a path.** [View source](https://bitbucket.org/Eiskis/baseline.php/src/default/source/glob/glob_dir.php?at=default)
 
 	function glob_dir ($path = '')
 
