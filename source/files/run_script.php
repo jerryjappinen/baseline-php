@@ -1,13 +1,13 @@
 <?php
 
 /**
-* Run scripts files cleanly (no visible variables left)
+* Run a script file cleanly (no visible variables left around).
 *
 * @param 1
-*   Path to a file
+*   Path to a file.
 *
 * @param 2
-*   Array of variables and values to be created for the script
+*   Array of variables and values to be created for the script.
 *
 * @return 
 *   String content of output buffer after the script has run.

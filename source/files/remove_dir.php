@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Remove a complete directory, including its contents
+* Remove a directory completely, including its contents
 *
 * @param $path
 *	...
