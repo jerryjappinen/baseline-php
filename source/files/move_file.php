@@ -15,7 +15,7 @@
 function move_file ($path, $newLocation) {
 
 	if (is_file($path) and is_writable($path)) {
-		$newLocation = end_with($newLocation, '/');
+		$newLocation = suffix($newLocation, '/');
 
 		// Create the new directory if needed
 		if (!is_dir($newLocation)) {

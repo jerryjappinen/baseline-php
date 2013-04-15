@@ -13,11 +13,11 @@
 *	...
 */
 function move_dir ($path, $newLocation) {
-	$path = end_with($path, '/');
+	$path = suffix($path, '/');
 
 	// Make sure we can work with the directory
 	if (is_dir($path) and is_writable($path)) {
-		$newLocation = end_with($newLocation, '/');
+		$newLocation = suffix($newLocation, '/');
 
 		// Create the new directory if it doesn't exist yet
 		if (!is_dir($newLocation)) {
@@ -28,7 +28,7 @@ function move_dir ($path, $newLocation) {
 
 		// Move files individually
 		foreach (rglob_files($path) as $filepath) {
-			move_file($filepath, pathinfo($newLocation.dont_start_with($filepath, $path), PATHINFO_DIRNAME));
+			move_file($filepath, pathinfo($newLocation.unprefix($filepath, $path), PATHINFO_DIRNAME));
 		}
 
 		// Remove previous, now empty directories

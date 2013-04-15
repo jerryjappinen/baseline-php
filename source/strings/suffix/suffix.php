@@ -19,7 +19,7 @@ function suffix ($subject, $suffix = '', $caseInsensitive = false) {
 	$result = $subject;
 
 	// suffix if needed
-	if (!empty($suffix) and !ends_with($subject, $suffix, $caseInsensitive)) {
+	if (!empty($suffix) and !suffixed($subject, $suffix, $caseInsensitive)) {
 		$result = $subject.$suffix;
 	}
 

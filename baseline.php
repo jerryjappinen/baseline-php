@@ -8,7 +8,7 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-04-15 14:54 UTC
+* Compiled from source on 2013-04-15 14:59 UTC
 */
 
 /**
@@ -297,11 +297,11 @@ function log_dump () {
 *	...
 */
 function move_dir ($path, $newLocation) {
-	$path = end_with($path, '/');
+	$path = suffix($path, '/');
 
 	// Make sure we can work with the directory
 	if (is_dir($path) and is_writable($path)) {
-		$newLocation = end_with($newLocation, '/');
+		$newLocation = suffix($newLocation, '/');
 
 		// Create the new directory if it doesn't exist yet
 		if (!is_dir($newLocation)) {
@@ -312,7 +312,7 @@ function move_dir ($path, $newLocation) {
 
 		// Move files individually
 		foreach (rglob_files($path) as $filepath) {
-			move_file($filepath, pathinfo($newLocation.dont_start_with($filepath, $path), PATHINFO_DIRNAME));
+			move_file($filepath, pathinfo($newLocation.unprefix($filepath, $path), PATHINFO_DIRNAME));
 		}
 
 		// Remove previous, now empty directories
@@ -340,7 +340,7 @@ function move_dir ($path, $newLocation) {
 function move_file ($path, $newLocation) {
 
 	if (is_file($path) and is_writable($path)) {
-		$newLocation = end_with($newLocation, '/');
+		$newLocation = suffix($newLocation, '/');
 
 		// Create the new directory if needed
 		if (!is_dir($newLocation)) {
@@ -482,7 +482,7 @@ function run_script () {
 *	...
 */
 function glob_dir ($path = '') {
-	$directories = glob(end_with($path, '/').'*', GLOB_MARK | GLOB_ONLYDIR);
+	$directories = glob(suffix($path, '/').'*', GLOB_MARK | GLOB_ONLYDIR);
 	foreach ($directories as $key => $value) {
 		$directories[$key] = str_replace('\\', '/', $value);
 	}
@@ -524,7 +524,7 @@ function glob_files ($path = '', $filetypes = array()) {
 
 	// Handle path input
 	if (!empty($path)) {
-		$path = end_with($path, '/');
+		$path = suffix($path, '/');
 	}
 
 	// Do the glob()
@@ -559,7 +559,7 @@ function glob_files ($path = '', $filetypes = array()) {
 */
 function rglob ($path = '', $pattern = '*', $flags = 0) {
 	$directories = glob_dir($path);
-	$files = glob(end_with($path, '/').$pattern, $flags);
+	$files = glob(suffix($path, '/').$pattern, $flags);
 	
 	foreach ($directories as $path) {
 		$files = array_merge($files, rglob($path, $pattern, $flags));
@@ -872,7 +872,7 @@ function suffix ($subject, $suffix = '', $caseInsensitive = false) {
 	$result = $subject;
 
 	// suffix if needed
-	if (!empty($suffix) and !ends_with($subject, $suffix, $caseInsensitive)) {
+	if (!empty($suffix) and !suffixed($subject, $suffix, $caseInsensitive)) {
 		$result = $subject.$suffix;
 	}
 
@@ -950,7 +950,7 @@ function suffixed ($subject, $suffix, $caseInsensitive = false) {
 function unsuffix ($subject, $suffix = '', $caseInsensitive = false) {
 
 	// No need to do anything
-	if (empty($suffix) or !ends_with($subject, $suffix, $caseInsensitive)) {
+	if (empty($suffix) or !suffixed($subject, $suffix, $caseInsensitive)) {
 		$result = $subject;
 
 	// Cut the suffix out
