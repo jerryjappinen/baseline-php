@@ -7,7 +7,7 @@ Baseline.php 0.1
 - Source & issues
 	- http://bitbucket.org/Eiskis/baseline-php/
 - By Jerry Jäppinen
-	- Released under LGPL
+	- Released under MIT License
 	- eiskis@gmail.com
 	- http://eiskis.net/
 	- @Eiskis

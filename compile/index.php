@@ -76,7 +76,7 @@ $output = '<?php
 /**
 * '.(stripos($title, 'baseline') === false ? 'Baseline.php' : $title).'
 *
-* Released under LGPL
+* Released under MIT License
 * Authored by Jerry Jäppinen
 * http://eiskis.net/
 * eiskis@gmail.com

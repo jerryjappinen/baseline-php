@@ -3,12 +3,12 @@
 /**
 * Baseline.php 0.1
 *
-* Released under LGPL
+* Released under MIT License
 * Authored by Jerry Jäppinen
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-04-15 11:18 UTC
+* Compiled from source on 2013-04-15 14:50 UTC
 */
 
 /**
@@ -378,7 +378,7 @@ function move_file ($path, $newLocation) {
 
 
 /**
-* Remove a complete directory, including its contents
+* Remove a directory completely, including its contents
 *
 * @param $path
 *	...
@@ -432,13 +432,13 @@ function remove_file ($path) {
 
 
 /**
-* Run scripts files cleanly (no visible variables left)
+* Run a script file cleanly (no visible variables left around).
 *
 * @param 1
-*   Path to a file
+*   Path to a file.
 *
 * @param 2
-*   Array of variables and values to be created for the script
+*   Array of variables and values to be created for the script.
 *
 * @return 
 *   String content of output buffer after the script has run.
