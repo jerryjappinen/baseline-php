@@ -26,18 +26,18 @@ Assume this sample directory structure for the following examples.
 
 ##### List files
 	glob_files('documentation')
-	// array('about.md')
+	// Returns array('about.md')
 
 	glob_files('documentation/arrays/', array('md'))
-	// array('documentation/arrays/array_flatten.md', 'documentation/arrays/array_traverse.md')
+	// Returns array('documentation/arrays/array_flatten.md', 'documentation/arrays/array_traverse.md')
 	
 ##### File types can be given as independent values
 	glob_files('documentation/arrays/', 'txt', 'html')
-	// array('documentation/arrays/limplode.txt', 'documentation/arrays/to_array.txt')
+	// Returns array('documentation/arrays/limplode.txt', 'documentation/arrays/to_array.txt')
 
 ##### Non-existing path returns an empty array
 	glob_files('documentation/somefolder')
-	// array()
+	// Returns array()
 
 
 
