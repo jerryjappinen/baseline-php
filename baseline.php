@@ -8,7 +8,7 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-04-15 14:50 UTC
+* Compiled from source on 2013-04-15 14:54 UTC
 */
 
 /**
@@ -280,24 +280,6 @@ function log_dump () {
 	ini_set('display_errors', '0');
 	error_log("\n\n\n".call_user_func_array('dump', $arguments), 0)."\n\n";
 	ini_set('display_errors', $displayErrors);
-}
-
-
-
-/**
-* Shorthand for throwing an error.
-*
-* @param $message
-*	...
-*
-* @param $code
-*	...
-*
-* @return
-*	...
-*/
-function fail ($message, $code = null) {
-	throw new Exception($message, isset($code) ? $code : 500);
 }
 
 
@@ -648,6 +630,24 @@ function rglob_files ($path = '', $filetypes = array()) {
 */
 function create_object ($object) {
 	return $object;
+}
+
+
+
+/**
+* Shorthand for throwing an error.
+*
+* @param $message
+*	...
+*
+* @param $code
+*	...
+*
+* @return
+*	...
+*/
+function fail ($message, $code = null) {
+	throw new Exception($message, isset($code) ? $code : 500);
 }
 
 
