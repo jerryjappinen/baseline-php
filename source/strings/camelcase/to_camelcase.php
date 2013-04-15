@@ -4,10 +4,10 @@
 * Convert a string to camelCase.
 *
 * @param $subject
-*	String to convert into camelcase.
+*	String to convert.
 *
 * @param $preserveUpperCase
-*	When se to true, all existing uppercase characters are left untouched, including the first character of the string. Normally consecutive uppercase letters are downcased and the result string always begins with a lowercase letter.
+*	When set to true, all existing uppercase characters are left untouched, including the first character of the string. Normally consecutive uppercase letters are downcased and the result string always begins with a lowercase letter.
 *
 * @return
 *	A string with no spaces, dashes or underscores. Each word in the subject string now begins with a capitalized letter.

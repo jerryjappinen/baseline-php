@@ -3,10 +3,9 @@
 
 **Trim excess whitespaces, empty lines etc. from a string.** [View source](https://bitbucket.org/Eiskis/baseline-php/src/default/source/strings/trim_text.php?at=default)
 
-	function trim_text ($string)
+	function trim_text ($subject)
 
-
-This function accepts a mathematical formula as a string, calculates the result and returns it. When `$forceInteger` is set to `true`, the return value will be rounded to an integer if it would otherwise be a float value.
+This function returns the subject string with no spaces, dashes or underscores. Each word in the subject string now begins with a capitalized letter.
 
 
 
@@ -18,7 +17,7 @@ This function accepts a mathematical formula as a string, calculates the result 
 	trim_text('
 
 
-		This is my favorite M  O  V  I   E!!
+				This is my favorite M  O  V  I   E!!
 
 
 

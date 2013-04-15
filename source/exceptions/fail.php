@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Shorthand error throwing
+* Shorthand for throwing an error.
 *
 * @param $message
 *	...

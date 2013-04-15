@@ -1,7 +1,7 @@
 
 # Baseline.php
 
-PHP helper set for usefult things missing from the core language. Tested on PHP 5.2 and up. Authored by Jerry Jäppinen ([eiskis@gmail.com](mailto:eiskis@gmail.com), [eiskis.net](http://eiskis.net/)), released under LGPL.
+PHP helper set for useful things missing from the core language. Tested on PHP 5.2 and up. Authored by Jerry Jäppinen ([eiskis@gmail.com](mailto:eiskis@gmail.com), [eiskis.net](http://eiskis.net/)), released under LGPL.
 
 
 

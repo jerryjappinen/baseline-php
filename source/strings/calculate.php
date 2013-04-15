@@ -10,7 +10,7 @@
 *	...
 *
 * @return
-*	Result of the calculation as an integer or float
+*	Result of the calculation as an integer or float.
 */
 function calculate ($formula, $forceInteger = false) {
 	$result = trim(preg_replace('/[^0-9\+\-\*\.\/\(\) ]/i', '', $formula));
