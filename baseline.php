@@ -8,7 +8,7 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-04-11 08:30 UTC
+* Compiled from source on 2013-04-15 11:18 UTC
 */
 
 /**
@@ -285,7 +285,7 @@ function log_dump () {
 
 
 /**
-* Shorthand error throwing
+* Shorthand for throwing an error.
 *
 * @param $message
 *	...
@@ -638,13 +638,13 @@ function rglob_files ($path = '', $filetypes = array()) {
 
 
 /**
-* Create a new object
+* Shorthand for creating a new object, making chainable object creation possible.
 *
 * @param $object
 *	...
 *
 * @return
-*	...
+*	The created object.
 */
 function create_object ($object) {
 	return $object;
@@ -662,7 +662,7 @@ function create_object ($object) {
 *	...
 *
 * @return
-*	Result of the calculation as an integer or float
+*	Result of the calculation as an integer or float.
 */
 function calculate ($formula, $forceInteger = false) {
 	$result = trim(preg_replace('/[^0-9\+\-\*\.\/\(\) ]/i', '', $formula));
@@ -693,7 +693,7 @@ function trim_text ($subject) {
 
 
 /**
-* Turn camelCase into regular text.
+* Turn camelCase into regular lower-case text.
 *
 * @param $string
 *	...
@@ -711,10 +711,10 @@ function from_camelcase ($string) {
 * Convert a string to camelCase.
 *
 * @param $subject
-*	String to convert into camelcase.
+*	String to convert.
 *
 * @param $preserveUpperCase
-*	When se to true, all existing uppercase characters are left untouched, including the first character of the string. Normally consecutive uppercase letters are downcased and the result string always begins with a lowercase letter.
+*	When set to true, all existing uppercase characters are left untouched, including the first character of the string. Normally consecutive uppercase letters are downcased and the result string always begins with a lowercase letter.
 *
 * @return
 *	A string with no spaces, dashes or underscores. Each word in the subject string now begins with a capitalized letter.
@@ -736,175 +736,6 @@ function to_camelcase ($subject, $preserveUppercase = false) {
 
 		// Uppercase all words, remove spaces
 		$result = str_replace(' ', '', preg_replace_callback('/ (.?)/u', create_function('$matches', 'return mb_strtoupper($matches[0]);'), $result));
-	}
-
-	return $result;
-}
-
-
-
-/**
-* Make sure final characters of a string are NOT what they shouldn't to be.
-*
-* @param $subject
-*	...
-*
-* @param $suffix
-*	...
-*
-* @param $caseInsensitive
-*	...
-*
-* @return
-*	The contents $subject, guaranteed to not end with $suffix
-*/
-function dont_end_with ($subject, $suffix = '', $caseInsensitive = false) {
-
-	// No need to do anything
-	if (empty($suffix) or !suffixed($subject, $suffix, $caseInsensitive) or !ends_with($subject, $suffix, $caseInsensitive)) {
-		$result = $subject;
-
-	} else {
-
-		// Need these for comparison
-		$suffixLength = mb_strlen($suffix);
-		$subjectLength = mb_strlen($subject);
-
-		// Separate items for comparison we can play with
-		$comparisonSubject = $subject;
-		$comparisonSuffix = $suffix;
-
-		// Prepare subject and suffix for comparison
-		if ($caseInsensitive) {
-			$comparisonSubject = mb_strtolower($comparisonSubject);
-			$comparisonSuffix = mb_strtolower($comparisonSuffix);
-		}
-
-		// Iterate through substrings of suffix to see which part might be included
-		for ($i = $suffixLength; $i > 0 and $suffixLength-$i <= $subjectLength; $i--) {
-
-			// Compare latter part of subject to beginning of suffix
-			if (mb_substr($comparisonSubject, -$i) === mb_substr($comparisonSuffix, 0, $i)) {
-				break;
-			}
-
-		}
-
-		// Cut a little bit out of the subject
-		$result = mb_substr($subject, 0, $subjectLength-$i);
-
-	}
-
-	return $result;
-}
-
-
-
-/**
-* Make sure final characters of a string are what they need to be. Compares the last characters of $subject to $suffix's first characters and avoids duplicate substrings, unlike suffix().
-*
-* For example, end_with('www.domain.co', '.com') returns 'www.domain.com'. prefix() would return 'www.domain.co.com'.
-*
-* @param $subject
-*	...
-*
-* @param $suffix
-*	...
-*
-* @param $caseInsensitive
-*	Use case-insensitive comparison.
-*
-* @return
-*	The contents of $subject, guaranteed to end with $suffix.
-*/
-function end_with ($subject, $suffix = '', $caseInsensitive = false) {
-
-	// No need to do anything
-	if (empty($suffix) or suffixed($subject, $suffix, $caseInsensitive)) {
-		$result = $subject;
-
-	// Look for the part of suffix that's NOT already in the beginning of subject string
-	} else {
-
-		// Need these for comparison
-		$suffixLength = mb_strlen($suffix);
-		$subjectLength = mb_strlen($subject);
-
-		// Separate items for comparison we can play with
-		$comparisonSubject = $subject;
-		$comparisonSuffix = $suffix;
-
-		// Prepare subject and suffix for comparison
-		if ($caseInsensitive) {
-			$comparisonSubject = mb_strtolower($comparisonSubject);
-			$comparisonSuffix = mb_strtolower($comparisonSuffix);
-		}
-
-		// Iterate through substrings of suffix to see which part might already be included
-		for ($i = $suffixLength-1; $i > 0 and $suffixLength-$i <= $subjectLength; $i--) {
-
-			// Compare latter part of subject to beginning of suffix
-			if (mb_substr($comparisonSubject, -$i) === mb_substr($comparisonSuffix, 0, $i)) {
-				break;
-			}
-
-		}
-
-		// Cut a little bit out of the suffix
-		$cut = $suffixLength-$i;
-		$result = $subject.mb_substr($suffix, -$cut);
-
-	}
-
-	return $result;
-}
-
-
-
-/**
-* Check if string ends with a specific suffix.
-*
-* @param $subject
-*	...
-*
-* @param $suffix
-*	...
-*
-* @param $caseInsensitive
-*	Use case-insensitive comparison.
-*
-* @return
-*	TRUE if $subject ends with $suffix, FALSE otherwise. Empty suffix always returns true.
-*/
-function ends_with ($subject, $suffix, $caseInsensitive = false) {
-	$result = false;
-
-	// Need these for parsing
-	$suffixLength = mb_strlen($suffix);
-	$subjectLength = mb_strlen($subject);
-
-	// Empty substring is always true
-	if (!$suffixLength) {
-		$result = true;
-
-	// suffix can't be bigger than subject
-	} else if ($subjectLength >= $suffixLength) {
-
-		// Part of subject to compare suffix to
-		$cutout = mb_substr($subject, -$suffixLength);
-		$comparison = $suffix;
-
-		// Case-insensitive comparison
-		if ($caseInsensitive) {
-			$cutout = mb_strtolower($cutout);
-			$comparison = mb_strtolower($comparison);
-		}
-
-		// Compare
-		if ($cutout === $comparison) {
-			$result = true;
-		}
-
 	}
 
 	return $result;
@@ -1015,156 +846,6 @@ function unprefix ($subject, $prefix = '', $caseInsensitive = false) {
 	// Cut the prefix out
 	} else {
 		$result = mb_substr($subject, mb_strlen($prefix));
-	}
-
-	return $result;
-}
-
-
-
-/**
-* Make sure initial characters of a string are NOT what they shouldn't to be.
-*
-* @param $subject
-*	...
-*
-* @param $substring
-*	...
-*
-* @param $onlyCheckOnce
-*	...
-*
-* @return
-*	The contents of $subject, guaranteed to not begin with $substring
-*/
-function dont_start_with ($subject, $substring = '', $onlyCheckOnce = false) {
-
-	// No need to do anything
-	if (!starts_with($subject, $substring)) {
-		$result = $subject;
-
-	} else {
-
-		// Cut the substring out
-		$result = substr($subject, strlen($substring));
-		if ($result === false) {
-			$result = '';
-		}
-
-		// Make sure that the new string still doesn't start with the substring
-		if (!$onlyCheckOnce) {
-			$result = dont_start_with($result, $substring);
-		}
-	}
-
-	return $result;
-}
-
-
-
-/**
-* Make sure initial characters of a string are what they need to be.
-*
-* @param $subject
-*	...
-*
-* @param $prefix
-*	...
-*
-* @param $caseInsensitive
-*	Use case-insensitive comparison.
-*
-* @return
-*	The contents of $subject, guaranteed to begin with $prefix.
-*/
-function start_with ($subject, $prefix = '', $caseInsensitive = false) {
-
-	// No need to do anything
-	if (empty($prefix) or prefixed($subject, $prefix, $caseInsensitive)) {
-		$result = $subject;
-
-	// Look for the part of prefix that's NOT already in the beginning of subject string
-	} else {
-
-		// Need these for comparison
-		$prefixLength = mb_strlen($prefix);
-		$subjectLength = mb_strlen($subject);
-
-		// Separate items for comparison we can play with
-		$comparisonSubject = $subject;
-		$comparisonPrefix = $prefix;
-
-		// Prepare subject and prefix for comparison
-		if ($caseInsensitive) {
-			$comparisonSubject = mb_strtolower($comparisonSubject);
-			$comparisonPrefix = mb_strtolower($comparisonPrefix);
-		}
-
-		// Iterate through substrings of prefix to see which part might already be included
-		for ($i = $prefixLength-1; $i > 0 and $prefixLength-$i <= $subjectLength; $i--) {
-
-			// Compare latter part of prefix to beginning of subject
-			if (mb_substr($comparisonPrefix, -$i) === mb_substr($comparisonSubject, 0, $i)) {
-				break;
-			}
-
-		}
-
-		// Cut a little bit out of the prefix
-		$cut = $prefixLength-$i;
-		$result = mb_substr($prefix, 0, $cut).$subject;
-
-	}
-
-	return $result;
-}
-
-
-
-/**
-* Check if string starts with a specific substring.
-*
-* @param $subject
-*	...
-*
-* @param $prefix
-*	...
-*
-* @param $caseInsensitive
-*	Use case-insensitive comparison.
-*
-* @return
-*	TRUE if $subject starts with $prefix, FALSE otherwise. Empty prefix always returns true.
-*/
-function starts_with ($subject, $prefix, $caseInsensitive = false) {
-	$result = false;
-
-	// Need these for parsing
-	$prefixLength = mb_strlen($prefix);
-	$subjectLength = mb_strlen($subject);
-
-	// Empty substring is always true
-	if (!$prefixLength) {
-		$result = true;
-
-	// Prefix can't be bigger than subject
-	} else if ($subjectLength >= $prefixLength) {
-
-		// Part of subject to compare prefix to
-		$cutout = mb_substr($subject, 0, $prefixLength);
-		$comparison = $prefix;
-
-		// Case-insensitive comparison
-		if ($caseInsensitive) {
-			$cutout = mb_strtolower($cutout);
-			$comparison = mb_strtolower($comparison);
-		}
-
-		// Compare
-		if ($cutout === $comparison) {
-			$result = true;
-		}
-
 	}
 
 	return $result;
