@@ -68,10 +68,10 @@ When writing getter methods for a class, we can use `array_traverse` to spice th
 
 ##### Another script
 
-	$var = new MyCMS();
+	$cms = new MyCMS();
 
-	// $this->setPages(...) here
+	// $cms->setPages(...) here
 
-	$allPages = $this->getPages();
-	$pagesInFirstCategory = $this->getPages(0);
-	$pagesInFirstSubCategory = $this->getPages(0, 0);
+	$allPages = $cms->getPages();
+	$pagesInFirstCategory = $cms->getPages(0);
+	$pagesInFirstSubCategory = $cms->getPages(0, 0);
