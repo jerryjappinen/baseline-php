@@ -3,9 +3,9 @@
 
 **Trim excess whitespaces, empty lines etc. from a string.** [View source](https://bitbucket.org/Eiskis/baseline.php/src/default/source/strings/trim_text.php?at=default)
 
-	function trim_text ($subject)
+	function trim_text ($subject, $singleLine = false)
 
-This function returns the subject string with no spaces, dashes or underscores. Each word in the subject string now begins with a capitalized letter.
+This function trims excess whitespace and empty lines from a subject string. When `$singleLine` is set to true, all line breaks will be stripped.
 
 
 
@@ -13,15 +13,15 @@ This function returns the subject string with no spaces, dashes or underscores. 
 
 ### Basics
 
-##### Trim excess whitespace and empty lines
+##### Trim excess whitespace and excess empty lines
 	trim_text('
 
 
 				This is my favorite M  O  V  I   E!!
 
-
-
-
+					
+					
+							 	       
 
 		YYYEEEEEAAAAAAAHHH!!!!
 	');
@@ -30,4 +30,21 @@ This function returns the subject string with no spaces, dashes or underscores. 
 	'This is my favorite M O V I E!!
 
 	YYYEEEEEAAAAAAAHHH!!!!'
+	*/
+
+##### Leave no linebreaks
+	trim_text('
+
+
+				This is my favorite M  O  V  I   E!!
+
+					
+					
+							 	       
+
+		YYYEEEEEAAAAAAAHHH!!!!
+	', true);
+
+	/* Returns
+	'This is my favorite M O V I E!! YYYEEEEEAAAAAAAHHH!!!!'
 	*/

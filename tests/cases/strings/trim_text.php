@@ -24,7 +24,7 @@ class TestOfTrimText extends UnitTestCase {
 
 	// Empty lines
 	function test_trims_excess_newlines () {
-		$this->assertTrue(trim_text('foo'."\n\n".'bar') === trim_text('foo'."\n\n\n\n\n\n\n\n".'bar'));
+		$this->assertTrue(trim_text('foo'."\n\n".'bar') === trim_text('foo'."\n\n\n\r\n\r\n\n\n\n".'bar'));
 	}
 	function test_trims_empty_lines () {
 		$this->assertTrue(trim_text('foo'."\n\n".'bar') === trim_text('foo'."\n\n".'       '."\n\n".'bar'));
@@ -36,6 +36,11 @@ class TestOfTrimText extends UnitTestCase {
 	}
 	function test_trims_excess_whitespace () {
 		$this->assertTrue(trim_text('foo bar') === trim_text('foo'.'    '.'bar'));
+	}
+
+	// Single-line
+	function test_single_line () {
+		$this->assertTrue(trim_text('foo'."\n\n\n\r\n\r\n\n\n\n".'bar', true) === 'foo bar');
 	}
 
 }

@@ -6,18 +6,20 @@ $dump = array(
 	trim_text('foo bar'),
 	trim_text('    foo bar   '),
 	trim_text('    foo     bar   '),
-	trim_text("\n\n".'    fo'."\n".'o  '."\n\n\n\n\n".'   bar   '."\n\n"),
+	trim_text("\n\n".'         f  		d		d	  o '."\n".' o  '."\n\n\n\n\n\n".'   bar   '."\n\n", true),
 	trim_text('
 
 
 				This is my favorite M  O  V  I   E!!
 
 
+    	  	 	 	 
+    	  	 	 	 
+    	  	 	 	 
 
 
-
-YYYEEEEEAAAAAAAHHH!!!!
-'),
+YY  Y E E E E E     AAAAAAAHHH!!!!
+', true),
 
 	// // Array flatten
 	// array_flatten(array()),
