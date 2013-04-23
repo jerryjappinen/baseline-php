@@ -8,7 +8,7 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-04-15 14:59 UTC
+* Compiled from source on 2013-04-23 13:31 UTC
 */
 
 /**
@@ -196,39 +196,6 @@ function to_array ($value) {
 	}
 
 	return $result;
-}
-
-
-
-/**
-* Convert an object or variable into boolean
-*
-* @param $value
-*	Any object or variable whose value is used for interpretation
-*
-* @return
-*	FALSE on empty or less-than-zero values and falsy keywords, TRUE otherwise
-*/
-function to_boolean ($value) {
-	if (
-
-		// Falsy
-		!$value or
-
-		// Empty
-		empty($value) or
-
-		// Zero or less
-		(is_numeric($value) and strval($value) <= 0) or
-
-		// Keyword
-		(is_string($value) and in_array(trim(strtolower($value)), array('null', 'nul', 'nil', 'false')))
-
-	) {
-		return false;
-	} else {
-		return true;
-	}
 }
 
 
@@ -648,6 +615,39 @@ function create_object ($object) {
 */
 function fail ($message, $code = null) {
 	throw new Exception($message, isset($code) ? $code : 500);
+}
+
+
+
+/**
+* Convert an object or variable into boolean.
+*
+* @param $value
+*	Any object or variable whose value is used for interpretation
+*
+* @return
+*	FALSE on empty or less-than-zero values and falsy keywords, TRUE otherwise
+*/
+function to_boolean ($value) {
+	if (
+
+		// Falsy
+		!$value or
+
+		// Empty
+		empty($value) or
+
+		// Zero or less
+		(is_numeric($value) and strval($value) <= 0) or
+
+		// Keyword
+		(is_string($value) and in_array(trim(strtolower($value)), array('null', 'nul', 'nil', 'false')))
+
+	) {
+		return false;
+	} else {
+		return true;
+	}
 }
 
 
