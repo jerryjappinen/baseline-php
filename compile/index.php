@@ -84,6 +84,8 @@ $output = '<?php
 * Compiled from source on '.date('Y-m-d H:i e') .'
 */
 
+
+
 '.trim($output).'
 
 ?>';
