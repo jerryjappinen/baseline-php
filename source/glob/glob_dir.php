@@ -10,7 +10,14 @@
 *	...
 */
 function glob_dir ($path = '') {
-	$directories = glob(suffix($path, '/').'*', GLOB_MARK | GLOB_ONLYDIR);
+
+	// Normalize path
+	if (!empty($path)) {
+		$path = suffix($path, '/');
+	}
+
+	// Find directories in the path
+	$directories = glob($path.'*', GLOB_MARK | GLOB_ONLYDIR);
 	foreach ($directories as $key => $value) {
 		$directories[$key] = str_replace('\\', '/', $value);
 	}

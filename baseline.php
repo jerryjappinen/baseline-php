@@ -8,7 +8,7 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-05-01 15:03 UTC
+* Compiled from source on 2013-05-12 12:02 UTC
 */
 
 
@@ -442,7 +442,14 @@ function run_script () {
 *	...
 */
 function glob_dir ($path = '') {
-	$directories = glob(suffix($path, '/').'*', GLOB_MARK | GLOB_ONLYDIR);
+
+	// Normalize path
+	if (!empty($path)) {
+		$path = suffix($path, '/');
+	}
+
+	// Find directories in the path
+	$directories = glob($path.'*', GLOB_MARK | GLOB_ONLYDIR);
 	foreach ($directories as $key => $value) {
 		$directories[$key] = str_replace('\\', '/', $value);
 	}

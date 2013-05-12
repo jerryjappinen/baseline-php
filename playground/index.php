@@ -73,7 +73,7 @@ echo '
 			pre {
 				background-color: #fff;
 				box-shadow: 0 1px 1px 1px #ddd;
-				padding: 1.5em;
+				padding: 4em;
 			}
 
 			h1 {
@@ -83,8 +83,6 @@ echo '
 		</style>
 	</head>
 	<body class="language-javascript">
-
-		<h1>Baseline.php</h1>
 
 		'.html_dump($dump).'
 
