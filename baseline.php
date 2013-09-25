@@ -8,7 +8,7 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-05-12 12:02 UTC
+* Compiled from source on 2013-09-25 06:13 UTC
 */
 
 
@@ -229,7 +229,7 @@ function dump () {
 */
 function html_dump () {
 	$arguments = func_get_args();
-	return '<pre><code>'.call_user_func_array('dump', $arguments).'</code></pre>';
+	return '<pre><code>'.htmlspecialchars(call_user_func_array('dump', $arguments)).'</code></pre>';
 }
 
 
