@@ -11,7 +11,7 @@
 */
 function html_dump () {
 	$arguments = func_get_args();
-	return '<pre><code>'.call_user_func_array('dump', $arguments).'</code></pre>';
+	return '<pre><code>'.htmlspecialchars(call_user_func_array('dump', $arguments)).'</code></pre>';
 }
 
 ?>
