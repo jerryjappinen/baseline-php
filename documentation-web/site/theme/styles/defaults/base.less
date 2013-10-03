@@ -1,0 +1,76 @@
+
+// Fonts
+html {
+	font-family: "Helvetica Neue", "Helvetica", "Segoe UI", "Lucida Grande", "Ubuntu", "Roboto", "Arial",sans-serif;
+	font-weight: 200;
+	font-size: 0.95em;
+}
+body {
+	line-height: 1.6;
+}
+
+// Colors
+body {
+	background-color: @grey-lighter;
+	color: @grey-darker;
+}
+a {
+	color: @blue;
+}
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+	text-decoration: none;
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+// Headings
+h1, h2, h3, h4, h5, h6 {
+	margin-top: 1.6em;
+	margin-bottom: 0.8em;
+}
+h1, h2, h3 {
+	font-weight: inherit;
+}
+h1 {
+	font-size: 2.4em;
+}
+h2 {
+	font-size: 1.8em;
+}
+h3 {
+	font-size: 1.4em;
+	color: @magenta;
+}
+h4 {
+	font-size: 1.1em;
+}
+h5 {
+	background-color: @grey-lighter;
+	padding: 0.5em 1em;
+	margin-bottom: 0;
+	font-weight: normal;
+	color: @grey-dark;
+}
+big {
+	font-size: 1.3em;
+}
+
+// Monospaced
+pre,code,kbd,samp {
+	font-size: 0.85em;
+}
+
+// Thingies
+hr {
+	height: 0.1em;
+	border-width: 0;
+	background-color: @grey-light;
+	margin-top: 1.6em;
+	margin-bottom: 1.6em;
+}
+
+// Tools
+.center {
+	text-align: center;
+}

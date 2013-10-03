@@ -1,0 +1,36 @@
+
+/*Tables*/
+table {
+	background-color: @white;
+	.shadows();
+}
+th {
+	vertical-align: baseline;
+	font-weight: normal;
+	background-color: @grey-darkest;
+	border-color: @grey-darkest;
+	color: @white;
+}
+	th[scope="row"] {
+		background-color: transparent;
+		color: inherit;
+		font-weight: bold;
+	}
+
+// Rows
+td, th[scope="row"] {
+	border-bottom-width: 1px;
+	border-color: @grey-lighter;
+}
+	tr:last-child td, tr:last-child th[scope="row"] {
+		border-bottom-width: 0;
+	}
+th, td {
+	border-left-width: 1px;
+}
+	th:first-of-type, td:first-child {
+		border-left-width: 0;
+	}
+table table td {
+	padding: 0.335em 0.67em;
+}

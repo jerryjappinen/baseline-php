@@ -1,0 +1,9 @@
+
+# Prevent access to Servant's internals
+Order deny,allow
+Deny from all
+
+<FilesMatch  "index.php$">
+	Order Allow,Deny
+	Allow from All
+</FilesMatch>

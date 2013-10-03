@@ -1,0 +1,43 @@
+
+#
+#   NOTES
+#
+#   Please note that there is another .htaccess file under
+#   backend/ ("backend/.htaccess"), which denies direct
+#   access to that folder and its contents.
+#
+
+
+
+#
+#   SETTINGS
+#
+
+# Disable directory listings
+Options -Indexes
+
+# Allow URL rewrites (uncomment "+FollowSymLinks" line if needed on your server)
+# Options +FollowSymLinks
+RewriteEngine on
+
+# Might be required for CORS (uncomment if needed on your server)
+# Header set Access-Control-Allow-Origin *
+
+
+
+#
+#   ENDPOINTS
+#
+
+# Forward to default action
+# RewriteRule ^$ %{REQUEST_URI}read/ [R=301,L]
+
+# Load index.php at root
+DirectoryIndex backend/index.php
+
+# Respect natural paths
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Actions
+RewriteRule ^/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/?([^/]*)/? \backend/index.php?action=$1&page=$2;$3;$4;$5;$6;$7;$8;$9

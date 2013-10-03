@@ -1,0 +1,46 @@
+
+body.level-2, body.level-3 {
+
+	// Common
+	.frame-article, .frame-sidebar {
+		clear: none;
+		float: left;
+	}
+
+	// Article
+	.frame-article {
+		width: 73%;
+		@media handheld, only screen and (max-width: @bb-accommodate) {
+			width: 71%;
+		}
+		@media handheld, only screen and (max-width: @bb-stack) {
+			width: auto;
+		}
+	}
+
+	// Sidebar
+	.frame-sidebar {
+		width: 23%;
+		margin-bottom: 5%;
+		margin-right: 4%;
+
+		// Small screens
+		@media handheld, only screen and (max-width: @bb-accommodate) {
+			width: 25%;
+		}
+		@media handheld, only screen and (max-width: @bb-stack) {
+			display: none;
+		}
+
+		.menu-2 li {
+
+			// List item contents
+			a, strong {
+				display: block;
+			}
+
+		}
+
+	}
+
+}

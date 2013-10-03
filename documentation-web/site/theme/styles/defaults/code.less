@@ -1,0 +1,44 @@
+
+/*Code highlighting*/
+code {
+	display: inline-block;
+	padding: 0.1em 0.4em 0 0.4em;
+	border-width: 1px;
+	.border-radius(0.3em);
+	background-color: @grey-lightest;
+	border-color: @grey-lighter;
+	font-weight: normal;
+}
+
+pre {
+	padding: 1.34em;
+	background-color: @white;
+	border-color: @blue;
+	.thick-border-left();
+	.shadows();
+}
+
+	pre code, th[scope="col"] code, h1 code, h2 code, h5 code {
+		display: inline;
+		padding: 0;
+		border-width: 0;
+		.border-radius(0);
+		background-color: transparent;
+		font-weight: inherit;
+	}
+
+	td pre {
+		margin: 0;
+		padding: 0;
+		.box-shadow(none);
+		background-color: transparent;
+		border-left-width: 0;
+		code {
+			display: inline-block;
+			padding: 0.1em 0.4em 0 0.4em;
+			border-width: 1px;
+			.border-radius(0.3em);
+			background-color: @grey-lightest;
+			font-weight: normal;
+		}
+	}

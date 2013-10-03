@@ -1,0 +1,20 @@
+{
+
+	"cache": {
+		"browser": "0*60",
+		"server": "0*7*24*60"
+	},
+
+	"defaults": {
+		"action": "read",
+		"contentType": "html",
+		"status": 200,
+		"language": "en"
+	},
+
+	"namingConvention": {
+		"-": " ",
+		"_": " "
+	}
+
+}

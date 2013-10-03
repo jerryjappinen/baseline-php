@@ -1,0 +1,62 @@
+
+.frame-sidebar {
+
+	// The whole list
+	ul {
+		font-size: 1.2em;
+		border-right-width: 0.05em;
+		border-color: @grey-light;
+		margin-bottom: 0;
+		padding-top: 0.5em;
+		padding-bottom: 1.5em;
+		padding-left: 0;
+
+		// One list item
+		li {
+			color: @white;
+			list-style: none;
+
+			// Embedded menus
+			ul {
+				font-size: 0.8em;
+				border-right-width: 0;
+				padding-bottom: 0;
+				padding-bottom: 2em;
+				padding-top: 0;
+			}
+			li {
+				a {
+					padding-left: 1.8em;
+				}
+			}
+
+		}
+	}
+
+
+
+	// Links
+	a {
+		padding: 0.3em 0.8em 0.3em 0.6em;
+		color: @grey-darker;
+		text-decoration: none;
+		&:hover {
+			text-decoration: underline;
+		}
+		@media handheld, only screen and (max-width: @bb-accommodate){
+			padding-top: 0.5em;
+			padding-bottom: 0.5em;
+		}
+	}
+
+	// Interaction
+	a:active {
+		color: @grey-dark;
+	}
+
+	// Selected
+	strong a {
+		font-weight: bold;
+	}
+
+}

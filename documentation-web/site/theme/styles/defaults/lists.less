@@ -1,0 +1,23 @@
+
+/*Style nested ordered lists*/
+ol {
+	counter-reset: section;
+	list-style-type: none;
+	padding-left: 1em;
+	ol {
+		padding-left: 2em;
+	}
+	li {
+		counter-increment: section;
+		&:before {
+			content: counters(section, '.') '. ';
+		}
+	}
+	ul li {
+		counter-reset: section;
+		counter-increment: none;
+		&:before {
+			content: '';
+		}
+	}
+}

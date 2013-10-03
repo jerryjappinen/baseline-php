@@ -1,0 +1,7 @@
+
+# Prevent direct access to PHP files
+# FLAG need to add all other executable files
+<FilesMatch "\.php">
+	Order Deny,Allow
+	Deny from All
+</FilesMatch>
