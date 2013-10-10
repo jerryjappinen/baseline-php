@@ -2,7 +2,13 @@
 
 $dump = array(
 
-	rglob_dir('../source/')
+	trim_whitespace(' 
+
+
+
+		asd		00	 asoi dopaskpd ksaölk dölaks dölaskdöla skdoj
+
+		'),
 
 // 	// Trim text
 // 	trim_text('foo bar'),

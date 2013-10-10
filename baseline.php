@@ -8,7 +8,7 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-09-25 06:13 UTC
+* Compiled from source on 2013-10-10 13:46 UTC
 */
 
 
@@ -674,37 +674,6 @@ function calculate ($formula, $forceInteger = false) {
 
 
 /**
-* Trim excess whitespaces, empty lines etc. from a string.
-*
-* @param $subject
-*	...
-*
-* @param $singleLine
-*	All line breaks are stripped, return value contains only one line.
-*
-* @return
-*	...
-*/
-function trim_text ($subject, $singleLine = false) {
-	if (is_string($subject)) {
-
-		// Trim all groups of whitespace
-		if ($singleLine) {
-			return preg_replace('!\s+!', ' ', trim($subject));
-
-		// Collapse excess empty lines, then clean up
-		} else {
-			return preg_replace('/[ \t]+/', ' ', preg_replace('/\s*$^\s*/m', "\n\n", trim($subject)));
-		}
-
-	} else {
-		return $subject;
-	}
-}
-
-
-
-/**
 * Turn camelCase into regular lower-case text.
 *
 * @param $string
@@ -971,6 +940,59 @@ function unsuffix ($subject, $suffix = '', $caseInsensitive = false) {
 	}
 
 	return $result;
+}
+
+
+
+/**
+* Trim excess whitespaces, empty lines etc. from a string.
+*
+* @param $subject
+*	...
+*
+* @param $singleLine
+*	All line breaks are stripped, return value contains only one line.
+*
+* @return
+*	...
+*/
+function trim_text ($subject, $singleLine = false) {
+	if (is_string($subject)) {
+
+		// Trim all groups of whitespace
+		if ($singleLine) {
+			return preg_replace('!\s+!', ' ', trim($subject));
+
+		// Collapse excess empty lines, then clean up
+		} else {
+			return preg_replace('/[ \t]+/', ' ', preg_replace('/\s*$^\s*/m', "\n\n", trim($subject)));
+		}
+
+	} else {
+		return $subject;
+	}
+}
+
+
+
+/**
+* Trim all whitespace, line breaks etc. from a string.
+*
+* @param $subject
+*	...
+*
+* @return
+*	...
+*/
+function trim_whitespace ($subject) {
+	if (is_string($subject)) {
+
+		// Trim all whitespace
+		return preg_replace('/\s+/', '', $subject);
+
+	} else {
+		return $subject;
+	}
 }
 
 ?>
