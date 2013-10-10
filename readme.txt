@@ -17,7 +17,7 @@ Baseline.php 0.1
 Usage
 -----
 
-Simply include all Baseline.php in the beginning of your PHP script:
+Simply include Baseline.php in the beginning of your PHP script:
 
 	require_once 'baseline.php';
 
