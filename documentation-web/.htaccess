@@ -13,6 +13,9 @@
 #   SETTINGS
 #
 
+# Enable compression for HTML, CSS and JavaScript
+AddOutputFilterByType DEFLATE text/html text/css text/javascript 
+
 # Disable directory listings
 Options -Indexes
 
