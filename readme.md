@@ -17,6 +17,8 @@
 
 Simply include Baseline.php in the beginning of your PHP script:
 
-	require_once 'baseline.php';
+```php
+require_once 'baseline.php';
+```
 
 You can now use Baseline.php's functions in the script.
