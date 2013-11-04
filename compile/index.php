@@ -13,7 +13,7 @@ date_default_timezone_set('UTC');
 
 // Basic variables
 $root = '../';
-$readmePath = $root.'readme.txt';
+$readmePath = $root.'readme.md';
 $sourcePath = $root.'source/';
 $exportPath = $root.'baseline.php';
 
