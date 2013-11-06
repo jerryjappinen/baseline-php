@@ -1,83 +1,19 @@
 <?php
-
-/**
-* Run a script file cleanly (no visible variables left around).
-*
-* @param 1 ($path)
-*   Path to a file.
-*
-* @param 2 ($scriptVariables)
-*   Array of variables and values to be created for the script.
-*
-* @param 3 ($queue)
-*   Array of other scripts to include, with variables carried over from previous scripts. When a missing file is encountered, execution on the queue stops.
-*
-* @return 
-*   String content of output buffer after the script has run, false on failure.
-*/
-function run_scripts () {
-	$output = false;
-
-	$path = func_get_arg(0);
-	if (is_file($path)) {
-		unset($path);
-
-		// Set up variables for the script
-		foreach (func_get_arg(1) as $____key => $____value) {
-			if (is_string($____key) and !in_array($____key, array('____key', '____value'))) {
-				${$____key} = $____value;
-			}
-		}
-		unset($____key, $____value);
-
-		// Run each script
-		ob_start();
-
-		// Include script
-		include func_get_arg(0);
-
-		// Store script variables
-		$definedVars = get_defined_vars();
-
-		// Catch output reliably
-		$output = ob_get_contents();
-		if ($output === false) {
-			$output = '';
-		}
-
-		// Clear buffer
-		ob_end_clean();
-
-		// More scripts to include
-		if (func_num_args() > 2) {
-
-			// Normalize queue
-			$queue = func_get_arg(2);
-			$queue = array_flatten(to_array($queue));
-			$next = array_shift($queue);
-
-			// Run other scripts
-			$others = run_scripts($next, $definedVars, $queue);
-			if ($others) {
-				return $output.$others;
-			}
-
-		}
-
-	}
-
-	// Return any output
-	return $output;
-}
-
 $testFiles = rglob_files('run_scripts/', 'php');
 // $testFiles[2] = 'run_scripts/NOTREAL.php';
 $testFirst = array_shift($testFiles);
 $testVars = array(
 	'esa' => 'pekka'
 );
-$dump = run_scripts($testFirst, $testVars, $testFiles);
-// $dump = array(
+$testFilesAll = $testFiles;
+array_unshift($testFilesAll, $testFirst);
+
+
+
+$dump = array(
+
+	// run_script($testFirst, $testVars, $testFiles),
+	run_scripts($testFilesAll, $testVars),
 
 	// trim_whitespace(' 
 
@@ -228,6 +164,6 @@ $dump = run_scripts($testFirst, $testVars, $testFiles);
 	// 	from_camelcase(array(123)),
 	// ),
 
-// );
+);
 
 ?>

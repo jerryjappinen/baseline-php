@@ -3,11 +3,14 @@
 /**
 * Run a script file cleanly (no visible variables left around).
 *
-* @param 1
+* @param 1 ($path)
 *   Path to a file.
 *
-* @param 2
+* @param 2 ($scriptVariables)
 *   Array of variables and values to be created for the script.
+*
+* @param 3 ($queue)
+*   Array of other scripts to include, with variables carried over from previous scripts. When a missing file is encountered, execution on the queue stops.
 *
 * @return 
 *   String content of output buffer after the script has run, false on failure.
@@ -33,6 +36,9 @@ function run_script () {
 		// Include script
 		include func_get_arg(0);
 
+		// Store script variables
+		$definedVars = get_defined_vars();
+
 		// Catch output reliably
 		$output = ob_get_contents();
 		if ($output === false) {
@@ -41,6 +47,22 @@ function run_script () {
 
 		// Clear buffer
 		ob_end_clean();
+
+		// More scripts to include
+		if (func_num_args() > 2) {
+
+			// Normalize queue
+			$queue = func_get_arg(2);
+			$queue = array_flatten(to_array($queue));
+			$next = array_shift($queue);
+
+			// Run other scripts
+			$others = run_script($next, $definedVars, $queue);
+			if ($others !== false) {
+				return $output.$others;
+			}
+
+		}
 
 	}
 
