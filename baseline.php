@@ -1,14 +1,14 @@
 <?php
 
 /**
-* Baseline.php 0.1
+* # Baseline.php 0.1
 *
 * Released under MIT License
 * Authored by Jerry Jäppinen
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-10-10 13:46 UTC
+* Compiled from source on 2013-11-06 11:07 UTC
 */
 
 
@@ -385,11 +385,14 @@ function remove_file ($path) {
 /**
 * Run a script file cleanly (no visible variables left around).
 *
-* @param 1
+* @param 1 ($path)
 *   Path to a file.
 *
-* @param 2
+* @param 2 ($scriptVariables)
 *   Array of variables and values to be created for the script.
+*
+* @param 3 ($queue)
+*   Array of other scripts to include, with variables carried over from previous scripts. When a missing file is encountered, execution on the queue stops.
 *
 * @return 
 *   String content of output buffer after the script has run, false on failure.
@@ -415,6 +418,9 @@ function run_script () {
 		// Include script
 		include func_get_arg(0);
 
+		// Store script variables
+		$definedVars = get_defined_vars();
+
 		// Catch output reliably
 		$output = ob_get_contents();
 		if ($output === false) {
@@ -424,10 +430,54 @@ function run_script () {
 		// Clear buffer
 		ob_end_clean();
 
+		// More scripts to include
+		if (func_num_args() > 2) {
+
+			// Normalize queue
+			$queue = func_get_arg(2);
+			$queue = array_flatten(to_array($queue));
+			$next = array_shift($queue);
+
+			// Run other scripts
+			$others = run_script($next, $definedVars, $queue);
+			if ($others !== false) {
+				return $output.$others;
+			}
+
+		}
+
 	}
 
 	// Return any output
 	return $output;
+}
+
+
+
+/**
+* Shortcut to running a script consisting of multiple files with run_script
+*
+* @param 1 ($files)
+*   Path to the script files.
+*
+* @param 2 ($scriptVariables)
+*   Array of variables and values to be created for the script (initially).
+*
+* @return 
+*   String content of output buffer after the script has run, false on failure.
+*/
+function run_scripts ($files = array(), $scriptVariables = array()) {
+	$queue = array();
+	$first = '';
+
+	// Normalize
+	$files = array_flatten(to_array($files));
+	if (count($files) >= 1) {
+		$first = array_shift($files);
+		$queue = $files;
+	}
+
+	return run_script($first, $scriptVariables, $queue);
 }
 
 
