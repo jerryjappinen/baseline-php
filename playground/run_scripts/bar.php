@@ -1,0 +1,1 @@
+<?php $a = 123; ?>bar.php: <?php echo $esa."\n".$a; $esa = 'taz-'.$esa ?>
