@@ -1,7 +1,7 @@
 
 # to_boolean
 
-**Convert an object or variable into boolean.** [View source](https://bitbucket.org/Eiskis/baseline.php/src/default/source/misc/to_boolean.php?at=default)
+**Convert an object or variable into boolean.** [View source](https://bitbucket.org/Eiskis/baseline.php/src/default/source/misc/to_boolean.php)
 
 	function to_boolean ($value)
 

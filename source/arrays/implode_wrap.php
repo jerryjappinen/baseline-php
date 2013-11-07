@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Implode an array, wrapping each item in $prefix and $suffix, optionally separated with glue.
+* implode() an array, wrapping each item in $prefix and $suffix, optionally separated with $glue.
 *
 * @param $prefix
 *	...
