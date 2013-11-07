@@ -8,7 +8,7 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-11-07 08:49 UTC
+* Compiled from source on 2013-11-07 09:12 UTC
 */
 
 
@@ -109,7 +109,7 @@ function array_traverse (array $subject, $keys = array()) {
 
 
 /**
-* Implode an array, wrapping each item in $prefix and $suffix, optionally separated with glue.
+* implode() an array, wrapping each item in $prefix and $suffix, optionally separated with $glue.
 *
 * @param $prefix
 *	...
