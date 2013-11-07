@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Shortcut to running a script consisting of multiple files with run_script
+* Shortcut to running a script consisting of multiple files with run_script.
 *
 * @param 1 ($files)
 *   Path to the script files.

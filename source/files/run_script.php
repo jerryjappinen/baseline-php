@@ -3,7 +3,7 @@
 /**
 * Run a script file cleanly (no visible variables left around).
 *
-* @param 1 ($path)
+* @param 1 ($file)
 *   Path to a file.
 *
 * @param 2 ($scriptVariables)
@@ -18,9 +18,9 @@
 function run_script () {
 	$output = false;
 
-	$path = func_get_arg(0);
-	if (is_file($path)) {
-		unset($path);
+	$file = func_get_arg(0);
+	if (is_file($file)) {
+		unset($file);
 
 		// Set up variables for the script
 		foreach (func_get_arg(1) as $____key => $____value) {
