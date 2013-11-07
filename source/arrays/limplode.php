@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Allow giving a different last glue for implode
+* Allow giving a different last glue for implode.
 *
 * @param $glue
 *	...

@@ -8,7 +8,7 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-11-06 11:07 UTC
+* Compiled from source on 2013-11-07 08:49 UTC
 */
 
 
@@ -109,7 +109,43 @@ function array_traverse (array $subject, $keys = array()) {
 
 
 /**
-* Allow giving a different last glue for implode
+* Implode an array, wrapping each item in $prefix and $suffix, optionally separated with glue.
+*
+* @param $prefix
+*	...
+*
+* @param $suffix
+*	...
+*
+* @param $pieces
+*	...
+*
+* @param $glue
+*	...
+*
+* @return
+*	...
+*/
+function implode_wrap ($prefix = '', $suffix = '', $pieces = array(), $glue = '') {
+	$realPrefix = $prefix;
+	$realSuffix = $suffix;
+	$realPieces = $pieces;
+	$realGlue = $glue;
+
+	// Allow giving glue and array in reverse order, like implode() does
+	if (is_array($prefix)) {
+		$realPieces = $prefix;
+		$realPrefix = $suffix;
+		$realSuffix = $pieces;
+	}
+
+	return empty($pieces) ? '' : $realPrefix.limplode($realSuffix.$realGlue.$realPrefix, $realPieces).$realSuffix;
+}
+
+
+
+/**
+* Allow giving a different last glue for implode.
 *
 * @param $glue
 *	...
@@ -156,7 +192,7 @@ function limplode ($glue = '', $pieces = array(), $lastGlue = false) {
 
 
 /**
-* Make sure value is array, convert if needed
+* Make sure value is array, convert if needed.
 *
 * @param $value
 *	...
@@ -385,7 +421,7 @@ function remove_file ($path) {
 /**
 * Run a script file cleanly (no visible variables left around).
 *
-* @param 1 ($path)
+* @param 1 ($file)
 *   Path to a file.
 *
 * @param 2 ($scriptVariables)
@@ -400,9 +436,9 @@ function remove_file ($path) {
 function run_script () {
 	$output = false;
 
-	$path = func_get_arg(0);
-	if (is_file($path)) {
-		unset($path);
+	$file = func_get_arg(0);
+	if (is_file($file)) {
+		unset($file);
 
 		// Set up variables for the script
 		foreach (func_get_arg(1) as $____key => $____value) {
@@ -455,7 +491,7 @@ function run_script () {
 
 
 /**
-* Shortcut to running a script consisting of multiple files with run_script
+* Shortcut to running a script consisting of multiple files with run_script.
 *
 * @param 1 ($files)
 *   Path to the script files.

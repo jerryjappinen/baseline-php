@@ -8,12 +8,12 @@ $testVars = array(
 $testFilesAll = $testFiles;
 array_unshift($testFilesAll, $testFirst);
 
-
-
 $dump = array(
 
+	'<ul>'.implode_wrap('<li>', '</li>', array('Esa', 'Pekka', 'Foo'), "\n").'</ul>',
+
 	// run_script($testFirst, $testVars, $testFiles),
-	run_scripts($testFilesAll, $testVars),
+	// run_scripts($testFilesAll, $testVars),
 
 	// trim_whitespace(' 
 

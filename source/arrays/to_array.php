@@ -1,7 +1,7 @@
 <?php
 
 /**
-* Make sure value is array, convert if needed
+* Make sure value is array, convert if needed.
 *
 * @param $value
 *	...

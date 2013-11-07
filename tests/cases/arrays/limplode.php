@@ -30,6 +30,7 @@ class TestOfLimplode extends UnitTestCase {
 	}
 
 
+
 	// Outputs sensible strings when last glue is given
 	function test_empty_array_last_glue () {
 		$this->assertTrue(limplode(', ', array(), ' and ') === '');
