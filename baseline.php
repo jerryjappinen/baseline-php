@@ -8,8 +8,30 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-11-07 09:12 UTC
+* Compiled from source on 2013-11-15 12:11 UTC
 */
+
+
+
+/**
+* Get the first item in an array.
+*
+* @param $array
+*	...
+*
+* @param $traverseChildArrays
+*	If the first item is a child array, treat the stack recursively and find the first non-array value.
+*
+* @return
+*	...
+*/
+function array_first (array $array = array(), $traverseChildArrays = false) {
+	$result = reset($array);
+	if ($traverseChildArrays and is_array($result)) {
+		$result = array_first($result);
+	}
+	return $result;
+}
 
 
 
@@ -19,10 +41,10 @@
 * @param $array
 *	...
 *
-* @param $removeChildren
+* @param $removeChildren (optional)
 *	...
 *
-* @param $preserveKeys
+* @param $preserveKeys (optional)
 *	...
 *
 * @return
@@ -64,7 +86,7 @@ function array_flatten (array $array, $removeChildren = false, $preserveKeys = f
 * @param $subject
 *	...
 *
-* @param $keys
+* @param $keys (optional)
 *	...
 *
 * @return
@@ -120,7 +142,7 @@ function array_traverse (array $subject, $keys = array()) {
 * @param $pieces
 *	...
 *
-* @param $glue
+* @param $glue (optional)
 *	...
 *
 * @return
@@ -153,7 +175,7 @@ function implode_wrap ($prefix = '', $suffix = '', $pieces = array(), $glue = ''
 * @param $pieces
 *	...
 *
-* @param $lastGlue
+* @param $lastGlue (optional)
 *	...
 *
 * @return

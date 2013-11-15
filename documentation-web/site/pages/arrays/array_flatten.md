@@ -9,7 +9,7 @@ This funtion returns the input `$array` with no child arrays. By default, all ke
 
 When `$removeChildren` is set to `true`, all child arrays are removed. When `$preserveKeys` is set to `true`, keys in `$array` as well as any child arrays are preserved. Enabling both is a safe way of removing child arrays without losing associations.
 
-**Note!** When preserving keys, it's possible that some values are lost. Some child arrays might include values with the same keys as 
+**Note!** When preserving keys, it's possible that some values are lost. Some child arrays might include values with the same keys as their children.
 
 
 

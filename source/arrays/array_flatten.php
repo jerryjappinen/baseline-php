@@ -6,10 +6,10 @@
 * @param $array
 *	...
 *
-* @param $removeChildren
+* @param $removeChildren (optional)
 *	...
 *
-* @param $preserveKeys
+* @param $preserveKeys (optional)
 *	...
 *
 * @return

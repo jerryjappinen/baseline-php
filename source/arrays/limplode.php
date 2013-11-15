@@ -9,7 +9,7 @@
 * @param $pieces
 *	...
 *
-* @param $lastGlue
+* @param $lastGlue (optional)
 *	...
 *
 * @return

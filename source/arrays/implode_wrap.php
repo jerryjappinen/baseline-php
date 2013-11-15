@@ -12,7 +12,7 @@
 * @param $pieces
 *	...
 *
-* @param $glue
+* @param $glue (optional)
 *	...
 *
 * @return
