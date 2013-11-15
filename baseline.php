@@ -8,7 +8,7 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-11-15 12:11 UTC
+* Compiled from source on 2013-11-15 12:16 UTC
 */
 
 
@@ -28,7 +28,7 @@
 function array_first (array $array = array(), $traverseChildArrays = false) {
 	$result = reset($array);
 	if ($traverseChildArrays and is_array($result)) {
-		$result = array_first($result);
+		$result = array_first($result, true);
 	}
 	return $result;
 }
