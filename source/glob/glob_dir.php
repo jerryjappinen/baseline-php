@@ -13,7 +13,7 @@ function glob_dir ($path = '') {
 
 	// Normalize path
 	if (!empty($path)) {
-		$path = suffix($path, '/');
+		$path = preg_replace('/(\*|\?|\[)/', '[$1]', suffix($path, '/'));
 	}
 
 	// Find directories in the path

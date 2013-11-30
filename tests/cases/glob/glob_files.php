@@ -3,7 +3,7 @@
 class TestOfGlobFiles extends UnitTestCase {
 
 	// Test files
-	private $sandboxPath = 'temp/glob_files/';
+	private $sandboxPath = 'temp/glob/glob_files/klasd jaöads --[ sadlkmas]/';
 	private function prepare () {
 		test_helper_purge_dir($this->sandboxPath);
 		mkdir($this->sandboxPath.'foo', 0777, true);

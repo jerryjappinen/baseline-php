@@ -8,7 +8,7 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-11-30 15:24 UTC
+* Compiled from source on 2013-11-30 21:02 UTC
 */
 
 
@@ -552,7 +552,7 @@ function glob_dir ($path = '') {
 
 	// Normalize path
 	if (!empty($path)) {
-		$path = suffix($path, '/');
+		$path = preg_replace('/(\*|\?|\[)/', '[$1]', suffix($path, '/'));
 	}
 
 	// Find directories in the path
@@ -598,7 +598,7 @@ function glob_files ($path = '', $filetypes = array()) {
 
 	// Handle path input
 	if (!empty($path)) {
-		$path = suffix($path, '/');
+		$path = preg_replace('/(\*|\?|\[)/', '[$1]', suffix($path, '/'));
 	}
 
 	// Do the glob()

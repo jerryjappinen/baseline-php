@@ -29,7 +29,7 @@ function glob_files ($path = '', $filetypes = array()) {
 
 	// Handle path input
 	if (!empty($path)) {
-		$path = suffix($path, '/');
+		$path = preg_replace('/(\*|\?|\[)/', '[$1]', suffix($path, '/'));
 	}
 
 	// Do the glob()
