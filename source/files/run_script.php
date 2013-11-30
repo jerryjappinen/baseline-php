@@ -16,7 +16,6 @@
 *   String content of output buffer after the script has run, false on failure.
 */
 function run_script () {
-	$output = false;
 
 	$file = func_get_arg(0);
 	if (is_file($file)) {
@@ -41,7 +40,7 @@ function run_script () {
 
 		// Catch output reliably
 		$output = ob_get_contents();
-		if ($output === false) {
+		if (!is_string($output)) {
 			$output = '';
 		}
 

@@ -15,21 +15,21 @@ class MyTestClass {
 class TestOfCreateObject extends UnitTestCase {
 
 	function test_returns_an_object () {
-		$this->assertTrue(is_object(create_object_('MyTestClass')));
+		$this->assertTrue(is_object(create_object('MyTestClass')));
 	}
 	function test_returns_object_of_right_class () {
-		$this->assertTrue(get_class(create_object_('MyTestClass')) === 'MyTestClass');
+		$this->assertTrue(get_class(create_object('MyTestClass')) === 'MyTestClass');
 	}
 
 	// Parameters
 	function test_passes_parameter () {
-		$this->assertTrue(create_object_('MyTestClass', 'esa')->bar() === 'esa');
+		$this->assertTrue(create_object('MyTestClass', 'esa')->bar() === 'esa');
 	}
 	function test_passes_parameters () {
-		$this->assertTrue(create_object_('MyTestClass', 'esa', 'pekka')->bar() === 'esa + pekka');
+		$this->assertTrue(create_object('MyTestClass', 'esa', 'pekka')->bar() === 'esa + pekka');
 	}
 	function test_passes_no_parameters () {
-		$this->assertTrue(create_object_('MyTestClass')->bar() === '');
+		$this->assertTrue(create_object('MyTestClass')->bar() === '');
 	}
 
 }

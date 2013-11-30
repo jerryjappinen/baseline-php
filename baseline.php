@@ -8,7 +8,7 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-11-21 12:04 UTC
+* Compiled from source on 2013-11-30 15:24 UTC
 */
 
 
@@ -456,7 +456,6 @@ function remove_file ($path) {
 *   String content of output buffer after the script has run, false on failure.
 */
 function run_script () {
-	$output = false;
 
 	$file = func_get_arg(0);
 	if (is_file($file)) {
@@ -481,7 +480,7 @@ function run_script () {
 
 		// Catch output reliably
 		$output = ob_get_contents();
-		if ($output === false) {
+		if (!is_string($output)) {
 			$output = '';
 		}
 
