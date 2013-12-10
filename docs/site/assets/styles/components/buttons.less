@@ -1,0 +1,120 @@
+
+.button {
+	text-decoration: none;
+	display: inline-block;
+	padding: 0.6em 1.2em;
+	border-width: 1px;
+	border-color: @blue;
+	.rounded;
+	// min-width: 12em;
+
+	// Relative
+	position: relative;
+	top: 0;
+	&:hover {
+		top: -0.2em;
+		background-color: @white;
+		.box-shadow(0 0.2em 0.5em rgba(0, 0, 0, 0.15));
+	}
+	&:active {
+		top: 0.1em;
+	}
+
+	&.yellow {
+		border-color: @yellow;
+	}
+
+	&.red {
+		border-color: @red;
+	}
+
+	&.turquoise {
+		border-color: @turquoise;
+	}
+
+	&.blue {
+		border-color: @bblue;
+	}
+
+
+
+	// Icons
+	.icon {
+		display: inline-block;
+		float: right;
+		width: 15px;
+		height: 1.6em;
+		margin-left: 2em;
+		vertical-align: baseline;
+		background-position: 50% 50%;
+		background-repeat: no-repeat;
+	}
+
+	&.down {
+		.icon {
+			width: 16px;
+			background-image: url(/images/down-blue.png);
+		}
+		&.yellow .icon {
+			background-image: url(/images/down-yellow.png);
+		}
+		&.red .icon {
+			background-image: url(/images/down-red.png);
+		}
+		&.turquoise .icon {
+			background-image: url(/images/down-turquoise.png);
+		}
+	}
+
+	&.accept {
+		.icon {
+			background-image: url(/images/accept-blue.png);
+		}
+		&.yellow .icon {
+			background-image: url(/images/accept-yellow.png);
+		}
+		&.red .icon {
+			background-image: url(/images/accept-red.png);
+		}
+		&.turquoise .icon {
+			background-image: url(/images/accept-turquoise.png);
+		}
+	}
+
+	&.forward {
+		.icon {
+			width: 9px;
+			background-image: url(/images/forward-blue.png);
+		}
+		&.yellow .icon {
+			background-image: url(/images/forward-yellow.png);
+		}
+		&.red .icon {
+			background-image: url(/images/forward-red.png);
+		}
+		&.turquoise .icon {
+			background-image: url(/images/forward-turquoise.png);
+		}
+	}
+
+	&.bitbucket .icon {
+		.icon {
+			width: 9px;
+			background-image: url(/images/forward-blue.png);
+		}
+		&.yellow .icon {
+			background-image: url(/images/forward-yellow.png);
+		}
+		&.red .icon {
+			background-image: url(/images/forward-red.png);
+		}
+		&.turquoise .icon {
+			background-image: url(/images/forward-turquoise.png);
+		}
+	}
+
+}
+
+.inverted .button.plain {
+	border-color: @grey-dark;
+}

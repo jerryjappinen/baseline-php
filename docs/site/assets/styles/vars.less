@@ -1,0 +1,63 @@
+
+// Breakpoints
+@bb-stack: 45em;
+@bb-accommodate: 60em;
+
+
+
+// Colors
+@white: #fff;
+@black: #000;
+
+@grey-lightest: #f8f8f8;
+@grey-lighter: #eee;
+@grey-light: #cdd2d6;
+@grey: #a0a7a9;
+@grey-dark: #676d73;
+@grey-darker: #373f45;
+@grey-darkest: #24292d;
+
+@blue-lighter: #66d9ff;
+@blue-light: #00bfff;
+@blue: #00aacc;
+@blue-dark: #0086b3;
+@blue-darker: #006080;
+
+@green-lighter: #b1f255;
+@green-light: #8fe517;
+@green: #88cc29;
+@green-dark: #68b300;
+@green-darker: #4a8000;
+
+@magenta-lighter: #ff99c9;
+@magenta-light: #ff4da0;
+@magenta: #e51777;
+@magenta-dark: #cc005f;
+@magenta-darker: #990047;
+
+@turquoise: #00d1ae;
+@yellow: #ffe46f;
+@bblue: #2254bb;
+@red: #ff4551;
+
+
+
+// Mixins
+.shadows {
+	.box-shadow(0 0.1em 0.15em @grey);
+}
+	.inverted .shadows {
+		.box-shadow(0 0.1em 0.15em @grey);
+	}
+.bigshadows {
+	.box-shadow(0 0.4em 1.8em rgba(0, 0, 0, 0.1));
+}
+.rounded {
+	.border-radius(0.2em);
+}
+.round {
+	.border-radius(9999em);
+}
+img.shadows {
+	.rounded;
+}

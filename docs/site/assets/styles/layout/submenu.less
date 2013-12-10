@@ -1,0 +1,68 @@
+
+.row-body > .row-content > .submenu {
+
+	// The whole list
+	ul {
+		font-size: 1.2em;
+		margin-bottom: 0;
+		padding-top: 0.5em;
+		padding-bottom: 1.5em;
+		padding-left: 0;
+
+		// One list item
+		li {
+			color: @grey-darker;
+			list-style: none;
+
+			// Embedded menus
+			ul {
+				font-size: 0.8em;
+				border-right-width: 0;
+				padding-bottom: 0;
+				padding-bottom: 2em;
+				padding-top: 0;
+			}
+			li {
+				a {
+					padding-left: 1.8em;
+				}
+			}
+
+		}
+	}
+
+
+
+	// Links
+	a, strong {
+		display: block;
+	}
+
+	a {
+		padding: 0.3em 0.8em 0.3em 0.6em;
+		color: @grey-dark;
+		text-decoration: none;
+		&:hover {
+			text-decoration: underline;
+		}
+		@media handheld, only screen and (max-width: @bb-accommodate){
+			padding-top: 0.5em;
+			padding-bottom: 0.5em;
+		}
+	}
+
+	strong a, a:hover {
+		color: @grey-darker;
+	}
+
+	// Interaction
+	a:active {
+		color: @grey-darker;
+	}
+
+	// Selected
+	strong a {
+		font-weight: bold;
+	}
+
+}

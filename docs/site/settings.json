@@ -1,0 +1,21 @@
+{
+
+	"language": "en",
+
+	"name": "Baseline.php",
+	"description": "A set of everyday functions missing from core PHP.",
+	"icon": "site/favicon.ico",
+	"splashImage": "site/splash.png",
+
+	"template": "servant",
+
+	"pageNames": {
+	},
+
+	"pageOrder": [
+	],
+
+	"pageTemplates": {
+	}
+
+}

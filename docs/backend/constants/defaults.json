@@ -1,0 +1,13 @@
+{
+
+	"defaults": {
+		"action": "read",
+		"browserCache": "12*60",
+		"contentType": "html",
+		"language": "en",
+		"serverCache": "7*24*60",
+		"status": 200,
+		"template": "html"
+	}
+
+}

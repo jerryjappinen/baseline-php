@@ -77,11 +77,11 @@ echo '
 
 		<h1>Baseline.php</h1>
 
-		<p>It\'s a set of low-level helpers missing from stock PHP. Save and include <a href="compile/?dontsave" target="_blank"><code>baseline.php</code></a> in your project to get started. Documentation is available at <a href="http://eiskis.net/baseline-php" target="_blank">eiskis.net/baseline-php</a>.</p>
+		<p>It\'s a set of low-level helpers missing from stock PHP. Save and include <a href="compile/?dontsave"><code>baseline.php</code></a> in your project to get started. Documentation is available at <a href="http://eiskis.net/baseline-php">eiskis.net/baseline-php</a>.</p>
 
 		<h2>Tasks</h2>
 
-		<p>Automated tests can be run at <a href="tests/" target="_blank">tests/</a>. You can also <a href="compile/" target="_blank">compile/</a> baseline.php from the source files.</p>
+		<p>Automated tests can be run at <a href="tests/">tests/</a>. You can also <a href="compile/">compile/</a> baseline.php from the source files, or play around in the <a href="compile/">playground/</a>.</p>
 
 		<h2>Available functions</h2>
 		<ul>
