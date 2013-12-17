@@ -8,7 +8,7 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-11-30 21:02 UTC
+* Compiled from source on 2013-12-17 16:31 UTC
 */
 
 
@@ -72,6 +72,28 @@ function array_flatten (array $array, $removeChildren = false, $preserveKeys = f
 		} else if (!$removeChildren) {
 			$result = array_merge($result, array_flatten($value, $removeChildren, $preserveKeys));
 		}
+	}
+	return $result;
+}
+
+
+
+/**
+* Get the last item in an array.
+*
+* @param $array
+*	...
+*
+* @param $traverseChildArrays
+*	If the last item is a child array, treat the stack recursively and find the last non-array value.
+*
+* @return
+*	...
+*/
+function array_last (array $array = array(), $traverseChildArrays = false) {
+	$result = end($array);
+	if ($traverseChildArrays and is_array($result)) {
+		$result = array_last($result, true);
 	}
 	return $result;
 }
