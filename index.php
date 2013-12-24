@@ -81,7 +81,7 @@ echo '
 
 		<h2>Tasks</h2>
 
-		<p>Automated tests can be run at <a href="tests/">tests/</a>. You can also <a href="compile/">compile/</a> baseline.php from the source files, or play around in the <a href="compile/">playground/</a>.</p>
+		<p>Automated tests can be run at <a href="tests/">tests/</a>. You can also <a href="compile/">compile/</a> baseline.php from the source files, or just <a href="play/">play/</a> around.</p>
 
 		<h2>Available functions</h2>
 		<ul>
