@@ -63,6 +63,8 @@ function run_script () {
 
 		}
 
+	} else {
+		throw new Exception('Missing file "'.$file.'" passed to run_script');
 	}
 
 	// Return any output

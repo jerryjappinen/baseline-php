@@ -8,7 +8,7 @@
 * http://eiskis.net/
 * eiskis@gmail.com
 *
-* Compiled from source on 2013-12-24 12:35 UTC
+* Compiled from source on 2014-01-05 14:18 UTC
 */
 
 
@@ -525,6 +525,8 @@ function run_script () {
 
 		}
 
+	} else {
+		throw new Exception('Missing file "'.$file.'" passed to run_script');
 	}
 
 	// Return any output
