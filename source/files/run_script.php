@@ -16,55 +16,64 @@
 *   String content of output buffer after the script has run, false on failure.
 */
 function run_script () {
+	$output = false;
+	$num_args = func_num_args();
 
-	$file = func_get_arg(0);
-	if (is_file($file)) {
-		unset($file);
+	if ($num_args) {
 
-		// Set up variables for the script
-		foreach (func_get_arg(1) as $____key => $____value) {
-			if (is_string($____key) and !in_array($____key, array('____key', '____value'))) {
-				${$____key} = $____value;
-			}
-		}
-		unset($____key, $____value);
+		// File must exist
+		$file = func_get_arg(0);
+		if (is_file($file)) {
 
-		// Run each script
-		ob_start();
-
-		// Include script
-		include func_get_arg(0);
-
-		// Store script variables
-		$definedVars = get_defined_vars();
-
-		// Catch output reliably
-		$output = ob_get_contents();
-		if (!is_string($output)) {
-			$output = '';
-		}
-
-		// Clear buffer
-		ob_end_clean();
-
-		// More scripts to include
-		if (func_num_args() > 2) {
-
-			// Normalize queue
-			$queue = func_get_arg(2);
-			$queue = array_flatten(to_array($queue));
-			$next = array_shift($queue);
-
-			// Run other scripts
-			$others = run_script($next, $definedVars, $queue);
-			if ($others !== false) {
-				return $output.$others;
+			// Set up variables for the script
+			if ($num_args >= 1) {
+				foreach (func_get_arg(1) as $____key => $____value) {
+					if (is_string($____key) and !in_array($____key, array('____key', '____value'))) {
+						${$____key} = $____value;
+					}
+				}
+				unset($____key, $____value);
 			}
 
+			// Clean up variables
+			unset($num_args, $output, $file);
+
+			// Run each script
+			ob_start();
+
+			// Include script
+			include func_get_arg(0);
+
+			// Store script variables
+			$definedVars = get_defined_vars();
+
+			// Catch output reliably
+			$output = ob_get_contents();
+			if (!is_string($output)) {
+				$output = '';
+			}
+
+			// Clear buffer
+			ob_end_clean();
+
+			// More scripts to include
+			if (func_num_args() > 2) {
+
+				// Normalize queue
+				$queue = func_get_arg(2);
+				$queue = array_flatten(to_array($queue));
+				$next = array_shift($queue);
+
+				// Run other scripts
+				$others = run_script($next, $definedVars, $queue);
+				if ($others !== false) {
+					return $output.$others;
+				}
+
+			}
+
 		}
 
-	} else {
-		throw new Exception('Missing file "'.$file.'" passed to run_script');
 	}
 
 	// Return any output
