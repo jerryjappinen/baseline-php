@@ -26,7 +26,7 @@ function run_script () {
 		if (is_file($file)) {
 
 			// Set up variables for the script
-			if ($num_args >= 1) {
+			if ($num_args > 1) {
 				foreach (func_get_arg(1) as $____key => $____value) {
 					if (is_string($____key) and !in_array($____key, array('____key', '____value'))) {
 						${$____key} = $____value;
