@@ -10,7 +10,7 @@ array_unshift($testFilesAll, $testFirst);
 
 $dump = array(
 
-	array_first(array(array(array('foo', 'esa')), 12 => 'bar'), true),
+	// array_first(array(array(array('foo', 'esa')), 12 => 'bar'), true),
 
 	// '<ul>'.implode_wrap('<li>', '</li>', array('Esa', 'Pekka', 'Foo'), "\n").'</ul>',
 
