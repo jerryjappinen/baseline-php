@@ -15,7 +15,7 @@
 
 ## Usage
 
-Simply include Baseline.php in the beginning of your PHP script:
+Simply include the baseline.php source file in the beginning of your PHP script:
 
 	require_once 'baseline.php';
 
