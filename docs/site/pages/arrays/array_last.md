@@ -1,7 +1,7 @@
 
 # array_last
 
-**Get the last item in an array.** [View source](https://bitbucket.org/Eiskis/baseline.php/src/default/source/arrays/array_last.php)
+**Get the last item in an array.** [View source](https://github.com/Eiskis/Baseline-PHP/blob/master/source/arrays/array_last.php)
 
 	function array_last (array $array = array(), $traverseChildArrays = false)
 

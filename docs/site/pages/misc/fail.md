@@ -1,7 +1,7 @@
 
 # fail
 
-**Shorthand for throwing an error.** [View source](https://bitbucket.org/Eiskis/baseline.php/src/default/source/misc/fail.php)
+**Shorthand for throwing an error.** [View source](https://github.com/Eiskis/Baseline-PHP/blob/master/source/misc/fail.php)
 
 	function fail ($message, $code = null)
 

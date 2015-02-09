@@ -1,7 +1,7 @@
 
 # html_dump
 
-**`dump()` objects or variables wrapped in HTML tags.** [View source](https://bitbucket.org/Eiskis/baseline.php/src/default/source/debug/html_dump.php)
+**`dump()` objects or variables wrapped in HTML tags.** [View source](https://github.com/Eiskis/Baseline-PHP/blob/master/source/debug/html_dump.php)
 
 	function html_dump ($value [, $anotherValue])
 

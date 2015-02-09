@@ -1,7 +1,7 @@
 
 # implode_wrap
 
-**`implode()` an array, wrapping each item in `$prefix` and `$suffix`, optionally separated with `$glue`.** [View source](https://bitbucket.org/Eiskis/baseline.php/src/default/source/arrays/implode_wrap.php)
+**`implode()` an array, wrapping each item in `$prefix` and `$suffix`, optionally separated with `$glue`.** [View source](https://github.com/Eiskis/Baseline-PHP/blob/master/source/arrays/implode_wrap.php)
 
 	function implode_wrap ($prefix = '', $suffix = '', $pieces = array(), $glue = '')
 

@@ -1,7 +1,7 @@
 
 # limplode
 
-**`implode()` with optional last glue parameter.** [View source](https://bitbucket.org/Eiskis/baseline.php/src/default/source/arrays/limplode.php)
+**`implode()` with optional last glue parameter.** [View source](https://github.com/Eiskis/Baseline-PHP/blob/master/source/arrays/limplode.php)
 
 	function limplode ($glue = '', $pieces = array(), $lastGlue = false)
 

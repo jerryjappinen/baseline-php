@@ -9,7 +9,7 @@ Baseline.php is tested on PHP 5.2+ and released under MIT License. This document
 
 ## Usage
 
-[Download Baseline.php release](https://bitbucket.org/Eiskis/baseline.php/raw/default/baseline.php) and include it in the beginning of your PHP script:
+[Download Baseline.php release](https://github.com/Eiskis/Baseline-PHP/blob/master/baseline.php) and include it in the beginning of your PHP script:
 
 	require_once 'baseline.php';
 

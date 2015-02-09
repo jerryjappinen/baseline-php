@@ -1,7 +1,7 @@
 
 # create_object
 
-**Shorthand for creating a new object, making chainable object creation possible.** [View source](https://bitbucket.org/Eiskis/baseline.php/src/default/source/misc/create_object.php)
+**Shorthand for creating a new object, making chainable object creation possible.** [View source](https://github.com/Eiskis/Baseline-PHP/blob/master/source/misc/create_object.php)
 
 	function create_object ($classname, $parameter = null)
 

@@ -1,7 +1,7 @@
 
 # to_array
 
-**Make sure value is array, convert if needed.** [View source](https://bitbucket.org/Eiskis/baseline.php/src/default/source/arrays/to_array.php)
+**Make sure value is array, convert if needed.** [View source](https://github.com/Eiskis/Baseline-PHP/blob/master/source/arrays/to_array.php)
 
 	function to_array ($value)
 

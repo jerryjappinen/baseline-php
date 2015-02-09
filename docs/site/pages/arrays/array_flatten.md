@@ -1,7 +1,7 @@
 
 # array_flatten
 
-**Flatten an array, either keeping or discarding content of child arrays.** [View source](https://bitbucket.org/Eiskis/baseline.php/src/default/source/arrays/array_flatten.php)
+**Flatten an array, either keeping or discarding content of child arrays.** [View source](https://github.com/Eiskis/Baseline-PHP/blob/master/source/arrays/array_flatten.php)
 
 	function array_flatten (array $array, $removeChildren = false, $preserveKeys = false)
 

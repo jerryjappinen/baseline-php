@@ -1,7 +1,7 @@
 
 # array_first
 
-**Get the first item in an array.** [View source](https://bitbucket.org/Eiskis/baseline.php/src/default/source/arrays/array_first.php)
+**Get the first item in an array.** [View source](https://github.com/Eiskis/Baseline-PHP/blob/master/source/arrays/array_first.php)
 
 	function array_first (array $array = array(), $traverseChildArrays = false)
 
