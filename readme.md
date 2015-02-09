@@ -4,7 +4,7 @@
 - Web site & documentation
 	- [eiskis.net/baseline-php](http://www.eiskis.net/baseline-php/)
 - Source & issues
-	- [bitbucket.org/Eiskis/baseline.php](http://bitbucket.org/Eiskis/baseline.php/)
+	- [github.com/Eiskis/Baseline-PHP](https://github.com/Eiskis/Baseline-PHP)
 - By Jerry Jäppinen
 	- Released under MIT License
 	- [eiskis@gmail.com](mailto:eiskis@gmail.com)
@@ -17,6 +17,8 @@
 
 Simply include the baseline.php source file in the beginning of your PHP script:
 
-	require_once 'baseline.php';
+```php
+require_once 'baseline.php';
+```
 
 You can now use Baseline.php's functions in the script.
