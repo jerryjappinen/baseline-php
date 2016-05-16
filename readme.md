@@ -1,10 +1,9 @@
 
 # Baseline.php 0.1
 
-- Web site & documentation
-	- [eiskis.net/baseline-php](http://www.eiskis.net/baseline-php/)
 - Source & issues
 	- [github.com/Eiskis/Baseline-PHP](https://github.com/Eiskis/Baseline-PHP)
+- [Documentation](https://github.com/Eiskis/baseline-php/tree/master/docs/site/pages)
 - By Jerry Jäppinen
 	- Released under MIT License
 	- [eiskis@gmail.com](mailto:eiskis@gmail.com)
